@@ -16,7 +16,7 @@
 		<InformationalVersion Condition="'$(GITHUB_SHA)' == ''">DevBuild</InformationalVersion>
 		<PackageReleaseNotes>$(LAST_COMMIT_MESSAGE)</PackageReleaseNotes>
 		<Description>ClosedXML is a .NET library for reading, manipulating and writing Excel 2007+ (.xlsx, .xlsm) files. It aims to provide an intuitive and user-friendly interface to dealing with the underlying OpenXML API.</Description>
-		<PackageIcon>Product.png</PackageIcon>
+		<PackageIcon>NugetIcon.png</PackageIcon>
 		<PackageProjectUrl>https://github.com/Codeuctivity/ClosedXML</PackageProjectUrl>
 		<Configurations>Debug;Release</Configurations>
 		<PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
