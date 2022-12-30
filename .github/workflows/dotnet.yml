@@ -33,7 +33,7 @@ jobs:
         path: "TestResult/**/*"
 
   deployRelease:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/release'
     runs-on: windows-latest
     needs: build
     steps:
@@ -65,7 +65,7 @@ jobs:
           ./ClosedXML/bin/Release/*.snupkg
 
   deployTest:
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/main'
     runs-on: windows-latest
     needs: build
     steps:
