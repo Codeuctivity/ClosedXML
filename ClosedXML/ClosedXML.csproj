@@ -4,7 +4,7 @@
 		<TargetFrameworks Condition="'$(OS)' != 'Windows_NT' ">netstandard2.0</TargetFrameworks>
 		<LangVersion>8.0</LangVersion>
 		<AssemblyName>ClosedXML</AssemblyName>
-		<PackageId>DocumentPartner.ClosedXML</PackageId>
+		<PackageId>Codeuctivity.ClosedXML</PackageId>
 		<Authors>Francois Botha, Aleksei Pankratev, Manuel de Leon, Amir Ghezelbash, Roman Brandstetter, Stefan Seeland</Authors>
 		<Owners>Francois Botha, Aleksei Pankratev</Owners>
 		<Product>ClosedXML</Product>
@@ -12,16 +12,16 @@
 		<Version Condition="'$(CURRENT_VERSION)' == ''">0.0.1</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
-		<PackageVersion>$(Version)</PackageVersion>
+		<PackageVersion>$(Version)-Pre</PackageVersion>
 		<InformationalVersion Condition="'$(GITHUB_SHA)' != ''">$(GITHUB_SHA)</InformationalVersion>
 		<InformationalVersion Condition="'$(GITHUB_SHA)' == ''">DevBuild</InformationalVersion>
 		<PackageReleaseNotes>$(LAST_COMMIT_MESSAGE)</PackageReleaseNotes>
 		<Description>ClosedXML is a .NET library for reading, manipulating and writing Excel 2007+ (.xlsx, .xlsm) files. It aims to provide an intuitive and user-friendly interface to dealing with the underlying OpenXML API.</Description>
-		<Copyright>MIT</Copyright>
 		<PackageIcon>Product.png</PackageIcon>
 		<PackageProjectUrl>https://github.com/stesee/ClosedXML</PackageProjectUrl>
 		<Configurations>Debug;Release</Configurations>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<SignAssembly>true</SignAssembly>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -36,9 +36,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<PackageTags>Excel XLSX OpenXml Windows Linux MacOs</PackageTags>
-		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<None Include="docs\nugetReadme.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
