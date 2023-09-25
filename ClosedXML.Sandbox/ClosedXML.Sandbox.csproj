@@ -8,7 +8,7 @@
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="SonarAnalyzer.CSharp" Version="8.55.0.65544">
+	  <PackageReference Include="SonarAnalyzer.CSharp" Version="9.4.0.72892">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
