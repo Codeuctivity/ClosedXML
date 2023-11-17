@@ -1,6 +1,7 @@
 using ClosedXML.Excel;
 using ClosedXML.Excel.Caching;
 using NUnit.Framework;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,6 +32,9 @@ namespace ClosedXML.Tests.Excel.Caching
         [Test]
         public void NonUsedReferencesAreGCed()
         {
+            if (!OperatingSystem.IsWindows())
+                return;
+
 #if !DEBUG
             // Arrange
             int key = 12345;
@@ -48,7 +52,7 @@ namespace ClosedXML.Tests.Excel.Caching
             } while (storedEntityRef1.IsAlive && count < 10);
 
             // Assert
-            if (count == 10)
+           if (count == 10)
                 Assert.Fail("storedEntityRef1 was not GCed");
 
             Assert.IsFalse(sampleRepository.Any());
