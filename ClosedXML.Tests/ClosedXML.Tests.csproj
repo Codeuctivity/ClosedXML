@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT' ">net6.0;net48</TargetFrameworks>
-		<TargetFrameworks Condition="'$(OS)' != 'Windows_NT' ">net6.0</TargetFrameworks>
-		<LangVersion>8.0</LangVersion>
+		<TargetFrameworks>net8.0</TargetFrameworks>
 		<Version>0.95.2</Version>
 		<IsPackable>false</IsPackable>
 		<Configurations>Debug;Release</Configurations>
@@ -22,15 +20,15 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="NUnit" Version="3.13.3" />
+		<PackageReference Include="NUnit" Version="3.14.0" />
 		<PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.4.0.72892">
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.12.0.78982">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.Data.OleDb" Version="7.0.0" />
+		<PackageReference Include="System.Data.OleDb" Version="8.0.0" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
 	</ItemGroup>
 

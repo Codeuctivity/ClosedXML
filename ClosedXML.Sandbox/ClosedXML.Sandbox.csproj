@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFrameworks>net6.0</TargetFrameworks>
-		<LangVersion>8.0</LangVersion>
+		<TargetFrameworks>net8.0</TargetFrameworks>
 		<Version>0.95.2</Version>
 		<Configurations>Debug;Release</Configurations>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="SonarAnalyzer.CSharp" Version="9.4.0.72892">
+	  <PackageReference Include="SonarAnalyzer.CSharp" Version="9.12.0.78982">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
