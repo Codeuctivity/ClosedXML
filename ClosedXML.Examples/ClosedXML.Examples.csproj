@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
-		<LangVersion>8.0</LangVersion>
 		<OutputType>Exe</OutputType>
 		<Version>0.95.2</Version>
 		<Configurations>Debug;Release</Configurations>

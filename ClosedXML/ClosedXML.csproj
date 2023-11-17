@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
-		<LangVersion>8.0</LangVersion>
 		<AssemblyName>ClosedXML</AssemblyName>
 		<PackageId>Codeuctivity.ClosedXML</PackageId>
 		<Authors>Francois Botha, Aleksei Pankratev, Manuel de Leon, Amir Ghezelbash, Roman Brandstetter, Stefan Seeland</Authors>
@@ -10,7 +9,7 @@
 		<Version Condition="'$(CURRENT_VERSION)' == ''">0.0.1</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
-		<PackageVersion>$(Version)</PackageVersion>
+		<PackageVersion>$(Version)-RC</PackageVersion>
 		<InformationalVersion Condition="'$(GITHUB_SHA)' != ''">$(GITHUB_SHA)</InformationalVersion>
 		<InformationalVersion Condition="'$(GITHUB_SHA)' == ''">DevBuild</InformationalVersion>
 		<PackageReleaseNotes>$(LAST_COMMIT_MESSAGE)</PackageReleaseNotes>

@@ -2,7 +2,6 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFrameworks>net8.0</TargetFrameworks>
-		<LangVersion>8.0</LangVersion>
 		<Version>0.95.2</Version>
 		<Configurations>Debug;Release</Configurations>
 		<IsPackable>false</IsPackable>
