@@ -49,11 +49,11 @@ namespace ClosedXML.Tests.Excel.RichText
             var text = "Hello";
             richString.AddText(text).SetBold().SetFontColor(XLColor.Red);
 
-            Assert.That(text, Is.EqualTo(cell.GetString()));
-            Assert.That(true, Is.EqualTo(cell.GetRichText().First().Bold));
+            Assert.That(cell.GetString(), Is.EqualTo(text));
+            Assert.That(cell.GetRichText().First().Bold, Is.True);
             Assert.That(XLColor.Red, Is.EqualTo(cell.GetRichText().First().FontColor));
 
-            Assert.That(richString.Count, Is.EqualTo(1));
+            Assert.That(richString, Has.Count.EqualTo(1));
 
             richString.AddText("World");
             Assert.That(text, Is.EqualTo(richString.First().Text), "Item in collection is not the same as the one returned");
@@ -73,10 +73,10 @@ namespace ClosedXML.Tests.Excel.RichText
             var text = number.ToString();
 
             Assert.That(text, Is.EqualTo(cell.GetRichText().ToString()));
-            Assert.That(true, Is.EqualTo(cell.GetRichText().First().Bold));
+            Assert.That(cell.GetRichText().First().Bold, Is.True);
             Assert.That(XLColor.Red, Is.EqualTo(cell.GetRichText().First().FontColor));
 
-            Assert.That(cell.GetRichText().Count, Is.EqualTo(1));
+            Assert.That(cell.GetRichText(), Has.Count.EqualTo(1));
 
             cell.GetRichText().AddText("World");
             Assert.That(text, Is.EqualTo(cell.GetRichText().First().Text), "Item in collection is not the same as the one returned");
@@ -96,7 +96,7 @@ namespace ClosedXML.Tests.Excel.RichText
             var text = number.ToString();
 
             Assert.That(text, Is.EqualTo(cell.GetRichText().ToString()));
-            Assert.That(true, Is.EqualTo(cell.GetRichText().First().Bold));
+            Assert.That(cell.GetRichText().First().Bold, Is.True);
             Assert.That(XLColor.Red, Is.EqualTo(cell.GetRichText().First().FontColor));
 
             Assert.That(cell.GetRichText().Count, Is.EqualTo(1));
