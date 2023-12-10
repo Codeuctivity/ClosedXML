@@ -123,47 +123,47 @@ namespace ClosedXML.Tests.Excel.PivotTables
             using var wbassert = new XLWorkbook(ms);
             var wsassert = wbassert.Worksheet("BlankPivotTable");
             var ptassert = wsassert.PivotTable("pvtOptionsTest");
-            Assert.AreNotEqual(null, ptassert, "name save failure");
-            Assert.AreEqual("clmn header", ptassert.ColumnHeaderCaption, "ColumnHeaderCaption save failure");
-            Assert.AreEqual("row header", ptassert.RowHeaderCaption, "RowHeaderCaption save failure");
-            Assert.AreEqual(true, ptassert.MergeAndCenterWithLabels, "MergeAndCenterWithLabels save failure");
-            Assert.AreEqual(12, ptassert.RowLabelIndent, "RowLabelIndent save failure");
-            Assert.AreEqual(XLFilterAreaOrder.OverThenDown, ptassert.FilterAreaOrder, "FilterAreaOrder save failure");
-            Assert.AreEqual(14, ptassert.FilterFieldsPageWrap, "FilterFieldsPageWrap save failure");
-            Assert.AreEqual("error test", ptassert.ErrorValueReplacement, "ErrorValueReplacement save failure");
-            Assert.AreEqual("empty test", ptassert.EmptyCellReplacement, "EmptyCellReplacement save failure");
-            Assert.AreEqual(true, ptassert.AutofitColumns, "AutofitColumns save failure");
-            Assert.AreEqual(false, ptassert.PreserveCellFormatting, "PreserveCellFormatting save failure");
-            Assert.AreEqual(true, ptassert.ShowGrandTotalsRows, "ShowGrandTotalsRows save failure");
-            Assert.AreEqual(true, ptassert.ShowGrandTotalsColumns, "ShowGrandTotalsColumns save failure");
-            Assert.AreEqual(true, ptassert.FilteredItemsInSubtotals, "FilteredItemsInSubtotals save failure");
-            Assert.AreEqual(false, ptassert.AllowMultipleFilters, "AllowMultipleFilters save failure");
-            Assert.AreEqual(false, ptassert.UseCustomListsForSorting, "UseCustomListsForSorting save failure");
-            Assert.AreEqual(false, ptassert.ShowExpandCollapseButtons, "ShowExpandCollapseButtons save failure");
-            Assert.AreEqual(false, ptassert.ShowContextualTooltips, "ShowContextualTooltips save failure");
-            Assert.AreEqual(false, ptassert.ShowPropertiesInTooltips, "ShowPropertiesInTooltips save failure");
-            Assert.AreEqual(false, ptassert.DisplayCaptionsAndDropdowns, "DisplayCaptionsAndDropdowns save failure");
-            Assert.AreEqual(true, ptassert.ClassicPivotTableLayout, "ClassicPivotTableLayout save failure");
-            Assert.AreEqual(true, ptassert.ShowEmptyItemsOnRows, "ShowEmptyItemsOnRows save failure");
-            Assert.AreEqual(true, ptassert.ShowEmptyItemsOnColumns, "ShowEmptyItemsOnColumns save failure");
-            Assert.AreEqual(false, ptassert.DisplayItemLabels, "DisplayItemLabels save failure");
-            Assert.AreEqual(true, ptassert.SortFieldsAtoZ, "SortFieldsAtoZ save failure");
-            Assert.AreEqual(true, ptassert.PrintExpandCollapsedButtons, "PrintExpandCollapsedButtons save failure");
-            Assert.AreEqual(true, ptassert.RepeatRowLabels, "RepeatRowLabels save failure");
-            Assert.AreEqual(true, ptassert.PrintTitles, "PrintTitles save failure");
-            Assert.AreEqual(false, ptassert.SaveSourceData, "SaveSourceData save failure");
-            Assert.AreEqual(false, ptassert.EnableShowDetails, "EnableShowDetails save failure");
+            Assert.That(ptassert, Is.Not.EqualTo(null), "name save failure");
+            Assert.That(ptassert.ColumnHeaderCaption, Is.EqualTo("clmn header"), "ColumnHeaderCaption save failure");
+            Assert.That(ptassert.RowHeaderCaption, Is.EqualTo("row header"), "RowHeaderCaption save failure");
+            Assert.That(ptassert.MergeAndCenterWithLabels, Is.EqualTo(true), "MergeAndCenterWithLabels save failure");
+            Assert.That(ptassert.RowLabelIndent, Is.EqualTo(12), "RowLabelIndent save failure");
+            Assert.That(ptassert.FilterAreaOrder, Is.EqualTo(XLFilterAreaOrder.OverThenDown), "FilterAreaOrder save failure");
+            Assert.That(ptassert.FilterFieldsPageWrap, Is.EqualTo(14), "FilterFieldsPageWrap save failure");
+            Assert.That(ptassert.ErrorValueReplacement, Is.EqualTo("error test"), "ErrorValueReplacement save failure");
+            Assert.That(ptassert.EmptyCellReplacement, Is.EqualTo("empty test"), "EmptyCellReplacement save failure");
+            Assert.That(ptassert.AutofitColumns, Is.EqualTo(true), "AutofitColumns save failure");
+            Assert.That(ptassert.PreserveCellFormatting, Is.EqualTo(false), "PreserveCellFormatting save failure");
+            Assert.That(ptassert.ShowGrandTotalsRows, Is.EqualTo(true), "ShowGrandTotalsRows save failure");
+            Assert.That(ptassert.ShowGrandTotalsColumns, Is.EqualTo(true), "ShowGrandTotalsColumns save failure");
+            Assert.That(ptassert.FilteredItemsInSubtotals, Is.EqualTo(true), "FilteredItemsInSubtotals save failure");
+            Assert.That(ptassert.AllowMultipleFilters, Is.EqualTo(false), "AllowMultipleFilters save failure");
+            Assert.That(ptassert.UseCustomListsForSorting, Is.EqualTo(false), "UseCustomListsForSorting save failure");
+            Assert.That(ptassert.ShowExpandCollapseButtons, Is.EqualTo(false), "ShowExpandCollapseButtons save failure");
+            Assert.That(ptassert.ShowContextualTooltips, Is.EqualTo(false), "ShowContextualTooltips save failure");
+            Assert.That(ptassert.ShowPropertiesInTooltips, Is.EqualTo(false), "ShowPropertiesInTooltips save failure");
+            Assert.That(ptassert.DisplayCaptionsAndDropdowns, Is.EqualTo(false), "DisplayCaptionsAndDropdowns save failure");
+            Assert.That(ptassert.ClassicPivotTableLayout, Is.EqualTo(true), "ClassicPivotTableLayout save failure");
+            Assert.That(ptassert.ShowEmptyItemsOnRows, Is.EqualTo(true), "ShowEmptyItemsOnRows save failure");
+            Assert.That(ptassert.ShowEmptyItemsOnColumns, Is.EqualTo(true), "ShowEmptyItemsOnColumns save failure");
+            Assert.That(ptassert.DisplayItemLabels, Is.EqualTo(false), "DisplayItemLabels save failure");
+            Assert.That(ptassert.SortFieldsAtoZ, Is.EqualTo(true), "SortFieldsAtoZ save failure");
+            Assert.That(ptassert.PrintExpandCollapsedButtons, Is.EqualTo(true), "PrintExpandCollapsedButtons save failure");
+            Assert.That(ptassert.RepeatRowLabels, Is.EqualTo(true), "RepeatRowLabels save failure");
+            Assert.That(ptassert.PrintTitles, Is.EqualTo(true), "PrintTitles save failure");
+            Assert.That(ptassert.SaveSourceData, Is.EqualTo(false), "SaveSourceData save failure");
+            Assert.That(ptassert.EnableShowDetails, Is.EqualTo(false), "EnableShowDetails save failure");
             // TODO Assert.AreEqual(false, ptassert.RefreshDataOnOpen, "RefreshDataOnOpen save failure");
-            Assert.AreEqual(XLItemsToRetain.Max, ptassert.ItemsToRetainPerField, "ItemsToRetainPerField save failure");
-            Assert.AreEqual(true, ptassert.EnableCellEditing, "EnableCellEditing save failure");
-            Assert.AreEqual(XLPivotTableTheme.PivotStyleDark13, ptassert.Theme, "Theme save failure");
-            Assert.AreEqual(true, ptassert.ShowValuesRow, "ShowValuesRow save failure");
-            Assert.AreEqual(false, ptassert.ShowRowHeaders, "ShowRowHeaders save failure");
-            Assert.AreEqual(false, ptassert.ShowColumnHeaders, "ShowColumnHeaders save failure");
-            Assert.AreEqual(true, ptassert.ShowRowStripes, "ShowRowStripes save failure");
-            Assert.AreEqual(true, ptassert.ShowColumnStripes, "ShowColumnStripes save failure");
-            Assert.AreEqual("Test Caption Values", ptassert.DataCaption, "DataCaption save failure");
-            Assert.AreEqual("Test Grand Total Caption", ptassert.GrandTotalCaption, "GrandTotalCaption save failure");
+            Assert.That(ptassert.ItemsToRetainPerField, Is.EqualTo(XLItemsToRetain.Max), "ItemsToRetainPerField save failure");
+            Assert.That(ptassert.EnableCellEditing, Is.EqualTo(true), "EnableCellEditing save failure");
+            Assert.That(ptassert.Theme, Is.EqualTo(XLPivotTableTheme.PivotStyleDark13), "Theme save failure");
+            Assert.That(ptassert.ShowValuesRow, Is.EqualTo(true), "ShowValuesRow save failure");
+            Assert.That(ptassert.ShowRowHeaders, Is.EqualTo(false), "ShowRowHeaders save failure");
+            Assert.That(ptassert.ShowColumnHeaders, Is.EqualTo(false), "ShowColumnHeaders save failure");
+            Assert.That(ptassert.ShowRowStripes, Is.EqualTo(true), "ShowRowStripes save failure");
+            Assert.That(ptassert.ShowColumnStripes, Is.EqualTo(true), "ShowColumnStripes save failure");
+            Assert.That(ptassert.DataCaption, Is.EqualTo("Test Caption Values"), "DataCaption save failure");
+            Assert.That(ptassert.GrandTotalCaption, Is.EqualTo("Test Grand Total Caption"), "GrandTotalCaption save failure");
         }
 
         [Test]
@@ -188,8 +188,8 @@ namespace ClosedXML.Tests.Excel.PivotTables
             var wsassert = wbassert.Worksheet("BlankPivotTable");
             var ptassert = wsassert.PivotTable("pvtOptionsTest");
 
-            Assert.AreEqual("Values", ptassert.DataCaption, "DataCaption save failure");
-            Assert.AreEqual(null, ptassert.GrandTotalCaption, "GrandTotalCaption save failure");
+            Assert.That(ptassert.DataCaption, Is.EqualTo("Values"), "DataCaption save failure");
+            Assert.That(ptassert.GrandTotalCaption, Is.EqualTo(null), "GrandTotalCaption save failure");
         }
 
         [TestCase(true)]
@@ -221,9 +221,9 @@ namespace ClosedXML.Tests.Excel.PivotTables
             var wsassert = wbassert.Worksheet("pvtFieldOptionsTest");
             var ptassert = wsassert.PivotTable("pvtFieldOptionsTest");
             var pfassert = ptassert.RowLabels.Get("Name");
-            Assert.AreNotEqual(null, pfassert, "name save failure");
-            Assert.AreEqual("Test caption", pfassert.SubtotalCaption, "SubtotalCaption save failure");
-            Assert.AreEqual("Test name", pfassert.CustomName, "CustomName save failure");
+            Assert.That(pfassert, Is.Not.EqualTo(null), "name save failure");
+            Assert.That(pfassert.SubtotalCaption, Is.EqualTo("Test caption"), "SubtotalCaption save failure");
+            Assert.That(pfassert.CustomName, Is.EqualTo("Test name"), "CustomName save failure");
             AssertFieldOptions(pfassert, withDefaults);
         }
 
@@ -280,30 +280,30 @@ namespace ClosedXML.Tests.Excel.PivotTables
                 var ws = wb.Worksheet("PivotTableStyleFormats");
                 var pt = ws.PivotTable("pvtStyleFormats").CastTo<XLPivotTable>();
 
-                Assert.AreEqual(0, pt.StyleFormats.ColumnGrandTotalFormats.Count());
+                Assert.That(pt.StyleFormats.ColumnGrandTotalFormats.Count(), Is.EqualTo(0));
 
-                Assert.NotNull(pt.StyleFormats.RowGrandTotalFormats);
-                Assert.AreEqual(1, pt.StyleFormats.RowGrandTotalFormats.Count());
-                Assert.AreEqual(XLPivotStyleFormatElement.All, pt.StyleFormats.RowGrandTotalFormats.First().AppliesTo);
-                Assert.AreEqual(XLColor.VenetianRed, pt.StyleFormats.RowGrandTotalFormats.ForElement(XLPivotStyleFormatElement.All).Style.Font.FontColor);
+                Assert.That(pt.StyleFormats.RowGrandTotalFormats, Is.Not.Null);
+                Assert.That(pt.StyleFormats.RowGrandTotalFormats.Count(), Is.EqualTo(1));
+                Assert.That(pt.StyleFormats.RowGrandTotalFormats.First().AppliesTo, Is.EqualTo(XLPivotStyleFormatElement.All));
+                Assert.That(pt.StyleFormats.RowGrandTotalFormats.ForElement(XLPivotStyleFormatElement.All).Style.Font.FontColor, Is.EqualTo(XLColor.VenetianRed));
 
                 var namePivotField = pt.RowLabels.Get("Name");
                 var monthPivotField = pt.ColumnLabels.Get("Month");
                 var numberOfOrdersPivotValue = pt.Values.Get("NumberOfOrders");
 
-                Assert.AreEqual(XLStyle.Default, namePivotField.StyleFormats.Label.Style);
-                Assert.AreEqual(XLColor.Blue, namePivotField.StyleFormats.Subtotal.Style.Fill.BackgroundColor);
+                Assert.That(namePivotField.StyleFormats.Label.Style, Is.EqualTo(XLStyle.Default));
+                Assert.That(namePivotField.StyleFormats.Subtotal.Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Blue));
 
-                Assert.AreEqual(XLStyle.Default, monthPivotField.StyleFormats.Subtotal.Style);
-                Assert.AreEqual(XLColor.Amber, monthPivotField.StyleFormats.Label.Style.Fill.BackgroundColor);
-                Assert.AreEqual(XLColor.Yellow, monthPivotField.StyleFormats.Header.Style.Font.FontColor);
+                Assert.That(monthPivotField.StyleFormats.Subtotal.Style, Is.EqualTo(XLStyle.Default));
+                Assert.That(monthPivotField.StyleFormats.Label.Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Amber));
+                Assert.That(monthPivotField.StyleFormats.Header.Style.Font.FontColor, Is.EqualTo(XLColor.Yellow));
 
                 var nameDataValuesFormat = namePivotField.StyleFormats.DataValuesFormat as XLPivotValueStyleFormat;
-                Assert.AreEqual(2, nameDataValuesFormat.FieldReferences.Count);
+                Assert.That(nameDataValuesFormat.FieldReferences.Count, Is.EqualTo(2));
 
-                Assert.AreEqual(monthPivotField, nameDataValuesFormat.FieldReferences.First().CastTo<PivotLabelFieldReference>().PivotField);
+                Assert.That(nameDataValuesFormat.FieldReferences.First().CastTo<PivotLabelFieldReference>().PivotField, Is.EqualTo(monthPivotField));
 
-                Assert.AreEqual(numberOfOrdersPivotValue.CustomName, nameDataValuesFormat.FieldReferences.Last().CastTo<PivotValueFieldReference>().Value);
+                Assert.That(nameDataValuesFormat.FieldReferences.Last().CastTo<PivotValueFieldReference>().Value, Is.EqualTo(numberOfOrdersPivotValue.CustomName));
 
                 wb.Save();
             }
@@ -335,11 +335,11 @@ namespace ClosedXML.Tests.Excel.PivotTables
 
         private void AssertPivotTablesAreEqual(XLPivotTable original, XLPivotTable copy, bool compareName)
         {
-            Assert.AreNotEqual(original.Guid, copy.Guid);
-            Assert.AreEqual(compareName, original.Name.Equals(copy.Name));
+            Assert.That(copy.Guid, Is.Not.EqualTo(original.Guid));
+            Assert.That(original.Name.Equals(copy.Name), Is.EqualTo(compareName));
 
             var comparer = new PivotTableComparer(compareName: compareName, compareRelId: false, compareTargetCellAddress: false);
-            Assert.IsTrue(comparer.Equals(original, copy));
+            Assert.That(comparer.Equals(original, copy), Is.True);
         }
 
         private class Pastry
@@ -612,8 +612,8 @@ namespace ClosedXML.Tests.Excel.PivotTables
                         .ReportFilters
                         .ToArray();
 
-                    Assert.AreEqual("Month", pageFields[0].SourceName);
-                    Assert.AreEqual("Name", pageFields[1].SourceName);
+                    Assert.That(pageFields[0].SourceName, Is.EqualTo("Month"));
+                    Assert.That(pageFields[1].SourceName, Is.EqualTo("Name"));
                 }
             }
 
@@ -655,8 +655,8 @@ namespace ClosedXML.Tests.Excel.PivotTables
                         .ColumnLabels
                         .ToArray();
 
-                    Assert.AreEqual("Month", columnLabels[0].SourceName);
-                    Assert.AreEqual("Name", columnLabels[1].SourceName);
+                    Assert.That(columnLabels[0].SourceName, Is.EqualTo("Month"));
+                    Assert.That(columnLabels[1].SourceName, Is.EqualTo("Name"));
                 }
             }
 
@@ -699,9 +699,9 @@ namespace ClosedXML.Tests.Excel.PivotTables
                         .RowLabels
                         .ToArray();
 
-                    Assert.AreEqual("Month", rowLabels[0].SourceName);
-                    Assert.AreEqual("Name", rowLabels[1].SourceName);
-                    Assert.AreEqual("{{Values}}", rowLabels[2].SourceName);
+                    Assert.That(rowLabels[0].SourceName, Is.EqualTo("Month"));
+                    Assert.That(rowLabels[1].SourceName, Is.EqualTo("Name"));
+                    Assert.That(rowLabels[2].SourceName, Is.EqualTo("{{Values}}"));
                 }
             }
         }
@@ -755,7 +755,7 @@ namespace ClosedXML.Tests.Excel.PivotTables
 
             using (var wb = new XLWorkbook(ms))
             {
-                Assert.AreEqual(1, wb.Worksheets.SelectMany(ws => ws.PivotTables).Count());
+                Assert.That(wb.Worksheets.SelectMany(ws => ws.PivotTables).Count(), Is.EqualTo(1));
             }
         }
 
@@ -803,9 +803,9 @@ namespace ClosedXML.Tests.Excel.PivotTables
             using (var wb = new XLWorkbook(stream))
             {
                 var ws = wb.Worksheet("Sheet1");
-                Assert.IsTrue(ws.Cell("B1").IsEmpty());
-                Assert.IsTrue(ws.Cell("C2").IsEmpty());
-                Assert.IsTrue(ws.Cell("D5").IsEmpty());
+                Assert.That(ws.Cell("B1").IsEmpty(), Is.True);
+                Assert.That(ws.Cell("C2").IsEmpty(), Is.True);
+                Assert.That(ws.Cell("D5").IsEmpty(), Is.True);
                 wb.SaveAs(ms);
             }
 
@@ -814,9 +814,9 @@ namespace ClosedXML.Tests.Excel.PivotTables
             using (var wb = new XLWorkbook(ms))
             {
                 var ws = wb.Worksheet("Sheet1");
-                Assert.IsTrue(ws.Cell("B1").IsEmpty());
-                Assert.IsTrue(ws.Cell("C2").IsEmpty());
-                Assert.IsTrue(ws.Cell("D5").IsEmpty());
+                Assert.That(ws.Cell("B1").IsEmpty(), Is.True);
+                Assert.That(ws.Cell("C2").IsEmpty(), Is.True);
+                Assert.That(ws.Cell("D5").IsEmpty(), Is.True);
             }
         }
 
@@ -835,15 +835,15 @@ namespace ClosedXML.Tests.Excel.PivotTables
 
         private static void AssertFieldOptions(IXLPivotField field, bool withDefaults)
         {
-            Assert.AreEqual(!withDefaults, field.SubtotalsAtTop, "SubtotalsAtTop save failure");
-            Assert.AreEqual(!withDefaults, field.ShowBlankItems, "ShowBlankItems save failure");
-            Assert.AreEqual(!withDefaults, field.Outline, "Outline save failure");
-            Assert.AreEqual(!withDefaults, field.Compact, "Compact save failure");
-            Assert.AreEqual(withDefaults, field.Collapsed, "Collapsed save failure");
-            Assert.AreEqual(withDefaults, field.InsertBlankLines, "InsertBlankLines save failure");
-            Assert.AreEqual(withDefaults, field.RepeatItemLabels, "RepeatItemLabels save failure");
-            Assert.AreEqual(withDefaults, field.InsertPageBreaks, "InsertPageBreaks save failure");
-            Assert.AreEqual(withDefaults, field.IncludeNewItemsInFilter, "IncludeNewItemsInFilter save failure");
+            Assert.That(field.SubtotalsAtTop, Is.EqualTo(!withDefaults), "SubtotalsAtTop save failure");
+            Assert.That(field.ShowBlankItems, Is.EqualTo(!withDefaults), "ShowBlankItems save failure");
+            Assert.That(field.Outline, Is.EqualTo(!withDefaults), "Outline save failure");
+            Assert.That(field.Compact, Is.EqualTo(!withDefaults), "Compact save failure");
+            Assert.That(field.Collapsed, Is.EqualTo(withDefaults), "Collapsed save failure");
+            Assert.That(field.InsertBlankLines, Is.EqualTo(withDefaults), "InsertBlankLines save failure");
+            Assert.That(field.RepeatItemLabels, Is.EqualTo(withDefaults), "RepeatItemLabels save failure");
+            Assert.That(field.InsertPageBreaks, Is.EqualTo(withDefaults), "InsertPageBreaks save failure");
+            Assert.That(field.IncludeNewItemsInFilter, Is.EqualTo(withDefaults), "IncludeNewItemsInFilter save failure");
         }
     }
 }

@@ -12,8 +12,8 @@ namespace ClosedXML.Tests.Excel.Styles
             var fontKey2 = new XLFontKey { FontName = "Times New Roman" };
             var fontKey3 = new XLFontKey { FontName = "TIMES NEW ROMAN" };
 
-            Assert.AreNotEqual(fontKey1.GetHashCode(), fontKey2.GetHashCode());
-            Assert.AreEqual(fontKey2.GetHashCode(), fontKey3.GetHashCode());
+            Assert.That(fontKey2.GetHashCode(), Is.Not.EqualTo(fontKey1.GetHashCode()));
+            Assert.That(fontKey3.GetHashCode(), Is.EqualTo(fontKey2.GetHashCode()));
         }
 
         [Test]
@@ -23,8 +23,8 @@ namespace ClosedXML.Tests.Excel.Styles
             var fontKey2 = new XLFontKey { FontName = "Times New Roman" };
             var fontKey3 = new XLFontKey { FontName = "TIMES NEW ROMAN" };
 
-            Assert.IsFalse(fontKey1.Equals(fontKey2));
-            Assert.IsTrue(fontKey2.Equals(fontKey3));
+            Assert.That(fontKey1.Equals(fontKey2), Is.False);
+            Assert.That(fontKey2.Equals(fontKey3), Is.True);
         }
     }
 }

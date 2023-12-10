@@ -10,28 +10,28 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void If_2_Params_true()
         {
             var actual = XLWorkbook.EvaluateExpr(@"if(1 = 1, ""T"")");
-            Assert.AreEqual("T", actual);
+            Assert.That(actual, Is.EqualTo("T"));
         }
 
         [Test]
         public void If_2_Params_false()
         {
             var actual = XLWorkbook.EvaluateExpr(@"if(1 = 2, ""T"")");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         [Test]
         public void If_3_Params_true()
         {
             var actual = XLWorkbook.EvaluateExpr(@"if(1 = 1, ""T"", ""F"")");
-            Assert.AreEqual("T", actual);
+            Assert.That(actual, Is.EqualTo("T"));
         }
 
         [Test]
         public void If_3_Params_false()
         {
             var actual = XLWorkbook.EvaluateExpr(@"if(1 = 2, ""T"", ""F"")");
-            Assert.AreEqual("F", actual);
+            Assert.That(actual, Is.EqualTo("F"));
         }
 
         [Test]
@@ -39,16 +39,16 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         {
             object actual;
             actual = XLWorkbook.EvaluateExpr(@"if(date(2016, 1, 1) = """", ""A"",""B"")");
-            Assert.AreEqual("B", actual);
+            Assert.That(actual, Is.EqualTo("B"));
 
             actual = XLWorkbook.EvaluateExpr(@"if("""" = date(2016, 1, 1), ""A"",""B"")");
-            Assert.AreEqual("B", actual);
+            Assert.That(actual, Is.EqualTo("B"));
 
             actual = XLWorkbook.EvaluateExpr(@"if("""" = 123, ""A"",""B"")");
-            Assert.AreEqual("B", actual);
+            Assert.That(actual, Is.EqualTo("B"));
 
             actual = XLWorkbook.EvaluateExpr(@"if("""" = """", ""A"",""B"")");
-            Assert.AreEqual("A", actual);
+            Assert.That(actual, Is.EqualTo("A"));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         {
             object actual;
             actual = XLWorkbook.EvaluateExpr(@"IF(""text""=""TEXT"", 1, 2)");
-            Assert.AreEqual(1, actual);
+            Assert.That(actual, Is.EqualTo(1));
         }
     }
 }

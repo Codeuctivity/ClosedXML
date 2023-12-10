@@ -38,7 +38,7 @@ namespace ClosedXML.Excel.Drawings
 
         internal XLPicture(IXLWorksheet worksheet, Stream stream) : this(worksheet)
         {
-            if (stream == null) { throw new ArgumentNullException(nameof(stream)); }
+            ArgumentNullException.ThrowIfNull(stream);
 
             ImageStream = new MemoryStream();
             {
@@ -64,13 +64,9 @@ namespace ClosedXML.Excel.Drawings
             }
         }
 
-        internal XLPicture(IXLWorksheet worksheet, Stream stream, XLPictureFormat format)
-            : this(worksheet)
+        internal XLPicture(IXLWorksheet worksheet, Stream stream, XLPictureFormat format) : this(worksheet)
         {
-            if (stream == null)
-            {
-                throw new ArgumentNullException(nameof(stream));
-            }
+            ArgumentNullException.ThrowIfNull(stream);
 
             Format = format;
 
@@ -79,8 +75,7 @@ namespace ClosedXML.Excel.Drawings
                 stream.Position = 0;
                 stream.CopyTo(ImageStream);
                 ImageStream.Seek(0, SeekOrigin.Begin);
-
-                codec = SKCodec.Create(ImageStream, out var result);
+                codec = SKCodec.Create(ImageStream, out _);
 
                 if (codec != null)
                 {
@@ -99,10 +94,7 @@ namespace ClosedXML.Excel.Drawings
 
         internal XLPicture(IXLWorksheet worksheet, SKCodec codec) : this(worksheet)
         {
-            if (codec == null)
-            {
-                throw new ArgumentNullException(nameof(codec));
-            }
+            ArgumentNullException.ThrowIfNull(codec);
 
             ImageStream = new MemoryStream();
 
@@ -431,10 +423,7 @@ namespace ClosedXML.Excel.Drawings
         {
             ThrowIfDisposed();
 
-            if (cell == null)
-            {
-                throw new ArgumentNullException(nameof(cell));
-            }
+            ArgumentNullException.ThrowIfNull(cell);
 
             Placement = XLPicturePlacement.Move;
             TopLeftCell = cell;
@@ -460,15 +449,9 @@ namespace ClosedXML.Excel.Drawings
         {
             ThrowIfDisposed();
 
-            if (fromCell == null)
-            {
-                throw new ArgumentNullException(nameof(fromCell));
-            }
+            ArgumentNullException.ThrowIfNull(fromCell);
 
-            if (toCell == null)
-            {
-                throw new ArgumentNullException(nameof(toCell));
-            }
+            ArgumentNullException.ThrowIfNull(toCell);
 
             Placement = XLPicturePlacement.MoveAndSize;
 

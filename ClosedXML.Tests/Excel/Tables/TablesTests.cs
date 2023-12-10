@@ -57,7 +57,7 @@ namespace ClosedXML.Tests.Excel.Tables
             using var dt = new DataTable();
             var table = ws.FirstCell().InsertTable(dt);
 
-            Assert.AreEqual(null, table);
+            Assert.That(table, Is.EqualTo(null));
         }
 
         [Test]
@@ -81,8 +81,8 @@ namespace ClosedXML.Tests.Excel.Tables
                 .CellBelow().SetValue("X");
             ws.Range("A1").CreateTable();
 
-            Assert.AreEqual(string.Empty, ws.Cell("A2").GetString());
-            Assert.AreEqual("X", ws.Cell("A3").GetString());
+            Assert.That(ws.Cell("A2").GetString(), Is.EqualTo(string.Empty));
+            Assert.That(ws.Cell("A3").GetString(), Is.EqualTo("X"));
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace ClosedXML.Tests.Excel.Tables
 
             var table = ws.RangeUsed().CreateTable();
             table.InsertColumnsAfter(1);
-            Assert.AreEqual("Column2", table.HeadersRow().LastCell().GetString());
+            Assert.That(table.HeadersRow().LastCell().GetString(), Is.EqualTo("Column2"));
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace ClosedXML.Tests.Excel.Tables
 
             ws.Rows("2:4").Delete();
 
-            Assert.IsNull(table.DataRange);
+            Assert.That(table.DataRange, Is.Null);
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace ClosedXML.Tests.Excel.Tables
             var ws2 = wb2.Worksheet(1);
             var table2 = ws2.Table(0);
             var fieldName = table2.Field(0).Name;
-            Assert.AreEqual("Line1\nLine2", fieldName);
+            Assert.That(fieldName, Is.EqualTo("Line1\nLine2"));
         }
 
         [Test]
@@ -152,7 +152,7 @@ namespace ClosedXML.Tests.Excel.Tables
 
             var table1 = ws.Table(0);
             var fieldName1 = table1.Field(0).Name;
-            Assert.AreEqual(columnName, fieldName1);
+            Assert.That(fieldName1, Is.EqualTo(columnName));
 
             using var ms = new MemoryStream();
             wb.SaveAs(ms, true);
@@ -160,7 +160,7 @@ namespace ClosedXML.Tests.Excel.Tables
             var ws2 = wb2.Worksheet(1);
             var table2 = ws2.Table(0);
             var fieldName2 = table2.Field(0).Name;
-            Assert.AreEqual("Line1\nLine2", fieldName2);
+            Assert.That(fieldName2, Is.EqualTo("Line1\nLine2"));
         }
 
         [Test]
@@ -173,7 +173,7 @@ namespace ClosedXML.Tests.Excel.Tables
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().InsertTable(dt);
-            Assert.AreEqual(2, ws.Tables.First().ColumnCount());
+            Assert.That(ws.Tables.First().ColumnCount(), Is.EqualTo(2));
         }
 
         [Test]
@@ -184,7 +184,7 @@ namespace ClosedXML.Tests.Excel.Tables
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().InsertTable(l);
-            Assert.AreEqual(1, ws.Tables.First().ColumnCount());
+            Assert.That(ws.Tables.First().ColumnCount(), Is.EqualTo(1));
         }
 
         [Test]
@@ -195,7 +195,7 @@ namespace ClosedXML.Tests.Excel.Tables
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().InsertTable(l);
-            Assert.AreEqual(2, ws.Tables.First().ColumnCount());
+            Assert.That(ws.Tables.First().ColumnCount(), Is.EqualTo(2));
         }
 
         [Test]
@@ -210,11 +210,11 @@ namespace ClosedXML.Tests.Excel.Tables
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().InsertTable(l);
-            Assert.AreEqual(4, ws.Tables.First().ColumnCount());
-            Assert.AreEqual("FirstColumn", ws.FirstCell().Value);
-            Assert.AreEqual("SecondColumn", ws.FirstCell().CellRight().Value);
-            Assert.AreEqual("SomeFieldNotProperty", ws.FirstCell().CellRight().CellRight().Value);
-            Assert.AreEqual("UnOrderedColumn", ws.FirstCell().CellRight().CellRight().CellRight().Value);
+            Assert.That(ws.Tables.First().ColumnCount(), Is.EqualTo(4));
+            Assert.That(ws.FirstCell().Value, Is.EqualTo("FirstColumn"));
+            Assert.That(ws.FirstCell().CellRight().Value, Is.EqualTo("SecondColumn"));
+            Assert.That(ws.FirstCell().CellRight().CellRight().Value, Is.EqualTo("SomeFieldNotProperty"));
+            Assert.That(ws.FirstCell().CellRight().CellRight().CellRight().Value, Is.EqualTo("UnOrderedColumn"));
         }
 
         [Test]
@@ -225,11 +225,11 @@ namespace ClosedXML.Tests.Excel.Tables
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().InsertTable(l);
-            Assert.AreEqual(4, ws.Tables.First().ColumnCount());
-            Assert.AreEqual("FirstColumn", ws.FirstCell().Value);
-            Assert.AreEqual("SecondColumn", ws.FirstCell().CellRight().Value);
-            Assert.AreEqual("SomeFieldNotProperty", ws.FirstCell().CellRight().CellRight().Value);
-            Assert.AreEqual("UnOrderedColumn", ws.FirstCell().CellRight().CellRight().CellRight().Value);
+            Assert.That(ws.Tables.First().ColumnCount(), Is.EqualTo(4));
+            Assert.That(ws.FirstCell().Value, Is.EqualTo("FirstColumn"));
+            Assert.That(ws.FirstCell().CellRight().Value, Is.EqualTo("SecondColumn"));
+            Assert.That(ws.FirstCell().CellRight().CellRight().Value, Is.EqualTo("SomeFieldNotProperty"));
+            Assert.That(ws.FirstCell().CellRight().CellRight().CellRight().Value, Is.EqualTo("UnOrderedColumn"));
         }
 
         [Test]
@@ -250,9 +250,9 @@ namespace ClosedXML.Tests.Excel.Tables
             row = table.DataRange.InsertRowsAbove(1).First();
             row.Field("Value").Value = 1;
 
-            Assert.AreEqual(1, ws.Cell(2, 1).GetDouble());
-            Assert.AreEqual(2, ws.Cell(3, 1).GetDouble());
-            Assert.AreEqual(3, ws.Cell(4, 1).GetDouble());
+            Assert.That(ws.Cell(2, 1).GetDouble(), Is.EqualTo(1));
+            Assert.That(ws.Cell(3, 1).GetDouble(), Is.EqualTo(2));
+            Assert.That(ws.Cell(4, 1).GetDouble(), Is.EqualTo(3));
         }
 
         [Test]
@@ -273,9 +273,9 @@ namespace ClosedXML.Tests.Excel.Tables
             row = row.InsertRowsAbove(1).First();
             row.Field("Value").Value = 1;
 
-            Assert.AreEqual(1, ws.Cell(2, 1).GetDouble());
-            Assert.AreEqual(2, ws.Cell(3, 1).GetDouble());
-            Assert.AreEqual(3, ws.Cell(4, 1).GetDouble());
+            Assert.That(ws.Cell(2, 1).GetDouble(), Is.EqualTo(1));
+            Assert.That(ws.Cell(3, 1).GetDouble(), Is.EqualTo(2));
+            Assert.That(ws.Cell(4, 1).GetDouble(), Is.EqualTo(3));
         }
 
         [Test]
@@ -296,9 +296,9 @@ namespace ClosedXML.Tests.Excel.Tables
             row = table.DataRange.InsertRowsBelow(1).First();
             row.Field("Value").Value = 3;
 
-            Assert.AreEqual(1, ws.Cell(2, 1).GetDouble());
-            Assert.AreEqual(2, ws.Cell(3, 1).GetDouble());
-            Assert.AreEqual(3, ws.Cell(4, 1).GetDouble());
+            Assert.That(ws.Cell(2, 1).GetDouble(), Is.EqualTo(1));
+            Assert.That(ws.Cell(3, 1).GetDouble(), Is.EqualTo(2));
+            Assert.That(ws.Cell(4, 1).GetDouble(), Is.EqualTo(3));
         }
 
         [Test]
@@ -319,9 +319,9 @@ namespace ClosedXML.Tests.Excel.Tables
             row = row.InsertRowsBelow(1).First();
             row.Field("Value").Value = 3;
 
-            Assert.AreEqual(1, ws.Cell(2, 1).GetDouble());
-            Assert.AreEqual(2, ws.Cell(3, 1).GetDouble());
-            Assert.AreEqual(3, ws.Cell(4, 1).GetDouble());
+            Assert.That(ws.Cell(2, 1).GetDouble(), Is.EqualTo(1));
+            Assert.That(ws.Cell(3, 1).GetDouble(), Is.EqualTo(2));
+            Assert.That(ws.Cell(4, 1).GetDouble(), Is.EqualTo(3));
         }
 
         [Test]
@@ -336,23 +336,23 @@ namespace ClosedXML.Tests.Excel.Tables
 
             var table = ws.RangeUsed().CreateTable();
 
-            Assert.AreEqual("Categories", table.Fields.First().Name);
+            Assert.That(table.Fields.First().Name, Is.EqualTo("Categories"));
 
             table.SetShowHeaderRow(false);
 
-            Assert.AreEqual("Categories", table.Fields.First().Name);
+            Assert.That(table.Fields.First().Name, Is.EqualTo("Categories"));
 
-            Assert.IsTrue(ws.Cell(1, 1).IsEmpty(XLCellsUsedOptions.All));
-            Assert.AreEqual(null, table.HeadersRow());
-            Assert.AreEqual("A", table.DataRange.FirstRow().Field("Categories").GetString());
-            Assert.AreEqual("C", table.DataRange.LastRow().Field("Categories").GetString());
-            Assert.AreEqual("A", table.DataRange.FirstCell().GetString());
-            Assert.AreEqual("C", table.DataRange.LastCell().GetString());
+            Assert.That(ws.Cell(1, 1).IsEmpty(XLCellsUsedOptions.All), Is.True);
+            Assert.That(table.HeadersRow(), Is.EqualTo(null));
+            Assert.That(table.DataRange.FirstRow().Field("Categories").GetString(), Is.EqualTo("A"));
+            Assert.That(table.DataRange.LastRow().Field("Categories").GetString(), Is.EqualTo("C"));
+            Assert.That(table.DataRange.FirstCell().GetString(), Is.EqualTo("A"));
+            Assert.That(table.DataRange.LastCell().GetString(), Is.EqualTo("C"));
 
             table.SetShowHeaderRow();
             var headerRow = table.HeadersRow();
-            Assert.AreNotEqual(null, headerRow);
-            Assert.AreEqual("Categories", headerRow.Cell(1).GetString());
+            Assert.That(headerRow, Is.Not.EqualTo(null));
+            Assert.That(headerRow.Cell(1).GetString(), Is.EqualTo("Categories"));
 
             table.SetShowHeaderRow(false);
 
@@ -360,13 +360,13 @@ namespace ClosedXML.Tests.Excel.Tables
 
             table.SetShowHeaderRow();
 
-            Assert.AreEqual("x", ws.FirstCell().GetString());
-            Assert.AreEqual("Categories", ws.Cell("A2").GetString());
-            Assert.AreNotEqual(null, headerRow);
-            Assert.AreEqual("A", table.DataRange.FirstRow().Field("Categories").GetString());
-            Assert.AreEqual("C", table.DataRange.LastRow().Field("Categories").GetString());
-            Assert.AreEqual("A", table.DataRange.FirstCell().GetString());
-            Assert.AreEqual("C", table.DataRange.LastCell().GetString());
+            Assert.That(ws.FirstCell().GetString(), Is.EqualTo("x"));
+            Assert.That(ws.Cell("A2").GetString(), Is.EqualTo("Categories"));
+            Assert.That(headerRow, Is.Not.EqualTo(null));
+            Assert.That(table.DataRange.FirstRow().Field("Categories").GetString(), Is.EqualTo("A"));
+            Assert.That(table.DataRange.LastRow().Field("Categories").GetString(), Is.EqualTo("C"));
+            Assert.That(table.DataRange.FirstCell().GetString(), Is.EqualTo("A"));
+            Assert.That(table.DataRange.LastCell().GetString(), Is.EqualTo("C"));
         }
 
         [Test]
@@ -387,24 +387,24 @@ namespace ClosedXML.Tests.Excel.Tables
 
             var cellValue = ws.Cell("B1").GetString();
 
-            Assert.AreEqual("LName", nameBefore);
-            Assert.AreEqual("LastName", nameAfter);
-            Assert.AreEqual("LastName", cellValue);
+            Assert.That(nameBefore, Is.EqualTo("LName"));
+            Assert.That(nameAfter, Is.EqualTo("LastName"));
+            Assert.That(cellValue, Is.EqualTo("LastName"));
 
             tbl.ShowHeaderRow = false;
             tbl.Field(tbl.Fields.Last().Index).Name = "LastNameChanged";
             nameAfter = tbl.Field(tbl.Fields.Last().Index).Name;
-            Assert.AreEqual("LastNameChanged", nameAfter);
+            Assert.That(nameAfter, Is.EqualTo("LastNameChanged"));
 
             tbl.SetShowHeaderRow(true);
             nameAfter = tbl.Cell("B1").Value.ToString();
-            Assert.AreEqual("LastNameChanged", nameAfter);
+            Assert.That(nameAfter, Is.EqualTo("LastNameChanged"));
 
             var field = tbl.Field("LastNameChanged");
-            Assert.AreEqual("LastNameChanged", field.Name);
+            Assert.That(field.Name, Is.EqualTo("LastNameChanged"));
 
             tbl.Cell(1, 1).Value = "FirstName";
-            Assert.AreEqual("FirstName", tbl.Field(0).Name);
+            Assert.That(tbl.Field(0).Name, Is.EqualTo("FirstName"));
         }
 
         [Test]
@@ -422,13 +422,13 @@ namespace ClosedXML.Tests.Excel.Tables
 
             table.Column("C").Delete();
 
-            Assert.AreEqual(3, table.Fields.Count());
+            Assert.That(table.Fields.Count(), Is.EqualTo(3));
 
-            Assert.AreEqual("FirstColumn", table.Fields.First().Name);
-            Assert.AreEqual(0, table.Fields.First().Index);
+            Assert.That(table.Fields.First().Name, Is.EqualTo("FirstColumn"));
+            Assert.That(table.Fields.First().Index, Is.EqualTo(0));
 
-            Assert.AreEqual("UnOrderedColumn", table.Fields.Last().Name);
-            Assert.AreEqual(2, table.Fields.Last().Index);
+            Assert.That(table.Fields.Last().Name, Is.EqualTo("UnOrderedColumn"));
+            Assert.That(table.Fields.Last().Index, Is.EqualTo(2));
         }
 
         [Test]
@@ -444,30 +444,30 @@ namespace ClosedXML.Tests.Excel.Tables
             var ws = wb.AddWorksheet("Sheet1");
             var table = ws.Cell("B2").InsertTable(l);
 
-            Assert.AreEqual(4, table.Fields.Count());
+            Assert.That(table.Fields.Count(), Is.EqualTo(4));
 
-            Assert.AreEqual("B2", table.Field(0).HeaderCell.Address.ToString());
-            Assert.AreEqual("C2", table.Field(1).HeaderCell.Address.ToString());
-            Assert.AreEqual("D2", table.Field(2).HeaderCell.Address.ToString());
-            Assert.AreEqual("E2", table.Field(3).HeaderCell.Address.ToString());
+            Assert.That(table.Field(0).HeaderCell.Address.ToString(), Is.EqualTo("B2"));
+            Assert.That(table.Field(1).HeaderCell.Address.ToString(), Is.EqualTo("C2"));
+            Assert.That(table.Field(2).HeaderCell.Address.ToString(), Is.EqualTo("D2"));
+            Assert.That(table.Field(3).HeaderCell.Address.ToString(), Is.EqualTo("E2"));
 
-            Assert.IsNull(table.Field(0).TotalsCell);
-            Assert.IsNull(table.Field(1).TotalsCell);
-            Assert.IsNull(table.Field(2).TotalsCell);
-            Assert.IsNull(table.Field(3).TotalsCell);
+            Assert.That(table.Field(0).TotalsCell, Is.Null);
+            Assert.That(table.Field(1).TotalsCell, Is.Null);
+            Assert.That(table.Field(2).TotalsCell, Is.Null);
+            Assert.That(table.Field(3).TotalsCell, Is.Null);
 
             table.SetShowTotalsRow();
 
-            Assert.AreEqual("B5", table.Field(0).TotalsCell.Address.ToString());
-            Assert.AreEqual("C5", table.Field(1).TotalsCell.Address.ToString());
-            Assert.AreEqual("D5", table.Field(2).TotalsCell.Address.ToString());
-            Assert.AreEqual("E5", table.Field(3).TotalsCell.Address.ToString());
+            Assert.That(table.Field(0).TotalsCell.Address.ToString(), Is.EqualTo("B5"));
+            Assert.That(table.Field(1).TotalsCell.Address.ToString(), Is.EqualTo("C5"));
+            Assert.That(table.Field(2).TotalsCell.Address.ToString(), Is.EqualTo("D5"));
+            Assert.That(table.Field(3).TotalsCell.Address.ToString(), Is.EqualTo("E5"));
 
             var field = table.Fields.Last();
 
-            Assert.AreEqual("E2:E5", field.Column.RangeAddress.ToString());
-            Assert.AreEqual("E3", field.DataCells.First().Address.ToString());
-            Assert.AreEqual("E4", field.DataCells.Last().Address.ToString());
+            Assert.That(field.Column.RangeAddress.ToString(), Is.EqualTo("E2:E5"));
+            Assert.That(field.DataCells.First().Address.ToString(), Is.EqualTo("E3"));
+            Assert.That(field.DataCells.Last().Address.ToString(), Is.EqualTo("E4"));
         }
 
         [Test]
@@ -495,7 +495,7 @@ namespace ClosedXML.Tests.Excel.Tables
                 var table = ws.Tables.First();
 
                 ws.Tables.Remove(table.Name);
-                Assert.AreEqual(0, ws.Tables.Count());
+                Assert.That(ws.Tables.Count(), Is.EqualTo(0));
                 wb.Save();
             }
         }
@@ -530,19 +530,19 @@ namespace ClosedXML.Tests.Excel.Tables
             var ws = wb.AddWorksheet("Sheet1");
             var table = ws.Cell("B2").InsertTable(l);
 
-            Assert.AreEqual("B2:E4", table.RangeAddress.ToString());
+            Assert.That(table.RangeAddress.ToString(), Is.EqualTo("B2:E4"));
 
             table.Field("SomeFieldNotProperty").Delete();
 
-            Assert.AreEqual(3, table.Fields.Count());
+            Assert.That(table.Fields.Count(), Is.EqualTo(3));
 
-            Assert.AreEqual("FirstColumn", table.Fields.First().Name);
-            Assert.AreEqual(0, table.Fields.First().Index);
+            Assert.That(table.Fields.First().Name, Is.EqualTo("FirstColumn"));
+            Assert.That(table.Fields.First().Index, Is.EqualTo(0));
 
-            Assert.AreEqual("UnOrderedColumn", table.Fields.Last().Name);
-            Assert.AreEqual(2, table.Fields.Last().Index);
+            Assert.That(table.Fields.Last().Name, Is.EqualTo("UnOrderedColumn"));
+            Assert.That(table.Fields.Last().Index, Is.EqualTo(2));
 
-            Assert.AreEqual("B2:D4", table.RangeAddress.ToString());
+            Assert.That(table.RangeAddress.ToString(), Is.EqualTo("B2:D4"));
         }
 
         [Test]
@@ -560,16 +560,16 @@ namespace ClosedXML.Tests.Excel.Tables
             var ws = wb.AddWorksheet("Sheet1");
             var table = ws.Cell("B2").InsertTable(l);
 
-            Assert.AreEqual("B2:E6", table.RangeAddress.ToString());
+            Assert.That(table.RangeAddress.ToString(), Is.EqualTo("B2:E6"));
 
             table.DataRange.Rows(3, 4).Delete();
 
-            Assert.AreEqual(2, table.DataRange.Rows().Count());
+            Assert.That(table.DataRange.Rows().Count(), Is.EqualTo(2));
 
-            Assert.AreEqual("b", table.DataRange.FirstCell().Value);
-            Assert.AreEqual(777, table.DataRange.LastCell().Value);
+            Assert.That(table.DataRange.FirstCell().Value, Is.EqualTo("b"));
+            Assert.That(table.DataRange.LastCell().Value, Is.EqualTo(777));
 
-            Assert.AreEqual("B2:E4", table.RangeAddress.ToString());
+            Assert.That(table.RangeAddress.ToString(), Is.EqualTo("B2:E4"));
         }
 
         [Test]
@@ -617,11 +617,11 @@ namespace ClosedXML.Tests.Excel.Tables
 
             ws.FirstCell().CellBelow().InsertData(data2);
 
-            table.Fields.ForEach(f => Assert.AreEqual(XLTotalsRowFunction.None, f.TotalsRowFunction));
+            table.Fields.ForEach(f => Assert.That(f.TotalsRowFunction, Is.EqualTo(XLTotalsRowFunction.None)));
 
-            Assert.AreEqual("11", table.Field(0).TotalsRowLabel);
-            Assert.AreEqual("K", table.Field(1).TotalsRowLabel);
-            Assert.AreEqual("bbbbbbbbbbb", table.Field(2).TotalsRowLabel);
+            Assert.That(table.Field(0).TotalsRowLabel, Is.EqualTo("11"));
+            Assert.That(table.Field(1).TotalsRowLabel, Is.EqualTo("K"));
+            Assert.That(table.Field(2).TotalsRowLabel, Is.EqualTo("bbbbbbbbbbb"));
         }
 
         [Test]
@@ -638,17 +638,17 @@ namespace ClosedXML.Tests.Excel.Tables
             var table1 = ws.FirstCell().InsertTable(l);
             var table2 = ws.Cell("A10").InsertTable(l);
 
-            Assert.AreEqual("Table1", table1.Name);
-            Assert.AreEqual("Table2", table2.Name);
+            Assert.That(table1.Name, Is.EqualTo("Table1"));
+            Assert.That(table2.Name, Is.EqualTo("Table2"));
 
             table1.Name = "table1";
-            Assert.AreEqual("table1", table1.Name);
+            Assert.That(table1.Name, Is.EqualTo("table1"));
 
             table1.Name = "_table1";
-            Assert.AreEqual("_table1", table1.Name);
+            Assert.That(table1.Name, Is.EqualTo("_table1"));
 
             table1.Name = "\\table1";
-            Assert.AreEqual("\\table1", table1.Name);
+            Assert.That(table1.Name, Is.EqualTo("\\table1"));
 
             Assert.Throws<ArgumentException>(() => table1.Name = "");
             Assert.Throws<ArgumentException>(() => table1.Name = "R");
@@ -696,12 +696,12 @@ namespace ClosedXML.Tests.Excel.Tables
             ws.FirstCell().CellBelow().InsertData(data2);
             table.Resize(table.FirstCell().Address, table.AsRange().LastCell().CellRight().Address);
 
-            Assert.AreEqual(4, table.Fields.Count());
+            Assert.That(table.Fields.Count(), Is.EqualTo(4));
 
-            Assert.AreEqual("Column4", table.Field(3).Name);
+            Assert.That(table.Field(3).Name, Is.EqualTo("Column4"));
 
             ws.Cell("D1").Value = "Integer";
-            Assert.AreEqual("Integer", table.Field(3).Name);
+            Assert.That(table.Field(3).Name, Is.EqualTo("Integer"));
         }
 
         [Test]
@@ -743,28 +743,28 @@ namespace ClosedXML.Tests.Excel.Tables
             var ws = wb.AddWorksheet("Sheet1");
             var table = ws.FirstCell().InsertTable(l).AsNativeDataTable();
 
-            Assert.AreEqual(4, table.Columns.Count);
-            Assert.AreEqual("FirstColumn", table.Columns[0].ColumnName);
-            Assert.AreEqual("SecondColumn", table.Columns[1].ColumnName);
-            Assert.AreEqual("SomeFieldNotProperty", table.Columns[2].ColumnName);
-            Assert.AreEqual("UnOrderedColumn", table.Columns[3].ColumnName);
+            Assert.That(table.Columns.Count, Is.EqualTo(4));
+            Assert.That(table.Columns[0].ColumnName, Is.EqualTo("FirstColumn"));
+            Assert.That(table.Columns[1].ColumnName, Is.EqualTo("SecondColumn"));
+            Assert.That(table.Columns[2].ColumnName, Is.EqualTo("SomeFieldNotProperty"));
+            Assert.That(table.Columns[3].ColumnName, Is.EqualTo("UnOrderedColumn"));
 
-            Assert.AreEqual(typeof(string), table.Columns[0].DataType);
-            Assert.AreEqual(typeof(string), table.Columns[1].DataType);
-            Assert.AreEqual(typeof(double), table.Columns[2].DataType);
-            Assert.AreEqual(typeof(double), table.Columns[3].DataType);
+            Assert.That(table.Columns[0].DataType, Is.EqualTo(typeof(string)));
+            Assert.That(table.Columns[1].DataType, Is.EqualTo(typeof(string)));
+            Assert.That(table.Columns[2].DataType, Is.EqualTo(typeof(double)));
+            Assert.That(table.Columns[3].DataType, Is.EqualTo(typeof(double)));
 
             var dr = table.Rows[0];
-            Assert.AreEqual("b", dr["FirstColumn"]);
-            Assert.AreEqual("a", dr["SecondColumn"]);
-            Assert.AreEqual(4, dr["SomeFieldNotProperty"]);
-            Assert.AreEqual(999, dr["UnOrderedColumn"]);
+            Assert.That(dr["FirstColumn"], Is.EqualTo("b"));
+            Assert.That(dr["SecondColumn"], Is.EqualTo("a"));
+            Assert.That(dr["SomeFieldNotProperty"], Is.EqualTo(4));
+            Assert.That(dr["UnOrderedColumn"], Is.EqualTo(999));
 
             dr = table.Rows[1];
-            Assert.AreEqual("d", dr["FirstColumn"]);
-            Assert.AreEqual("c", dr["SecondColumn"]);
-            Assert.AreEqual(5, dr["SomeFieldNotProperty"]);
-            Assert.AreEqual(777, dr["UnOrderedColumn"]);
+            Assert.That(dr["FirstColumn"], Is.EqualTo("d"));
+            Assert.That(dr["SecondColumn"], Is.EqualTo("c"));
+            Assert.That(dr["SomeFieldNotProperty"], Is.EqualTo(5));
+            Assert.That(dr["UnOrderedColumn"], Is.EqualTo(777));
         }
 
         [Test]
@@ -787,10 +787,10 @@ namespace ClosedXML.Tests.Excel.Tables
                 .SetShowTotalsRow();
             table.Fields.First().TotalsRowFunction = XLTotalsRowFunction.Sum;
 
-            Assert.AreEqual(XLTableCellType.Header, table.HeadersRow().Cell(1).TableCellType());
-            Assert.AreEqual(XLTableCellType.Data, table.HeadersRow().Cell(1).CellBelow().TableCellType());
-            Assert.AreEqual(XLTableCellType.Total, table.TotalsRow().Cell(1).TableCellType());
-            Assert.AreEqual(XLTableCellType.None, ws.Cell("Z100").TableCellType());
+            Assert.That(table.HeadersRow().Cell(1).TableCellType(), Is.EqualTo(XLTableCellType.Header));
+            Assert.That(table.HeadersRow().Cell(1).CellBelow().TableCellType(), Is.EqualTo(XLTableCellType.Data));
+            Assert.That(table.TotalsRow().Cell(1).TableCellType(), Is.EqualTo(XLTableCellType.Total));
+            Assert.That(ws.Cell("Z100").TableCellType(), Is.EqualTo(XLTableCellType.None));
         }
 
         [Test]
@@ -813,7 +813,7 @@ namespace ClosedXML.Tests.Excel.Tables
             ws.Cell("D1").Value = "Normal";
 
             var table = ws.RangeUsed().CreateTable();
-            Assert.IsNotNull(table);
+            Assert.That(table, Is.Not.Null);
 
             table.ShowTotalsRow = true;
             table.Field(0).TotalsRowFunction = XLTotalsRowFunction.Count;
@@ -821,10 +821,10 @@ namespace ClosedXML.Tests.Excel.Tables
             table.Field(2).TotalsRowFunction = XLTotalsRowFunction.Sum;
             table.Field(3).TotalsRowFunction = XLTotalsRowFunction.Sum;
 
-            Assert.AreEqual("SUBTOTAL(103,Table1[[ABCD    ]])", table.Field(0).TotalsRowFormulaA1);
-            Assert.AreEqual("SUBTOTAL(103,Table1[[   '#BCD]])", table.Field(1).TotalsRowFormulaA1);
-            Assert.AreEqual("SUBTOTAL(109,Table1[[   as''df   ]])", table.Field(2).TotalsRowFormulaA1);
-            Assert.AreEqual("SUBTOTAL(109,[Normal])", table.Field(3).TotalsRowFormulaA1);
+            Assert.That(table.Field(0).TotalsRowFormulaA1, Is.EqualTo("SUBTOTAL(103,Table1[[ABCD    ]])"));
+            Assert.That(table.Field(1).TotalsRowFormulaA1, Is.EqualTo("SUBTOTAL(103,Table1[[   '#BCD]])"));
+            Assert.That(table.Field(2).TotalsRowFormulaA1, Is.EqualTo("SUBTOTAL(109,Table1[[   as''df   ]])"));
+            Assert.That(table.Field(3).TotalsRowFormulaA1, Is.EqualTo("SUBTOTAL(109,[Normal])"));
         }
 
         [Test]
@@ -889,18 +889,18 @@ namespace ClosedXML.Tests.Excel.Tables
 
             var copy = original.CopyTo(ws2);
 
-            Assert.AreEqual(0, ws1.Tables.Count()); // We did not add it
-            Assert.AreEqual(1, ws2.Tables.Count());
+            Assert.That(ws1.Tables.Count(), Is.EqualTo(0)); // We did not add it
+            Assert.That(ws2.Tables.Count(), Is.EqualTo(1));
 
             AssertTablesAreEqual(original, copy);
 
-            Assert.AreEqual("Sheet2!A1:C2", copy.RangeAddress.ToString(XLReferenceStyle.A1, true));
-            Assert.AreEqual("Custom column 1", ws2.Cell("A1").Value);
-            Assert.AreEqual("Custom column 2", ws2.Cell("B1").Value);
-            Assert.AreEqual("Custom column 3", ws2.Cell("C1").Value);
-            Assert.AreEqual("Value 1", ws2.Cell("A2").Value);
-            Assert.AreEqual(123.45, (double)ws2.Cell("B2").Value, XLHelper.Epsilon);
-            Assert.AreEqual(new DateTime(2018, 5, 10), ws2.Cell("C2").Value);
+            Assert.That(copy.RangeAddress.ToString(XLReferenceStyle.A1, true), Is.EqualTo("Sheet2!A1:C2"));
+            Assert.That(ws2.Cell("A1").Value, Is.EqualTo("Custom column 1"));
+            Assert.That(ws2.Cell("B1").Value, Is.EqualTo("Custom column 2"));
+            Assert.That(ws2.Cell("C1").Value, Is.EqualTo("Custom column 3"));
+            Assert.That(ws2.Cell("A2").Value, Is.EqualTo("Value 1"));
+            Assert.That((double)ws2.Cell("B2").Value, Is.EqualTo(123.45).Within(XLHelper.Epsilon));
+            Assert.That(ws2.Cell("C2").Value, Is.EqualTo(new DateTime(2018, 5, 10)));
         }
 
         [Test]
@@ -920,20 +920,20 @@ namespace ClosedXML.Tests.Excel.Tables
 
             original.CopyTo(ws2);
 
-            Assert.AreEqual(1, ws1.Tables.Count());
-            Assert.AreEqual(1, ws2.Tables.Count());
+            Assert.That(ws1.Tables.Count(), Is.EqualTo(1));
+            Assert.That(ws2.Tables.Count(), Is.EqualTo(1));
 
             var copy = ws2.Tables.First();
 
             AssertTablesAreEqual(original, copy);
 
-            Assert.AreEqual("Sheet2!A1:C2", copy.RangeAddress.ToString(XLReferenceStyle.A1, true));
-            Assert.AreEqual("Custom column 1", ws2.Cell("A1").Value);
-            Assert.AreEqual("Custom column 2", ws2.Cell("B1").Value);
-            Assert.AreEqual("Custom column 3", ws2.Cell("C1").Value);
-            Assert.AreEqual("Value 1", ws2.Cell("A2").Value);
-            Assert.AreEqual(123.45, (double)ws2.Cell("B2").Value, XLHelper.Epsilon);
-            Assert.AreEqual(new DateTime(2018, 5, 10), ws2.Cell("C2").Value);
+            Assert.That(copy.RangeAddress.ToString(XLReferenceStyle.A1, true), Is.EqualTo("Sheet2!A1:C2"));
+            Assert.That(ws2.Cell("A1").Value, Is.EqualTo("Custom column 1"));
+            Assert.That(ws2.Cell("B1").Value, Is.EqualTo("Custom column 2"));
+            Assert.That(ws2.Cell("C1").Value, Is.EqualTo("Custom column 3"));
+            Assert.That(ws2.Cell("A2").Value, Is.EqualTo("Value 1"));
+            Assert.That((double)ws2.Cell("B2").Value, Is.EqualTo(123.45).Within(XLHelper.Epsilon));
+            Assert.That(ws2.Cell("C2").Value, Is.EqualTo(new DateTime(2018, 5, 10)));
         }
 
         [Test]
@@ -951,8 +951,8 @@ namespace ClosedXML.Tests.Excel.Tables
                 ws.Cell("C2").Value = new DateTime(2018, 5, 10);
                 var original = ws.Range("A1:C2").CreateTable("Attached table");
 
-                Assert.AreEqual(1, ws.Tables.Count());
-                Assert.IsNull((original as XLTable).RelId);
+                Assert.That(ws.Tables.Count(), Is.EqualTo(1));
+                Assert.That((original as XLTable).RelId, Is.Null);
 
                 wb.SaveAs(ms);
             }
@@ -962,22 +962,22 @@ namespace ClosedXML.Tests.Excel.Tables
                 var ws = wb.Worksheets.Add("Sheet2");
                 var original = wb.Worksheets.First().Tables.First();
 
-                Assert.IsNotNull((original as XLTable).RelId);
+                Assert.That((original as XLTable).RelId, Is.Not.Null);
 
                 var copy = original.CopyTo(ws);
 
-                Assert.AreEqual(1, ws.Tables.Count());
-                Assert.IsNull((copy as XLTable).RelId);
+                Assert.That(ws.Tables.Count(), Is.EqualTo(1));
+                Assert.That((copy as XLTable).RelId, Is.Null);
 
                 AssertTablesAreEqual(original, copy);
 
-                Assert.AreEqual("Sheet2!A1:C2", copy.RangeAddress.ToString(XLReferenceStyle.A1, true));
-                Assert.AreEqual("Custom column 1", ws.Cell("A1").Value);
-                Assert.AreEqual("Custom column 2", ws.Cell("B1").Value);
-                Assert.AreEqual("Custom column 3", ws.Cell("C1").Value);
-                Assert.AreEqual("Value 1", ws.Cell("A2").Value);
-                Assert.AreEqual(123.45, (double)ws.Cell("B2").Value, XLHelper.Epsilon);
-                Assert.AreEqual(new DateTime(2018, 5, 10), ws.Cell("C2").Value);
+                Assert.That(copy.RangeAddress.ToString(XLReferenceStyle.A1, true), Is.EqualTo("Sheet2!A1:C2"));
+                Assert.That(ws.Cell("A1").Value, Is.EqualTo("Custom column 1"));
+                Assert.That(ws.Cell("B1").Value, Is.EqualTo("Custom column 2"));
+                Assert.That(ws.Cell("C1").Value, Is.EqualTo("Custom column 3"));
+                Assert.That(ws.Cell("A2").Value, Is.EqualTo("Value 1"));
+                Assert.That((double)ws.Cell("B2").Value, Is.EqualTo(123.45).Within(XLHelper.Epsilon));
+                Assert.That(ws.Cell("C2").Value, Is.EqualTo(new DateTime(2018, 5, 10)));
             }
         }
 
@@ -1000,13 +1000,13 @@ namespace ClosedXML.Tests.Excel.Tables
 
             AssertTablesAreEqual(original, copy);
 
-            Assert.AreEqual("Sheet2!A1:C2", copy.RangeAddress.ToString(XLReferenceStyle.A1, true));
-            Assert.AreEqual("Custom column 1", ws2.Cell("A1").Value);
-            Assert.AreEqual("Custom column 2", ws2.Cell("B1").Value);
-            Assert.AreEqual("Custom column 3", ws2.Cell("C1").Value);
-            Assert.AreEqual("", ws2.Cell("A2").Value);
-            Assert.AreEqual("", ws2.Cell("B2").Value);
-            Assert.AreEqual("", ws2.Cell("C2").Value);
+            Assert.That(copy.RangeAddress.ToString(XLReferenceStyle.A1, true), Is.EqualTo("Sheet2!A1:C2"));
+            Assert.That(ws2.Cell("A1").Value, Is.EqualTo("Custom column 1"));
+            Assert.That(ws2.Cell("B1").Value, Is.EqualTo("Custom column 2"));
+            Assert.That(ws2.Cell("C1").Value, Is.EqualTo("Custom column 3"));
+            Assert.That(ws2.Cell("A2").Value, Is.EqualTo(""));
+            Assert.That(ws2.Cell("B2").Value, Is.EqualTo(""));
+            Assert.That(ws2.Cell("C2").Value, Is.EqualTo(""));
         }
 
         [Test]
@@ -1034,7 +1034,7 @@ namespace ClosedXML.Tests.Excel.Tables
                 .ToList()
                 .ForEach(r => r.WorksheetRow().Delete());
 
-            Assert.IsNull(table.DataRange);
+            Assert.That(table.DataRange, Is.Null);
             Assert.Throws<EmptyTableException>(() => wb.SaveAs(ms));
         }
 
@@ -1051,11 +1051,11 @@ namespace ClosedXML.Tests.Excel.Tables
 
             var table = ws.Range("A1:E3").CreateTable("Table1");
 
-            Assert.AreEqual("Header", table.Field(0).Name);
-            Assert.AreEqual(new string(' ', 1), table.Field(1).Name);
-            Assert.AreEqual(new string(' ', 2), table.Field(2).Name);
-            Assert.AreEqual(new string(' ', 3), table.Field(3).Name);
-            Assert.AreEqual("Column5", table.Field(4).Name);
+            Assert.That(table.Field(0).Name, Is.EqualTo("Header"));
+            Assert.That(table.Field(1).Name, Is.EqualTo(new string(' ', 1)));
+            Assert.That(table.Field(2).Name, Is.EqualTo(new string(' ', 2)));
+            Assert.That(table.Field(3).Name, Is.EqualTo(new string(' ', 3)));
+            Assert.That(table.Field(4).Name, Is.EqualTo("Column5"));
         }
 
         [Test]
@@ -1073,37 +1073,37 @@ namespace ClosedXML.Tests.Excel.Tables
             using var wb = new XLWorkbook();
             var ws1 = wb.AddWorksheet();
             var t1 = ws1.FirstCell().InsertTable(Enumerable.Range(1, 10).Select(i => new { Number = i }));
-            Assert.AreEqual("Table1", t1.Name);
+            Assert.That(t1.Name, Is.EqualTo("Table1"));
 
             var ws2 = wb.AddWorksheet();
             var t2 = ws2.FirstCell().InsertTable(Enumerable.Range(1, 10).Select(i => new { Number = i }));
-            Assert.AreEqual("Table2", t2.Name);
+            Assert.That(t2.Name, Is.EqualTo("Table2"));
         }
 
         private void AssertTablesAreEqual(IXLTable table1, IXLTable table2)
         {
-            Assert.AreEqual(table1.RangeAddress.ToString(XLReferenceStyle.A1, false), table2.RangeAddress.ToString(XLReferenceStyle.A1, false));
-            Assert.AreEqual(table1.Fields.Count(), table2.Fields.Count());
+            Assert.That(table2.RangeAddress.ToString(XLReferenceStyle.A1, false), Is.EqualTo(table1.RangeAddress.ToString(XLReferenceStyle.A1, false)));
+            Assert.That(table2.Fields.Count(), Is.EqualTo(table1.Fields.Count()));
             for (var j = 0; j < table1.Fields.Count(); j++)
             {
                 var originalField = table1.Fields.ElementAt(j);
                 var copyField = table2.Fields.ElementAt(j);
-                Assert.AreEqual(originalField.Name, copyField.Name);
+                Assert.That(copyField.Name, Is.EqualTo(originalField.Name));
                 if (table1.ShowTotalsRow)
                 {
-                    Assert.AreEqual(originalField.TotalsRowFormulaA1, copyField.TotalsRowFormulaA1);
-                    Assert.AreEqual(originalField.TotalsRowFunction, copyField.TotalsRowFunction);
+                    Assert.That(copyField.TotalsRowFormulaA1, Is.EqualTo(originalField.TotalsRowFormulaA1));
+                    Assert.That(copyField.TotalsRowFunction, Is.EqualTo(originalField.TotalsRowFunction));
                 }
             }
 
-            Assert.AreEqual(table1.Name, table2.Name);
-            Assert.AreEqual(table1.ShowAutoFilter, table2.ShowAutoFilter);
-            Assert.AreEqual(table1.ShowColumnStripes, table2.ShowColumnStripes);
-            Assert.AreEqual(table1.ShowHeaderRow, table2.ShowHeaderRow);
-            Assert.AreEqual(table1.ShowRowStripes, table2.ShowRowStripes);
-            Assert.AreEqual(table1.ShowTotalsRow, table2.ShowTotalsRow);
-            Assert.AreEqual((table1.Style as XLStyle).Value, (table2.Style as XLStyle).Value);
-            Assert.AreEqual(table1.Theme, table2.Theme);
+            Assert.That(table2.Name, Is.EqualTo(table1.Name));
+            Assert.That(table2.ShowAutoFilter, Is.EqualTo(table1.ShowAutoFilter));
+            Assert.That(table2.ShowColumnStripes, Is.EqualTo(table1.ShowColumnStripes));
+            Assert.That(table2.ShowHeaderRow, Is.EqualTo(table1.ShowHeaderRow));
+            Assert.That(table2.ShowRowStripes, Is.EqualTo(table1.ShowRowStripes));
+            Assert.That(table2.ShowTotalsRow, Is.EqualTo(table1.ShowTotalsRow));
+            Assert.That((table2.Style as XLStyle).Value, Is.EqualTo((table1.Style as XLStyle).Value));
+            Assert.That(table2.Theme, Is.EqualTo(table1.Theme));
         }
 
         //TODO: Delete table (not underlying range)

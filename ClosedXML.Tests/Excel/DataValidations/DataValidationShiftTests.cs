@@ -22,12 +22,12 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Column(2).InsertColumnsAfter(2);
             var dv = ws.DataValidations.ToArray();
 
-            Assert.AreEqual(5, dv.Length);
-            Assert.AreEqual("A1:A1", dv[0].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("A2:D2", dv[1].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("A3:E3", dv[2].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("B4:D6", dv[3].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("E7:F7", dv[4].Ranges.Single().RangeAddress.ToString());
+            Assert.That(dv.Length, Is.EqualTo(5));
+            Assert.That(dv[0].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A1:A1"));
+            Assert.That(dv[1].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A2:D2"));
+            Assert.That(dv[2].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A3:E3"));
+            Assert.That(dv[3].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("B4:D6"));
+            Assert.That(dv[4].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("E7:F7"));
         }
 
         [Test]
@@ -45,12 +45,12 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Row(2).InsertRowsBelow(2);
             var dv = ws.DataValidations.ToArray();
 
-            Assert.AreEqual(5, dv.Length);
-            Assert.AreEqual("A1:A1", dv[0].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("B1:B4", dv[1].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("C1:C5", dv[2].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("D2:F4", dv[3].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("G6:G7", dv[4].Ranges.Single().RangeAddress.ToString());
+            Assert.That(dv.Length, Is.EqualTo(5));
+            Assert.That(dv[0].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A1:A1"));
+            Assert.That(dv[1].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("B1:B4"));
+            Assert.That(dv[2].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("C1:C5"));
+            Assert.That(dv[3].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("D2:F4"));
+            Assert.That(dv[4].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("G6:G7"));
         }
 
         [Test]
@@ -68,11 +68,11 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Column(2).Delete();
             var dv = ws.DataValidations.ToArray();
 
-            Assert.AreEqual(4, dv.Length);
-            Assert.AreEqual("A1:A1", dv[0].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("A2:A2", dv[1].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("A3:B3", dv[2].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("B7:C7", dv[3].Ranges.Single().RangeAddress.ToString());
+            Assert.That(dv.Length, Is.EqualTo(4));
+            Assert.That(dv[0].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A1:A1"));
+            Assert.That(dv[1].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A2:A2"));
+            Assert.That(dv[2].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A3:B3"));
+            Assert.That(dv[3].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("B7:C7"));
         }
 
         [Test]
@@ -90,11 +90,11 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Row(2).Delete();
             var dv = ws.DataValidations.ToArray();
 
-            Assert.AreEqual(4, dv.Length);
-            Assert.AreEqual("A1:A1", dv[0].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("B1:B1", dv[1].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("C1:C2", dv[2].Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("G3:G4", dv[3].Ranges.Single().RangeAddress.ToString());
+            Assert.That(dv.Length, Is.EqualTo(4));
+            Assert.That(dv[0].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A1:A1"));
+            Assert.That(dv[1].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("B1:B1"));
+            Assert.That(dv[2].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("C1:C2"));
+            Assert.That(dv[3].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("G3:G4"));
         }
 
         [Test]
@@ -106,12 +106,12 @@ namespace ClosedXML.Tests.Excel.DataValidations
             var dv = ws.DataValidations.Single();
 
             ws.Row(2).InsertRowsAbove(1);
-            Assert.IsTrue(dv.Ranges.Single().RangeAddress.IsValid);
-            Assert.AreEqual($"1:{XLHelper.MaxRowNumber}", dv.Ranges.Single().RangeAddress.ToString());
+            Assert.That(dv.Ranges.Single().RangeAddress.IsValid, Is.True);
+            Assert.That(dv.Ranges.Single().RangeAddress.ToString(), Is.EqualTo($"1:{XLHelper.MaxRowNumber}"));
 
             ws.Column(2).InsertColumnsAfter(1);
-            Assert.IsTrue(dv.Ranges.Single().RangeAddress.IsValid);
-            Assert.AreEqual($"1:{XLHelper.MaxRowNumber}", dv.Ranges.Single().RangeAddress.ToString());
+            Assert.That(dv.Ranges.Single().RangeAddress.IsValid, Is.True);
+            Assert.That(dv.Ranges.Single().RangeAddress.ToString(), Is.EqualTo($"1:{XLHelper.MaxRowNumber}"));
         }
     }
 }

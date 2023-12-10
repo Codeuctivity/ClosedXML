@@ -14,7 +14,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             ws.Column("C").Delete();
 
-            Assert.AreSame(d4, ws.Cell("C4"));
+            Assert.That(ws.Cell("C4"), Is.SameAs(d4));
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             ws.Row(3).Delete();
 
-            Assert.AreSame(d4, ws.Cell("D3"));
+            Assert.That(ws.Cell("D3"), Is.SameAs(d4));
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             ws.Column("C").InsertColumnsBefore(1);
 
-            Assert.AreSame(d4, ws.Cell("E4"));
+            Assert.That(ws.Cell("E4"), Is.SameAs(d4));
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             ws.Row(3).InsertRowsAbove(1);
 
-            Assert.AreSame(d4, ws.Cell("D5"));
+            Assert.That(ws.Cell("D5"), Is.SameAs(d4));
         }
 
         [Test]
@@ -64,8 +64,8 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("B2:C5").Delete(XLShiftDeletedCells.ShiftCellsLeft);
             ws.Range("E5:F7").Delete(XLShiftDeletedCells.ShiftCellsUp);
 
-            Assert.AreSame(d4, ws.Cell("B4"));
-            Assert.AreSame(f8, ws.Cell("F5"));
+            Assert.That(ws.Cell("B4"), Is.SameAs(d4));
+            Assert.That(ws.Cell("F5"), Is.SameAs(f8));
         }
     }
 }

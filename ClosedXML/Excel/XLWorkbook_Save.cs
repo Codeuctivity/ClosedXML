@@ -7274,7 +7274,8 @@ namespace ClosedXML.Excel
 
         private static void UpdateColumn(Column column, Columns columns, Dictionary<uint, Column> sheetColumnsByMin)
         {
-            if (!sheetColumnsByMin.TryGetValue(column.Min.Value, out var newColumn))
+            Column newColumn;
+            if (!sheetColumnsByMin.TryGetValue(column.Min.Value, out _))
             {
                 newColumn = (Column)column.CloneNode(true);
                 columns.AppendChild(newColumn);

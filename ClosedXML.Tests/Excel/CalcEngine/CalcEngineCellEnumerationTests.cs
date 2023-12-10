@@ -15,7 +15,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var cell = sheet1.FirstCell();
             cell.FormulaA1 = "=SUMIFS(Sheet2!B:B, Sheet2!C:C, 1)";
 
-            Assert.AreEqual(0, cell.Value);
+            Assert.That(cell.Value, Is.EqualTo(0));
         }
     }
 }

@@ -40,21 +40,21 @@ namespace ClosedXML.Tests.Excel.InsertData
         {
             var reader = InsertDataReaderFactory.Instance.CreateReader(_data);
             var actualPropertyName = reader.GetPropertyName(propertyIndex);
-            Assert.AreEqual(expectedPropertyName, actualPropertyName);
+            Assert.That(actualPropertyName, Is.EqualTo(expectedPropertyName));
         }
 
         [Test]
         public void CanGetPropertiesCount()
         {
             var reader = InsertDataReaderFactory.Instance.CreateReader(_data);
-            Assert.AreEqual(4, reader.GetPropertiesCount());
+            Assert.That(reader.GetPropertiesCount(), Is.EqualTo(4));
         }
 
         [Test]
         public void CanGetRecordsCount()
         {
             var reader = InsertDataReaderFactory.Instance.CreateReader(_data);
-            Assert.AreEqual(9, reader.GetRecordsCount());
+            Assert.That(reader.GetRecordsCount(), Is.EqualTo(9));
         }
 
         [Test]
@@ -64,15 +64,15 @@ namespace ClosedXML.Tests.Excel.InsertData
 
             var result = reader.GetData().ToArray();
 
-            Assert.AreEqual(new object[] { null }, result[0]);
-            Assert.AreEqual(new object[] { "Value 2", "Value 1", 4, 3 }, result[1]);
-            Assert.AreEqual(new object[] { null }, result[2]);
-            Assert.AreEqual(new object[] { null }, result[3]);
-            Assert.AreEqual(new object[] { null }, result[4]);
-            Assert.AreEqual(new object[] { 1, 2, 3 }, result[5]);
-            Assert.AreEqual(new object[] { 4, 5, 6, 7 }, result[6]);
-            Assert.AreEqual(new object[] { "Separator" }, result[7]);
-            Assert.AreEqual(new object[] { "Value 9", "Value 10" }, result[8]);
+            Assert.That(result[0], Is.EqualTo(new object[] { null }));
+            Assert.That(result[1], Is.EqualTo(new object[] { "Value 2", "Value 1", 4, 3 }));
+            Assert.That(result[2], Is.EqualTo(new object[] { null }));
+            Assert.That(result[3], Is.EqualTo(new object[] { null }));
+            Assert.That(result[4], Is.EqualTo(new object[] { null }));
+            Assert.That(result[5], Is.EqualTo(new object[] { 1, 2, 3 }));
+            Assert.That(result[6], Is.EqualTo(new object[] { 4, 5, 6, 7 }));
+            Assert.That(result[7], Is.EqualTo(new object[] { "Separator" }));
+            Assert.That(result[8], Is.EqualTo(new object[] { "Value 9", "Value 10" }));
         }
     }
 }

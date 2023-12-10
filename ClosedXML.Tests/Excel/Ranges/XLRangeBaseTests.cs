@@ -18,7 +18,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             var range = ws.Range("A1:B2");
             var actual = range.IsEmpty();
             var expected = true;
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             var range = ws.Range("A1:B2");
             var actual = range.IsEmpty(XLCellsUsedOptions.All);
             var expected = true;
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             var range = ws.Range("A1:B2");
             var actual = range.IsEmpty();
             var expected = true;
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             var range = ws.Range("A1:B2");
             var actual = range.IsEmpty(XLCellsUsedOptions.AllContents);
             var expected = true;
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             var range = ws.Range("A1:B2");
             var actual = range.IsEmpty(XLCellsUsedOptions.All);
             var expected = false;
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             var range = ws.Range("A1:B2");
             var actual = range.IsEmpty();
             var expected = false;
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -88,8 +88,8 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Cell(1, 1).Value = "Hello World!";
             wb.NamedRanges.Add("SingleCell", "Sheet1!$A$1");
             var range = wb.Range("SingleCell");
-            Assert.AreEqual(1, range.CellsUsed().Count());
-            Assert.AreEqual("Hello World!", range.CellsUsed().Single().GetString());
+            Assert.That(range.CellsUsed().Count(), Is.EqualTo(1));
+            Assert.That(range.CellsUsed().Single().GetString(), Is.EqualTo("Hello World!"));
         }
 
         [Test]
@@ -106,9 +106,9 @@ namespace ClosedXML.Tests.Excel.Ranges
             wb.NamedRanges.Add("FNameColumn", string.Format("{0}[{1}]", table.Name, "FName"));
 
             var namedRange = wb.Range("FNameColumn");
-            Assert.AreEqual(3, namedRange.Cells().Count());
-            Assert.IsTrue(
-                namedRange.CellsUsed().Select(cell => cell.GetString()).SequenceEqual(new[] { "John", "Hank", "Dagny" }));
+            Assert.That(namedRange.Cells().Count(), Is.EqualTo(3));
+            Assert.That(
+                namedRange.CellsUsed().Select(cell => cell.GetString()).SequenceEqual(new[] { "John", "Hank", "Dagny" }), Is.True);
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             using var wb = new XLWorkbook();
             var ws = wb.Worksheets.Add("Sheet1");
             ws.Cell(1, 1).SetValue("Test").AddToNamed("TestCell", XLScope.Worksheet);
-            Assert.AreEqual("Test", ws.Cell("TestCell").GetString());
+            Assert.That(ws.Cell("TestCell").GetString(), Is.EqualTo("Test"));
         }
 
         [Test]
@@ -128,8 +128,8 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Cell(1, 1).SetValue("Test").AddToNamed("TestCell", XLScope.Worksheet);
             ws.Cell(2, 1).SetValue("B");
             var cells = ws.Cells("TestCell, A2");
-            Assert.AreEqual("Test", cells.First().GetString());
-            Assert.AreEqual("B", cells.Last().GetString());
+            Assert.That(cells.First().GetString(), Is.EqualTo("Test"));
+            Assert.That(cells.Last().GetString(), Is.EqualTo("B"));
         }
 
         [Test]
@@ -142,7 +142,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             var original = ws.Range("A1:A2");
             original.AddToNamed("TestRange", XLScope.Worksheet);
             var named = ws.Range("TestRange");
-            Assert.AreEqual(original.RangeAddress.ToStringFixed(), named.RangeAddress.ToString());
+            Assert.That(named.RangeAddress.ToString(), Is.EqualTo(original.RangeAddress.ToStringFixed()));
         }
 
         [Test]
@@ -156,8 +156,8 @@ namespace ClosedXML.Tests.Excel.Ranges
             var original = ws.Range("A1:A2");
             original.AddToNamed("TestRange", XLScope.Worksheet);
             var namedRanges = ws.Ranges("TestRange, A3");
-            Assert.AreEqual(original.RangeAddress.ToStringFixed(), namedRanges.First().RangeAddress.ToString());
-            Assert.AreEqual("$A$3:$A$3", namedRanges.Last().RangeAddress.ToStringFixed());
+            Assert.That(namedRanges.First().RangeAddress.ToString(), Is.EqualTo(original.RangeAddress.ToStringFixed()));
+            Assert.That(namedRanges.Last().RangeAddress.ToStringFixed(), Is.EqualTo("$A$3:$A$3"));
         }
 
         [Test]
@@ -168,8 +168,8 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.NamedRanges.Add("TestRange", "Sheet1!$A$1,Sheet1!$A$3");
             var namedRanges = ws.Ranges("TestRange");
 
-            Assert.AreEqual("$A$1:$A$1", namedRanges.First().RangeAddress.ToStringFixed());
-            Assert.AreEqual("$A$3:$A$3", namedRanges.Last().RangeAddress.ToStringFixed());
+            Assert.That(namedRanges.First().RangeAddress.ToStringFixed(), Is.EqualTo("$A$1:$A$1"));
+            Assert.That(namedRanges.Last().RangeAddress.ToStringFixed(), Is.EqualTo("$A$3:$A$3"));
         }
 
         //[Test]
@@ -193,13 +193,13 @@ namespace ClosedXML.Tests.Excel.Ranges
         {
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
-            Assert.AreEqual("A1:B2", ws.Cell("A1").AsRange().Grow().RangeAddress.ToString());
-            Assert.AreEqual("A1:B3", ws.Cell("A2").AsRange().Grow().RangeAddress.ToString());
-            Assert.AreEqual("A1:C2", ws.Cell("B1").AsRange().Grow().RangeAddress.ToString());
+            Assert.That(ws.Cell("A1").AsRange().Grow().RangeAddress.ToString(), Is.EqualTo("A1:B2"));
+            Assert.That(ws.Cell("A2").AsRange().Grow().RangeAddress.ToString(), Is.EqualTo("A1:B3"));
+            Assert.That(ws.Cell("B1").AsRange().Grow().RangeAddress.ToString(), Is.EqualTo("A1:C2"));
 
-            Assert.AreEqual("E4:G6", ws.Cell("F5").AsRange().Grow().RangeAddress.ToString());
-            Assert.AreEqual("D3:H7", ws.Cell("F5").AsRange().Grow(2).RangeAddress.ToString());
-            Assert.AreEqual("A1:DB105", ws.Cell("F5").AsRange().Grow(100).RangeAddress.ToString());
+            Assert.That(ws.Cell("F5").AsRange().Grow().RangeAddress.ToString(), Is.EqualTo("E4:G6"));
+            Assert.That(ws.Cell("F5").AsRange().Grow(2).RangeAddress.ToString(), Is.EqualTo("D3:H7"));
+            Assert.That(ws.Cell("F5").AsRange().Grow(100).RangeAddress.ToString(), Is.EqualTo("A1:DB105"));
         }
 
         [Test]
@@ -207,13 +207,13 @@ namespace ClosedXML.Tests.Excel.Ranges
         {
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
-            Assert.Null(ws.Cell("A1").AsRange().Shrink());
-            Assert.Null(ws.Range("B2:C3").Shrink());
-            Assert.AreEqual("C3:C3", ws.Range("B2:D4").Shrink().RangeAddress.ToString());
-            Assert.AreEqual("K11:P16", ws.Range("A1:Z26").Shrink(10).RangeAddress.ToString());
+            Assert.That(ws.Cell("A1").AsRange().Shrink(), Is.Null);
+            Assert.That(ws.Range("B2:C3").Shrink(), Is.Null);
+            Assert.That(ws.Range("B2:D4").Shrink().RangeAddress.ToString(), Is.EqualTo("C3:C3"));
+            Assert.That(ws.Range("A1:Z26").Shrink(10).RangeAddress.ToString(), Is.EqualTo("K11:P16"));
 
             // Grow and shrink back
-            Assert.AreEqual("Z26:Z26", ws.Cell("Z26").AsRange().Grow(10).Shrink(10).RangeAddress.ToString());
+            Assert.That(ws.Cell("Z26").AsRange().Grow(10).Shrink(10).RangeAddress.ToString(), Is.EqualTo("Z26:Z26"));
         }
 
         [Test]
@@ -222,24 +222,24 @@ namespace ClosedXML.Tests.Excel.Ranges
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
 
-            Assert.AreEqual("D9:G11", ws.Range("B9:I11").Intersection(ws.Range("D4:G16")).ToString());
-            Assert.AreEqual("E9:G11", ws.Range("E9:I11").Intersection(ws.Range("D4:G16")).ToString());
-            Assert.AreEqual("E9:E9", ws.Cell("E9").AsRange().Intersection(ws.Range("D4:G16")).ToString());
-            Assert.AreEqual("E9:E9", ws.Range("D4:G16").Intersection(ws.Cell("E9").AsRange()).ToString());
+            Assert.That(ws.Range("B9:I11").Intersection(ws.Range("D4:G16")).ToString(), Is.EqualTo("D9:G11"));
+            Assert.That(ws.Range("E9:I11").Intersection(ws.Range("D4:G16")).ToString(), Is.EqualTo("E9:G11"));
+            Assert.That(ws.Cell("E9").AsRange().Intersection(ws.Range("D4:G16")).ToString(), Is.EqualTo("E9:E9"));
+            Assert.That(ws.Range("D4:G16").Intersection(ws.Cell("E9").AsRange()).ToString(), Is.EqualTo("E9:E9"));
 
             XLRangeAddress rangeAddress;
 
             rangeAddress = (XLRangeAddress)ws.Cell("C3").AsRange().Intersection(ws.Cell("A1").AsRange());
-            Assert.IsFalse(rangeAddress.IsValid);
+            Assert.That(rangeAddress.IsValid, Is.False);
 
             rangeAddress = (XLRangeAddress)ws.Cell("A1").AsRange().Intersection(ws.Cell("C3").AsRange());
-            Assert.IsFalse(rangeAddress.IsValid);
+            Assert.That(rangeAddress.IsValid, Is.False);
 
-            Assert.Null(ws.Range("A1:C3").Intersection(null));
+            Assert.That(ws.Range("A1:C3").Intersection(null), Is.Null);
 
             var otherWs = wb.AddWorksheet("Sheet2");
-            Assert.Null(ws.Intersection(otherWs));
-            Assert.Null(ws.Cell("A1").AsRange().Intersection(otherWs.Cell("A2").AsRange()));
+            Assert.That(ws.Intersection(otherWs), Is.Null);
+            Assert.That(ws.Cell("A1").AsRange().Intersection(otherWs.Cell("A2").AsRange()), Is.Null);
         }
 
         [Test]
@@ -248,18 +248,18 @@ namespace ClosedXML.Tests.Excel.Ranges
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
 
-            Assert.AreEqual(64, ws.Range("B9:I11").Union(ws.Range("D4:G16")).Count());
-            Assert.AreEqual(58, ws.Range("E9:I11").Union(ws.Range("D4:G16")).Count());
-            Assert.AreEqual(52, ws.Cell("E9").AsRange().Union(ws.Range("D4:G16")).Count());
-            Assert.AreEqual(52, ws.Range("D4:G16").Union(ws.Cell("E9").AsRange()).Count());
+            Assert.That(ws.Range("B9:I11").Union(ws.Range("D4:G16")).Count(), Is.EqualTo(64));
+            Assert.That(ws.Range("E9:I11").Union(ws.Range("D4:G16")).Count(), Is.EqualTo(58));
+            Assert.That(ws.Cell("E9").AsRange().Union(ws.Range("D4:G16")).Count(), Is.EqualTo(52));
+            Assert.That(ws.Range("D4:G16").Union(ws.Cell("E9").AsRange()).Count(), Is.EqualTo(52));
 
-            Assert.AreEqual(2, ws.Cell("A1").AsRange().Union(ws.Cell("C3").AsRange()).Count());
+            Assert.That(ws.Cell("A1").AsRange().Union(ws.Cell("C3").AsRange()).Count(), Is.EqualTo(2));
 
-            Assert.AreEqual(9, ws.Range("A1:C3").Union(null).Count());
+            Assert.That(ws.Range("A1:C3").Union(null).Count(), Is.EqualTo(9));
 
             var otherWs = wb.AddWorksheet("Sheet2");
-            Assert.False(ws.Union(otherWs).Any());
-            Assert.False(ws.Cell("A1").AsRange().Union(otherWs.Cell("A2").AsRange()).Any());
+            Assert.That(ws.Union(otherWs).Any(), Is.False);
+            Assert.That(ws.Cell("A1").AsRange().Union(otherWs.Cell("A2").AsRange()).Any(), Is.False);
         }
 
         [Test]
@@ -268,18 +268,18 @@ namespace ClosedXML.Tests.Excel.Ranges
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
 
-            Assert.AreEqual(12, ws.Range("B9:I11").Difference(ws.Range("D4:G16")).Count());
-            Assert.AreEqual(6, ws.Range("E9:I11").Difference(ws.Range("D4:G16")).Count());
-            Assert.AreEqual(0, ws.Cell("E9").AsRange().Difference(ws.Range("D4:G16")).Count());
-            Assert.AreEqual(51, ws.Range("D4:G16").Difference(ws.Cell("E9").AsRange()).Count());
+            Assert.That(ws.Range("B9:I11").Difference(ws.Range("D4:G16")).Count(), Is.EqualTo(12));
+            Assert.That(ws.Range("E9:I11").Difference(ws.Range("D4:G16")).Count(), Is.EqualTo(6));
+            Assert.That(ws.Cell("E9").AsRange().Difference(ws.Range("D4:G16")).Count(), Is.EqualTo(0));
+            Assert.That(ws.Range("D4:G16").Difference(ws.Cell("E9").AsRange()).Count(), Is.EqualTo(51));
 
-            Assert.AreEqual(1, ws.Cell("A1").AsRange().Difference(ws.Cell("C3").AsRange()).Count());
+            Assert.That(ws.Cell("A1").AsRange().Difference(ws.Cell("C3").AsRange()).Count(), Is.EqualTo(1));
 
-            Assert.AreEqual(9, ws.Range("A1:C3").Difference(null).Count());
+            Assert.That(ws.Range("A1:C3").Difference(null).Count(), Is.EqualTo(9));
 
             var otherWs = wb.AddWorksheet("Sheet2");
-            Assert.False(ws.Difference(otherWs).Any());
-            Assert.False(ws.Cell("A1").AsRange().Difference(otherWs.Cell("A2").AsRange()).Any());
+            Assert.That(ws.Difference(otherWs).Any(), Is.False);
+            Assert.That(ws.Cell("A1").AsRange().Difference(otherWs.Cell("A2").AsRange()).Any(), Is.False);
         }
 
         [Test]
@@ -288,11 +288,11 @@ namespace ClosedXML.Tests.Excel.Ranges
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet1");
 
-            Assert.AreEqual(3, ws.FirstCell().AsRange().SurroundingCells().Count());
-            Assert.AreEqual(8, ws.Cell("C3").AsRange().SurroundingCells().Count());
-            Assert.AreEqual(16, ws.Range("C3:D6").AsRange().SurroundingCells().Count());
+            Assert.That(ws.FirstCell().AsRange().SurroundingCells().Count(), Is.EqualTo(3));
+            Assert.That(ws.Cell("C3").AsRange().SurroundingCells().Count(), Is.EqualTo(8));
+            Assert.That(ws.Range("C3:D6").AsRange().SurroundingCells().Count(), Is.EqualTo(16));
 
-            Assert.AreEqual(0, ws.Range("C3:D6").AsRange().SurroundingCells(c => !c.IsEmpty()).Count());
+            Assert.That(ws.Range("C3:D6").AsRange().SurroundingCells(c => !c.IsEmpty()).Count(), Is.EqualTo(0));
         }
 
         [Test]
@@ -302,8 +302,8 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("C3:D7").AddConditionalFormat();
             ws.Range("B2:E3").Clear(XLClearOptions.ConditionalFormats);
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
-            Assert.AreEqual("C4:D7", ws.ConditionalFormats.Single().Range.RangeAddress.ToStringRelative());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
+            Assert.That(ws.ConditionalFormats.Single().Range.RangeAddress.ToStringRelative(), Is.EqualTo("C4:D7"));
         }
 
         [Test]
@@ -313,8 +313,8 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("C3:D7").AddConditionalFormat();
             ws.Range("C3:D3").Clear(XLClearOptions.ConditionalFormats);
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
-            Assert.AreEqual("C4:D7", ws.ConditionalFormats.Single().Range.RangeAddress.ToStringRelative());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
+            Assert.That(ws.ConditionalFormats.Single().Range.RangeAddress.ToStringRelative(), Is.EqualTo("C4:D7"));
         }
 
         [Test]
@@ -324,8 +324,8 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("C3:D7").AddConditionalFormat();
             ws.Range("B7:E8").Clear(XLClearOptions.ConditionalFormats);
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
-            Assert.AreEqual("C3:D6", ws.ConditionalFormats.Single().Range.RangeAddress.ToStringRelative());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
+            Assert.That(ws.ConditionalFormats.Single().Range.RangeAddress.ToStringRelative(), Is.EqualTo("C3:D6"));
         }
 
         [Test]
@@ -335,8 +335,8 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("C3:D7").AddConditionalFormat();
             ws.Range("C7:D7").Clear(XLClearOptions.ConditionalFormats);
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
-            Assert.AreEqual("C3:D6", ws.ConditionalFormats.Single().Range.RangeAddress.ToStringRelative());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
+            Assert.That(ws.ConditionalFormats.Single().Range.RangeAddress.ToStringRelative(), Is.EqualTo("C3:D6"));
         }
 
         [Test]
@@ -346,9 +346,9 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("C3:D7").AddConditionalFormat();
             ws.Range("C5:E5").Clear(XLClearOptions.ConditionalFormats);
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
-            Assert.AreEqual("C3:D4", ws.ConditionalFormats.First().Ranges.First().RangeAddress.ToStringRelative());
-            Assert.AreEqual("C6:D7", ws.ConditionalFormats.First().Ranges.Last().RangeAddress.ToStringRelative());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
+            Assert.That(ws.ConditionalFormats.First().Ranges.First().RangeAddress.ToStringRelative(), Is.EqualTo("C3:D4"));
+            Assert.That(ws.ConditionalFormats.First().Ranges.Last().RangeAddress.ToStringRelative(), Is.EqualTo("C6:D7"));
         }
 
         [Test]
@@ -358,9 +358,9 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("C3:G4").AddConditionalFormat();
             ws.Range("E2:E4").Clear(XLClearOptions.ConditionalFormats);
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
-            Assert.AreEqual("C3:D4", ws.ConditionalFormats.First().Ranges.First().RangeAddress.ToStringRelative());
-            Assert.AreEqual("F3:G4", ws.ConditionalFormats.First().Ranges.Last().RangeAddress.ToStringRelative());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
+            Assert.That(ws.ConditionalFormats.First().Ranges.First().RangeAddress.ToStringRelative(), Is.EqualTo("C3:D4"));
+            Assert.That(ws.ConditionalFormats.First().Ranges.Last().RangeAddress.ToStringRelative(), Is.EqualTo("F3:G4"));
         }
 
         [Test]
@@ -370,7 +370,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("C3:G4").AddConditionalFormat();
             ws.Range("B2:G4").Clear(XLClearOptions.ConditionalFormats);
 
-            Assert.AreEqual(0, ws.ConditionalFormats.Count());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(0));
         }
 
         [Test]
@@ -380,9 +380,9 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("C3:G4").AddConditionalFormat();
             ws.Range("C2:D3").Clear(XLClearOptions.ConditionalFormats);
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
-            Assert.AreEqual(1, ws.ConditionalFormats.Single().Ranges.Count);
-            Assert.AreEqual("C3:G4", ws.ConditionalFormats.Single().Ranges.Single().RangeAddress.ToStringRelative());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
+            Assert.That(ws.ConditionalFormats.Single().Ranges.Count, Is.EqualTo(1));
+            Assert.That(ws.ConditionalFormats.Single().Ranges.Single().RangeAddress.ToStringRelative(), Is.EqualTo("C3:G4"));
         }
 
         [Test]
@@ -399,10 +399,10 @@ namespace ClosedXML.Tests.Excel.Ranges
             ranges.RemoveAll(null, false);
             ws.FirstColumn().InsertColumnsBefore(1);
 
-            Assert.AreEqual(0, ranges.Count);
+            Assert.That(ranges.Count, Is.EqualTo(0));
             // if ranges were not disposed they addresses should change
-            Assert.AreEqual("B1:B2", rangesCopy.First().RangeAddress.ToString());
-            Assert.AreEqual("C1:C2", rangesCopy.Last().RangeAddress.ToString());
+            Assert.That(rangesCopy.First().RangeAddress.ToString(), Is.EqualTo("B1:B2"));
+            Assert.That(rangesCopy.Last().RangeAddress.ToString(), Is.EqualTo("C1:C2"));
         }
 
         [Test]
@@ -419,8 +419,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             ranges.RemoveAll(r => r.Intersects(otherRange));
 
-            Assert.AreEqual(1, ranges.Count);
-            Assert.AreEqual("A1:A2", ranges.Single().RangeAddress.ToString());
+            Assert.That(ranges.Count, Is.EqualTo(1));
+            Assert.That(ranges.Single().RangeAddress.ToString(), Is.EqualTo("A1:A2"));
         }
 
         [Test]
@@ -457,10 +457,10 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var actualRanges = ranges.ToList();
 
-            Assert.AreEqual(expectedRanges.Count, actualRanges.Count);
+            Assert.That(actualRanges.Count, Is.EqualTo(expectedRanges.Count));
             for (var i = 0; i < actualRanges.Count; i++)
             {
-                Assert.AreEqual(expectedRanges[i], actualRanges[i]);
+                Assert.That(actualRanges[i], Is.EqualTo(expectedRanges[i]));
             }
         }
 
@@ -473,10 +473,10 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("B1:C1").Clear(XLClearOptions.All);
             ws.Range("B2:C2").Clear(XLClearOptions.Sparklines);
 
-            Assert.AreEqual(1, ws.SparklineGroups.Single().Count());
-            Assert.IsFalse(ws.Cell("B1").HasSparkline);
-            Assert.IsFalse(ws.Cell("B2").HasSparkline);
-            Assert.IsTrue(ws.Cell("B3").HasSparkline);
+            Assert.That(ws.SparklineGroups.Single().Count(), Is.EqualTo(1));
+            Assert.That(ws.Cell("B1").HasSparkline, Is.False);
+            Assert.That(ws.Cell("B2").HasSparkline, Is.False);
+            Assert.That(ws.Cell("B3").HasSparkline, Is.True);
         }
 
         [TestCase("B2:G7", "D4:E5", true, "B2:G3,B4:C5,D4:E5,F4:G5,B6:G7")]
@@ -506,7 +506,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var actualAddresses = string.Join(",", result.Select(r => r.RangeAddress.ToString()));
 
-            Assert.AreEqual(expectedResult, actualAddresses);
+            Assert.That(actualAddresses, Is.EqualTo(expectedResult));
         }
     }
 }

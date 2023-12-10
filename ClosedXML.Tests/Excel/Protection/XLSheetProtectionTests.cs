@@ -21,7 +21,7 @@ namespace ClosedXML.Tests.Excel.Protection
 
                 foreach (var element in Enum.GetValues(typeof(XLSheetProtectionElements)).Cast<XLSheetProtectionElements>())
                 {
-                    Assert.IsTrue(ws.Protection.AllowedElements.HasFlag(element), element.ToString());
+                    Assert.That(ws.Protection.AllowedElements.HasFlag(element), Is.True, element.ToString());
                 }
             }
 
@@ -32,7 +32,7 @@ namespace ClosedXML.Tests.Excel.Protection
 
                 foreach (var element in Enum.GetValues(typeof(XLSheetProtectionElements)).Cast<XLSheetProtectionElements>())
                 {
-                    Assert.IsTrue(ws.Protection.AllowedElements.HasFlag(element), element.ToString());
+                    Assert.That(ws.Protection.AllowedElements.HasFlag(element), Is.True, element.ToString());
                 }
             }
 
@@ -43,7 +43,7 @@ namespace ClosedXML.Tests.Excel.Protection
 
                 foreach (var element in Enum.GetValues(typeof(XLSheetProtectionElements)).Cast<XLSheetProtectionElements>())
                 {
-                    Assert.IsTrue(ws.Protection.AllowedElements.HasFlag(element), element.ToString());
+                    Assert.That(ws.Protection.AllowedElements.HasFlag(element), Is.True, element.ToString());
                 }
             }
         }
@@ -60,7 +60,7 @@ namespace ClosedXML.Tests.Excel.Protection
                     .Cast<XLSheetProtectionElements>()
                     .Where(e => e != XLSheetProtectionElements.None))
                 {
-                    Assert.IsFalse(ws.Protection.AllowedElements.HasFlag(element), element.ToString());
+                    Assert.That(ws.Protection.AllowedElements.HasFlag(element), Is.False, element.ToString());
                 }
             }
 
@@ -73,7 +73,7 @@ namespace ClosedXML.Tests.Excel.Protection
                     .Cast<XLSheetProtectionElements>()
                     .Where(e => e != XLSheetProtectionElements.None))
                 {
-                    Assert.IsFalse(ws.Protection.AllowedElements.HasFlag(element), element.ToString());
+                    Assert.That(ws.Protection.AllowedElements.HasFlag(element), Is.False, element.ToString());
                 }
             }
         }
@@ -95,8 +95,8 @@ namespace ClosedXML.Tests.Excel.Protection
             using (var wb = new XLWorkbook(ms))
             {
                 var ws = wb.Worksheets.First();
-                Assert.IsTrue(ws.Protection.IsProtected);
-                Assert.AreEqual(Algorithm.SimpleHash, ws.Protection.Algorithm);
+                Assert.That(ws.Protection.IsProtected, Is.True);
+                Assert.That(ws.Protection.Algorithm, Is.EqualTo(Algorithm.SimpleHash));
 
                 ws.Unprotect("123");
                 ws.Protect("123", Algorithm.SHA512);
@@ -108,8 +108,8 @@ namespace ClosedXML.Tests.Excel.Protection
             using (var wb = new XLWorkbook(ms))
             {
                 var ws = wb.Worksheets.First();
-                Assert.IsTrue(ws.Protection.IsProtected);
-                Assert.AreEqual(Algorithm.SHA512, ws.Protection.Algorithm);
+                Assert.That(ws.Protection.IsProtected, Is.True);
+                Assert.That(ws.Protection.Algorithm, Is.EqualTo(Algorithm.SHA512));
 
                 Assert.DoesNotThrow(() => ws.Unprotect("123"));
             }
@@ -122,22 +122,22 @@ namespace ClosedXML.Tests.Excel.Protection
             using var wb = new XLWorkbook(stream);
             var ws1 = wb.Worksheet("Protected Password = 123");
             var p1 = ws1.Protection.CastTo<XLSheetProtection>();
-            Assert.IsTrue(p1.IsProtected);
+            Assert.That(p1.IsProtected, Is.True);
 
             var ws2 = ws1.CopyTo("New worksheet");
-            Assert.IsFalse(ws2.Protection.IsProtected);
+            Assert.That(ws2.Protection.IsProtected, Is.False);
             var p2 = ws2.Protection.CopyFrom(p1).CastTo<XLSheetProtection>();
 
-            Assert.IsTrue(p2.IsProtected);
-            Assert.IsTrue(p2.IsPasswordProtected);
-            Assert.AreEqual(p1.Algorithm, p2.Algorithm);
-            Assert.AreEqual(p1.PasswordHash, p2.PasswordHash);
-            Assert.AreEqual(p1.Base64EncodedSalt, p2.Base64EncodedSalt);
-            Assert.AreEqual(p1.SpinCount, p2.SpinCount);
+            Assert.That(p2.IsProtected, Is.True);
+            Assert.That(p2.IsPasswordProtected, Is.True);
+            Assert.That(p2.Algorithm, Is.EqualTo(p1.Algorithm));
+            Assert.That(p2.PasswordHash, Is.EqualTo(p1.PasswordHash));
+            Assert.That(p2.Base64EncodedSalt, Is.EqualTo(p1.Base64EncodedSalt));
+            Assert.That(p2.SpinCount, Is.EqualTo(p1.SpinCount));
 
-            Assert.IsTrue(p2.AllowedElements.HasFlag(XLSheetProtectionElements.InsertColumns));
-            Assert.IsTrue(p2.AllowedElements.HasFlag(XLSheetProtectionElements.InsertRows));
-            Assert.IsFalse(p2.AllowedElements.HasFlag(XLSheetProtectionElements.InsertHyperlinks));
+            Assert.That(p2.AllowedElements.HasFlag(XLSheetProtectionElements.InsertColumns), Is.True);
+            Assert.That(p2.AllowedElements.HasFlag(XLSheetProtectionElements.InsertRows), Is.True);
+            Assert.That(p2.AllowedElements.HasFlag(XLSheetProtectionElements.InsertHyperlinks), Is.False);
 
             Assert.Throws<InvalidOperationException>(() => ws2.Unprotect());
             ws2.Unprotect("123");
@@ -155,14 +155,14 @@ namespace ClosedXML.Tests.Excel.Protection
                 .AllowElement(XLSheetProtectionElements.FormatEverything)
                 .DisallowElement(XLSheetProtectionElements.FormatCells);
 
-            Assert.AreEqual(XLSheetProtectionElements.FormatColumns | XLSheetProtectionElements.FormatRows | XLSheetProtectionElements.SelectEverything, ws1.Protection.AllowedElements);
+            Assert.That(ws1.Protection.AllowedElements, Is.EqualTo(XLSheetProtectionElements.FormatColumns | XLSheetProtectionElements.FormatRows | XLSheetProtectionElements.SelectEverything));
 
             ws2.Protection = ws1.Protection;
 
-            Assert.IsFalse(ReferenceEquals(ws1.Protection, ws2.Protection));
-            Assert.IsTrue(ws2.Protection.IsProtected);
-            Assert.AreEqual(XLSheetProtectionElements.FormatColumns | XLSheetProtectionElements.FormatRows | XLSheetProtectionElements.SelectEverything, ws2.Protection.AllowedElements);
-            Assert.AreEqual((ws1.Protection as XLSheetProtection).PasswordHash, (ws2.Protection as XLSheetProtection).PasswordHash);
+            Assert.That(ReferenceEquals(ws1.Protection, ws2.Protection), Is.False);
+            Assert.That(ws2.Protection.IsProtected, Is.True);
+            Assert.That(ws2.Protection.AllowedElements, Is.EqualTo(XLSheetProtectionElements.FormatColumns | XLSheetProtectionElements.FormatRows | XLSheetProtectionElements.SelectEverything));
+            Assert.That((ws2.Protection as XLSheetProtection).PasswordHash, Is.EqualTo((ws1.Protection as XLSheetProtection).PasswordHash));
         }
 
         [Test]
@@ -171,9 +171,9 @@ namespace ClosedXML.Tests.Excel.Protection
             using var stream = TestHelper.GetStreamFromResource(TestHelper.GetResourcePath(@"TryToLoad\SHA512PasswordProtection.xlsx"));
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheet("Sheet1");
-            Assert.IsTrue(ws.Protection.IsProtected);
+            Assert.That(ws.Protection.IsProtected, Is.True);
             ws.Unprotect();
-            Assert.IsFalse(ws.Protection.IsProtected);
+            Assert.That(ws.Protection.IsProtected, Is.False);
         }
 
         [Test]
@@ -182,14 +182,14 @@ namespace ClosedXML.Tests.Excel.Protection
             using var stream = TestHelper.GetStreamFromResource(TestHelper.GetResourcePath(@"TryToLoad\SHA512PasswordProtection.xlsx"));
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheet("Sheet2");
-            Assert.IsTrue(ws.Protection.IsProtected);
+            Assert.That(ws.Protection.IsProtected, Is.True);
 
             // Password required
             Assert.Throws<InvalidOperationException>(() => ws.Unprotect());
 
-            Assert.AreEqual(Algorithm.SHA512, ws.Protection.Algorithm);
+            Assert.That(ws.Protection.Algorithm, Is.EqualTo(Algorithm.SHA512));
             ws.Unprotect("abc");
-            Assert.IsFalse(ws.Protection.IsProtected);
+            Assert.That(ws.Protection.IsProtected, Is.False);
         }
     }
 }

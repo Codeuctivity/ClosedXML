@@ -31,7 +31,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(2, i);
+            Assert.That(i, Is.EqualTo(2));
 
             i = 0;
             row = workbook.Worksheets.First().FirstRow().RowBelow();
@@ -39,25 +39,25 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(1, i);
+            Assert.That(i, Is.EqualTo(1));
 
             i = 0;
             row = workbook.Worksheets.First().LastRowUsed(XLCellsUsedOptions.All);
-            Assert.AreEqual(6, row.RowNumber());
+            Assert.That(row.RowNumber(), Is.EqualTo(6));
             foreach (var cell in row.Cells())
             {
                 i++;
             }
-            Assert.AreEqual(1, i);
+            Assert.That(i, Is.EqualTo(1));
 
             i = 0;
             row = workbook.Worksheets.First().LastRowUsed(XLCellsUsedOptions.All);
-            Assert.AreEqual(6, row.RowNumber());
+            Assert.That(row.RowNumber(), Is.EqualTo(6));
             foreach (var cell in row.CellsUsed())
             {
                 i++;
             }
-            Assert.AreEqual(0, i);
+            Assert.That(i, Is.EqualTo(0));
         }
 
         [Test(Description = "See 1443")]
@@ -68,7 +68,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             ws.Range("B3:F6").SetValue(100);
 
-            Assert.AreEqual(3, ws.FirstRowUsed(XLCellsUsedOptions.AllContents).RowNumber());
+            Assert.That(ws.FirstRowUsed(XLCellsUsedOptions.AllContents).RowNumber(), Is.EqualTo(3));
         }
 
         [Test]
@@ -80,7 +80,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(3, i);
+            Assert.That(i, Is.EqualTo(3));
 
             i = 0;
             row = workbook.Worksheets.First().FirstRow().RowBelow(); //This row has no empty cells BETWEEN used cells
@@ -88,7 +88,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(1, i);
+            Assert.That(i, Is.EqualTo(1));
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(2, i);
+            Assert.That(i, Is.EqualTo(2));
 
             i = 0;
             column = workbook.Worksheets.First().FirstColumn().ColumnRight().ColumnRight();
@@ -108,7 +108,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(1, i);
+            Assert.That(i, Is.EqualTo(1));
 
             i = 0;
             column = workbook.Worksheets.First().Column(2);
@@ -116,7 +116,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(3, i);
+            Assert.That(i, Is.EqualTo(3));
 
             i = 0;
             column = workbook.Worksheets.First().Column(2);
@@ -124,7 +124,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(2, i);
+            Assert.That(i, Is.EqualTo(2));
         }
 
         [Test]
@@ -136,7 +136,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(4, i);
+            Assert.That(i, Is.EqualTo(4));
 
             i = 0;
             column = workbook.Worksheets.First().FirstColumn().ColumnRight().ColumnRight(); //This column has no empty cells BETWEEN used cells
@@ -144,7 +144,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(1, i);
+            Assert.That(i, Is.EqualTo(1));
         }
 
         [Test]
@@ -157,7 +157,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(6, i);
+            Assert.That(i, Is.EqualTo(6));
         }
 
         [Test]
@@ -170,7 +170,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(5, i);
+            Assert.That(i, Is.EqualTo(5));
         }
 
         [Test]
@@ -183,7 +183,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 i++;
             }
-            Assert.AreEqual(18, i);
+            Assert.That(i, Is.EqualTo(18));
         }
 
         [Test]
@@ -197,7 +197,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var used = sheet.RangeUsed().RangeAddress.ToString(XLReferenceStyle.A1);
 
-            Assert.AreEqual("A1:E2", used);
+            Assert.That(used, Is.EqualTo("A1:E2"));
         }
 
         [TestCase(true, "A1:D2", "A1")]
@@ -226,7 +226,7 @@ namespace ClosedXML.Tests.Excel.Ranges
                 : XLCellsUsedOptions.AllContents | XLCellsUsedOptions.MergedRanges;
             var actual = ws.RangeUsed(options).RangeAddress;
 
-            Assert.AreEqual(expectedRange, actual.ToString());
+            Assert.That(actual.ToString(), Is.EqualTo(expectedRange));
         }
 
         [Test]
@@ -244,7 +244,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             var actual = ws.LastCellUsed(XLCellsUsedOptions.All,
                 c => c.Style.Fill.BackgroundColor == XLColor.Yellow);
 
-            Assert.AreEqual("C2", actual.Address.ToString());
+            Assert.That(actual.Address.ToString(), Is.EqualTo("C2"));
         }
 
         [Test]
@@ -262,7 +262,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             var actual = ws.FirstCellUsed(XLCellsUsedOptions.All,
                 c => c.Style.Fill.BackgroundColor == XLColor.Yellow);
 
-            Assert.AreEqual("A2", actual.Address.ToString());
+            Assert.That(actual.Address.ToString(), Is.EqualTo("A2"));
         }
 
         [Test]
@@ -275,9 +275,9 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var usedCells = ws.CellsUsed(XLCellsUsedOptions.All).ToList();
 
-            Assert.AreEqual(11, usedCells.Count);
-            Assert.AreEqual("B2", usedCells.First().Address.ToString());
-            Assert.AreEqual("B12", usedCells.Last().Address.ToString());
+            Assert.That(usedCells.Count, Is.EqualTo(11));
+            Assert.That(usedCells.First().Address.ToString(), Is.EqualTo("B2"));
+            Assert.That(usedCells.Last().Address.ToString(), Is.EqualTo("B12"));
         }
 
         [Test]
@@ -289,9 +289,9 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var usedCells = ws.CellsUsed(XLCellsUsedOptions.All).ToList();
 
-            Assert.AreEqual(11, usedCells.Count);
-            Assert.AreEqual("B2", usedCells.First().Address.ToString());
-            Assert.AreEqual("B12", usedCells.Last().Address.ToString());
+            Assert.That(usedCells.Count, Is.EqualTo(11));
+            Assert.That(usedCells.First().Address.ToString(), Is.EqualTo("B2"));
+            Assert.That(usedCells.Last().Address.ToString(), Is.EqualTo("B12"));
         }
 
         [Test]
@@ -303,8 +303,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var firstCell = ws.FirstCellUsed(XLCellsUsedOptions.All);
 
-            Assert.AreEqual(1, (ws as XLWorksheet).Internals.CellsCollection.Count);
-            Assert.AreEqual("A1", firstCell.Address.ToString());
+            Assert.That((ws as XLWorksheet).Internals.CellsCollection.Count, Is.EqualTo(1));
+            Assert.That(firstCell.Address.ToString(), Is.EqualTo("A1"));
         }
 
         [Test]
@@ -316,8 +316,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var lastCell = ws.LastCellUsed(XLCellsUsedOptions.All);
 
-            Assert.AreEqual(1, (ws as XLWorksheet).Internals.CellsCollection.Count);
-            Assert.AreEqual(XLHelper.LastCell, lastCell.Address.ToString());
+            Assert.That((ws as XLWorksheet).Internals.CellsCollection.Count, Is.EqualTo(1));
+            Assert.That(lastCell.Address.ToString(), Is.EqualTo(XLHelper.LastCell));
         }
 
         [Test]
@@ -329,8 +329,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var firstCell = ws.FirstCellUsed(XLCellsUsedOptions.All);
 
-            Assert.AreEqual(1, (ws as XLWorksheet).Internals.CellsCollection.Count);
-            Assert.AreEqual("A1", firstCell.Address.ToString());
+            Assert.That((ws as XLWorksheet).Internals.CellsCollection.Count, Is.EqualTo(1));
+            Assert.That(firstCell.Address.ToString(), Is.EqualTo("A1"));
         }
 
         [Test]
@@ -342,8 +342,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var lastCell = ws.LastCellUsed(XLCellsUsedOptions.All);
 
-            Assert.AreEqual(1, (ws as XLWorksheet).Internals.CellsCollection.Count);
-            Assert.AreEqual(XLHelper.LastCell, lastCell.Address.ToString());
+            Assert.That((ws as XLWorksheet).Internals.CellsCollection.Count, Is.EqualTo(1));
+            Assert.That(lastCell.Address.ToString(), Is.EqualTo(XLHelper.LastCell));
         }
 
         [Test]
@@ -355,8 +355,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var firstCell = ws.FirstCellUsed(XLCellsUsedOptions.All);
 
-            Assert.AreEqual(1, (ws as XLWorksheet).Internals.CellsCollection.Count);
-            Assert.AreEqual("A1", firstCell.Address.ToString());
+            Assert.That((ws as XLWorksheet).Internals.CellsCollection.Count, Is.EqualTo(1));
+            Assert.That(firstCell.Address.ToString(), Is.EqualTo("A1"));
         }
 
         [Test]
@@ -368,8 +368,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var lastCell = ws.LastCellUsed(XLCellsUsedOptions.All);
 
-            Assert.AreEqual(2, (ws as XLWorksheet).Internals.CellsCollection.Count);
-            Assert.AreEqual(XLHelper.LastCell, lastCell.Address.ToString());
+            Assert.That((ws as XLWorksheet).Internals.CellsCollection.Count, Is.EqualTo(2));
+            Assert.That(lastCell.Address.ToString(), Is.EqualTo(XLHelper.LastCell));
         }
     }
 }

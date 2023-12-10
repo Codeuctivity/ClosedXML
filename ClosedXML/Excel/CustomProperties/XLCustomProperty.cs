@@ -50,7 +50,7 @@ namespace ClosedXML.Excel
                     return XLCustomPropertyType.Boolean;
                 }
 
-                if (double.TryParse(Value.ToString(), out var dTest))
+                if (double.TryParse(Value.ToString(), out _))
                 {
                     return XLCustomPropertyType.Number;
                 }

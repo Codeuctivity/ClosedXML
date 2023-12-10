@@ -20,27 +20,33 @@ namespace ClosedXML.Tests.Excel.InsertData
             _data.Rows.Add("Ivanova", "Olga", 25);
         }
 
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            _data.Dispose();
+        }
+
         [Test]
         public void CanGetPropertyName()
         {
             var reader = InsertDataReaderFactory.Instance.CreateReader(_data);
-            Assert.AreEqual("Last name", reader.GetPropertyName(0));
-            Assert.AreEqual("First name", reader.GetPropertyName(1));
-            Assert.AreEqual("Age", reader.GetPropertyName(2));
+            Assert.That(reader.GetPropertyName(0), Is.EqualTo("Last name"));
+            Assert.That(reader.GetPropertyName(1), Is.EqualTo("First name"));
+            Assert.That(reader.GetPropertyName(2), Is.EqualTo("Age"));
         }
 
         [Test]
         public void CanGetPropertiesCount()
         {
             var reader = InsertDataReaderFactory.Instance.CreateReader(_data);
-            Assert.AreEqual(3, reader.GetPropertiesCount());
+            Assert.That(reader.GetPropertiesCount(), Is.EqualTo(3));
         }
 
         [Test]
         public void CanGetRecordsCount()
         {
             var reader = InsertDataReaderFactory.Instance.CreateReader(_data);
-            Assert.AreEqual(2, reader.GetRecordsCount());
+            Assert.That(reader.GetRecordsCount(), Is.EqualTo(2));
         }
 
         [Test]
@@ -49,10 +55,10 @@ namespace ClosedXML.Tests.Excel.InsertData
             var reader = InsertDataReaderFactory.Instance.CreateReader(_data);
             var result = reader.GetData();
 
-            Assert.AreEqual("Smith", result.First().First());
-            Assert.AreEqual(33, result.First().Last());
-            Assert.AreEqual("Ivanova", result.Last().First());
-            Assert.AreEqual(25, result.Last().Last());
+            Assert.That(result.First().First(), Is.EqualTo("Smith"));
+            Assert.That(result.First().Last(), Is.EqualTo(33));
+            Assert.That(result.Last().First(), Is.EqualTo("Ivanova"));
+            Assert.That(result.Last().Last(), Is.EqualTo(25));
         }
     }
 }

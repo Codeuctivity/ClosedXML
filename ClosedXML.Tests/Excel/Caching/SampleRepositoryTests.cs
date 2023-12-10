@@ -23,9 +23,9 @@ namespace ClosedXML.Tests.Excel.Caching
             var storedEntity2 = sampleRepository.Store(ref key, entity2);
 
             // Assert
-            Assert.AreSame(entity1, storedEntity1);
-            Assert.AreSame(entity1, storedEntity2);
-            Assert.AreNotSame(entity2, storedEntity2);
+            Assert.That(storedEntity1, Is.SameAs(entity1));
+            Assert.That(storedEntity2, Is.SameAs(entity1));
+            Assert.That(storedEntity2, Is.Not.SameAs(entity2));
         }
 
         [Test]
@@ -122,8 +122,8 @@ namespace ClosedXML.Tests.Excel.Caching
             var storedEntries = sampleRepository.ToList();
 
             // Assert
-            Assert.AreEqual(countUnique, storedEntries.Count);
-            Assert.NotNull(entities); // To protect them from GC
+            Assert.That(storedEntries.Count, Is.EqualTo(countUnique));
+            Assert.That(entities, Is.Not.Null); // To protect them from GC
         }
 
         [Test]
@@ -143,10 +143,10 @@ namespace ClosedXML.Tests.Excel.Caching
             var storedEntity2 = sampleRepository.GetOrCreate(ref key2);
 
             // Assert
-            Assert.IsFalse(containsOld);
-            Assert.IsTrue(containsNew);
-            Assert.AreSame(entity, storedEntity1);
-            Assert.AreSame(entity, storedEntity2);
+            Assert.That(containsOld, Is.False);
+            Assert.That(containsNew, Is.True);
+            Assert.That(storedEntity1, Is.SameAs(entity));
+            Assert.That(storedEntity2, Is.SameAs(entity));
         }
 
         [Test]
@@ -162,7 +162,7 @@ namespace ClosedXML.Tests.Excel.Caching
                 var val1 = sampleRepository.Replace(ref key, ref modifiedKey);
                 val1.Key = key + 2000;
                 var val2 = sampleRepository.GetOrCreate(ref modifiedKey);
-                Assert.AreSame(val1, val2);
+                Assert.That(val2, Is.SameAs(val1));
             });
         }
 
@@ -179,8 +179,8 @@ namespace ClosedXML.Tests.Excel.Caching
             sampleRepository.Replace(ref key2, ref key3);
             var all = sampleRepository.ToList();
 
-            Assert.AreEqual(1, all.Count);
-            Assert.AreSame(entity, all.First());
+            Assert.That(all, Has.Count.EqualTo(1));
+            Assert.That(all.First(), Is.SameAs(entity));
         }
 
         private SampleRepository CreateSampleRepository()

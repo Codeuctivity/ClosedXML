@@ -32,10 +32,9 @@ namespace ClosedXML.Excel
         private string GetQuoted(XLFormula formula)
         {
             var value = formula.Value;
-
             if (formula.IsFormula ||
                 value.StartsWith("\"") && value.EndsWith("\"") ||
-                double.TryParse(value, XLHelper.NumberStyle, XLHelper.ParseCulture, out var num))
+                double.TryParse(value, XLHelper.NumberStyle, XLHelper.ParseCulture, out _))
             {
                 return value;
             }

@@ -15,8 +15,8 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var sheet = wb.Worksheets.Add("TestSheet");
             var cell = sheet.Cell(1, 1);
 
-            Assert.AreEqual(0, wb.RecalculationCounter);
-            Assert.IsFalse(cell.NeedsRecalculation);
+            Assert.That(wb.RecalculationCounter, Is.EqualTo(0));
+            Assert.That(cell.NeedsRecalculation, Is.False);
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var cell = sheet.Cell(1, 1);
             cell.Value = "1234567";
 
-            Assert.Greater(wb.RecalculationCounter, 0);
+            Assert.That(wb.RecalculationCounter, Is.GreaterThan(0));
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var cell = sheet.Cell(1, 1);
             cell.Value = "1234567";
 
-            Assert.IsFalse(cell.NeedsRecalculation);
+            Assert.That(cell.NeedsRecalculation, Is.False);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
 
             cell.Value = "1234567";
 
-            Assert.IsTrue(dependentCell.NeedsRecalculation);
+            Assert.That(dependentCell.NeedsRecalculation, Is.True);
         }
 
         [Test]
@@ -74,8 +74,8 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             a2.FormulaA1 = "=A1*20";
             var res2 = a4.Value;
 
-            Assert.AreEqual(15 + 150 + 1500, res1);
-            Assert.AreEqual(15 + 300 + 3000, res2);
+            Assert.That(res1, Is.EqualTo(15 + 150 + 1500));
+            Assert.That(res2, Is.EqualTo(15 + 300 + 3000));
         }
 
         [Test]
@@ -96,8 +96,8 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             a2.FormulaR1C1 = "=R[-1]C*2";
             var res2 = a4.Value;
 
-            Assert.AreEqual(15 + 150 + 1500, res1);
-            Assert.AreEqual(15 + 30 + 300, res2);
+            Assert.That(res1, Is.EqualTo(15 + 150 + 1500));
+            Assert.That(res2, Is.EqualTo(15 + 30 + 300));
         }
 
         [Test]
@@ -112,8 +112,8 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             sheet.Row(2).InsertRowsAbove(2);
             var res2 = a4.Value;
 
-            Assert.AreEqual(3, res1);
-            Assert.AreEqual(5, res2);
+            Assert.That(res1, Is.EqualTo(3));
+            Assert.That(res2, Is.EqualTo(5));
         }
 
         [Test]
@@ -128,8 +128,8 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             sheet.Row(2).Delete();
             var res2 = a4.Value;
 
-            Assert.AreEqual(3, res1);
-            Assert.AreEqual(2, res2);
+            Assert.That(res1, Is.EqualTo(3));
+            Assert.That(res2, Is.EqualTo(2));
         }
 
         [Test]
@@ -148,13 +148,13 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             a1.Value = 15;
             var res = a4.Value;
 
-            Assert.AreEqual(15 + 150 + 1500, res);
-            Assert.IsFalse(a4.NeedsRecalculation);
-            Assert.IsFalse(a3.NeedsRecalculation);
-            Assert.IsFalse(a2.NeedsRecalculation);
-            Assert.AreEqual(150, a2.CachedValue);
-            Assert.AreEqual(1500, a3.CachedValue);
-            Assert.AreEqual(15 + 150 + 1500, a4.CachedValue);
+            Assert.That(res, Is.EqualTo(15 + 150 + 1500));
+            Assert.That(a4.NeedsRecalculation, Is.False);
+            Assert.That(a3.NeedsRecalculation, Is.False);
+            Assert.That(a2.NeedsRecalculation, Is.False);
+            Assert.That(a2.CachedValue, Is.EqualTo(150));
+            Assert.That(a3.CachedValue, Is.EqualTo(1500));
+            Assert.That(a4.CachedValue, Is.EqualTo(15 + 150 + 1500));
         }
 
         [Test]
@@ -175,8 +175,8 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             a1.Value = 20;
             var res2 = a4.Value;
 
-            Assert.AreEqual(15 + 150 + 1500, res1);
-            Assert.AreEqual(20 + 200 + 2000, res2);
+            Assert.That(res1, Is.EqualTo(15 + 150 + 1500));
+            Assert.That(res2, Is.EqualTo(20 + 200 + 2000));
         }
 
         [Test]
@@ -205,10 +205,10 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             sheet.Cell(changedCell).Value = 100;
             var modifiedCells = allCells.Where(cell => cell.NeedsRecalculation);
 
-            Assert.AreEqual(affectedCells?.Length, modifiedCells.Count());
+            Assert.That(modifiedCells.Count(), Is.EqualTo(affectedCells?.Length));
             foreach (var cellAddress in affectedCells)
             {
-                Assert.IsTrue(modifiedCells.Any(cell => cell.Address.ToString() == cellAddress),
+                Assert.That(modifiedCells.Any(cell => cell.Address.ToString() == cellAddress), Is.True,
                     string.Format("Cell {0} is expected to need recalculation, but it does not", cellAddress));
             }
         }
@@ -260,10 +260,10 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var recalcNeededA3 = a3.NeedsRecalculation;
             var recalcNeededA4 = a4.NeedsRecalculation;
 
-            Assert.IsTrue(recalcNeededA1);
-            Assert.IsTrue(recalcNeededA2);
-            Assert.IsTrue(recalcNeededA3);
-            Assert.IsTrue(recalcNeededA4);
+            Assert.That(recalcNeededA1, Is.True);
+            Assert.That(recalcNeededA2, Is.True);
+            Assert.That(recalcNeededA3, Is.True);
+            Assert.That(recalcNeededA4, Is.True);
         }
 
         [Test]
@@ -281,7 +281,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             sheet2.Delete();
             var getValue = new TestDelegate(() => { _ = sheet1_a1.Value; });
 
-            Assert.AreEqual("TestValue", val1.ToString());
+            Assert.That(val1.ToString(), Is.EqualTo("TestValue"));
             Assert.Throws(typeof(ArgumentOutOfRangeException), getValue);
         }
 
@@ -295,13 +295,13 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var date = new DateTime(2018, 4, 19);
             cell.Value = date;
 
-            Assert.AreEqual(XLDataType.DateTime, cell.DataType);
-            Assert.AreEqual(date, cell.CachedValue);
+            Assert.That(cell.DataType, Is.EqualTo(XLDataType.DateTime));
+            Assert.That(cell.CachedValue, Is.EqualTo(date));
 
             cell.DataType = XLDataType.Number;
 
-            Assert.AreEqual(XLDataType.Number, cell.DataType);
-            Assert.AreEqual(date.ToOADate(), cell.CachedValue);
+            Assert.That(cell.DataType, Is.EqualTo(XLDataType.Number));
+            Assert.That(cell.CachedValue, Is.EqualTo(date.ToOADate()));
         }
 
         [Test]
@@ -311,16 +311,16 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheets.First();
             var cell = ws.Cell("B2");
-            Assert.IsFalse(cell.NeedsRecalculation);
-            Assert.IsTrue(cell.HasFormula);
+            Assert.That(cell.NeedsRecalculation, Is.False);
+            Assert.That(cell.HasFormula, Is.True);
 
             // This will fail when we start supporting external links
-            Assert.IsTrue(cell.FormulaA1.StartsWith("[1]"));
+            Assert.That(cell.FormulaA1.StartsWith("[1]"), Is.True);
 
-            Assert.AreEqual("hello world", cell.CachedValue);
-            Assert.AreEqual("hello world", cell.Value);
+            Assert.That(cell.CachedValue, Is.EqualTo("hello world"));
+            Assert.That(cell.Value, Is.EqualTo("hello world"));
 
-            Assert.AreEqual(11, ws.Evaluate("LEN(B2)"));
+            Assert.That(ws.Evaluate("LEN(B2)"), Is.EqualTo(11));
 
             Assert.Throws<ArgumentOutOfRangeException>(() => wb.RecalculateAllFormulas());
         }
@@ -336,22 +336,22 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             cell.FormulaA1 = "=B1-A1";
             cell.Style.DateFormat.Format = "hh:mm";
 
-            Assert.IsNull(cell.CachedValue);
+            Assert.That(cell.CachedValue, Is.Null);
 
             var value = (double)cell.Value;
-            Assert.AreEqual(value, cell.CachedValue);
+            Assert.That(cell.CachedValue, Is.EqualTo(value));
 
             cell.DataType = XLDataType.DateTime;
-            Assert.AreEqual(DateTime.FromOADate(value), cell.CachedValue);
-            Assert.AreEqual("03:45", cell.GetFormattedString());
+            Assert.That(cell.CachedValue, Is.EqualTo(DateTime.FromOADate(value)));
+            Assert.That(cell.GetFormattedString(), Is.EqualTo("03:45"));
 
             cell.DataType = XLDataType.Number;
-            Assert.AreEqual(value, (double)cell.CachedValue, 1e-10);
-            Assert.AreEqual("03:45", cell.GetFormattedString());
+            Assert.That((double)cell.CachedValue, Is.EqualTo(value).Within(1e-10));
+            Assert.That(cell.GetFormattedString(), Is.EqualTo("03:45"));
 
             cell.DataType = XLDataType.TimeSpan;
-            Assert.AreEqual(TimeSpan.FromDays(value), (TimeSpan)cell.CachedValue);
-            Assert.AreEqual("03:45:00", cell.GetFormattedString()); // I think the seconds in this string is due to a shortcoming in the ExcelNumberFormat library
+            Assert.That((TimeSpan)cell.CachedValue, Is.EqualTo(TimeSpan.FromDays(value)));
+            Assert.That(cell.GetFormattedString(), Is.EqualTo("03:45:00")); // I think the seconds in this string is due to a shortcoming in the ExcelNumberFormat library
         }
     }
 }

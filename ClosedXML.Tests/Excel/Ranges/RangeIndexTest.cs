@@ -24,7 +24,7 @@ namespace ClosedXML.Tests.Excel.Ranges
                 for (var j = 2; j <= 4; j++)
                 {
                     var address = new XLAddress(ws, i * 2, j, false, false);
-                    Assert.True(index.Contains(in address));
+                    Assert.That(index.Contains(in address), Is.True);
                 }
             }
         }
@@ -39,7 +39,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             for (var i = 1; i <= TEST_COUNT; i++)
             {
                 var address = new XLAddress(ws, i * 2 + 1, 3, false, false);
-                Assert.False(index.Contains(in address));
+                Assert.That(index.Contains(in address), Is.False);
             }
         }
 
@@ -56,13 +56,13 @@ namespace ClosedXML.Tests.Excel.Ranges
                     new XLAddress(ws, i * 2, 1 + i % 4, false, false),
                     new XLAddress(ws, i * 2 + 1, 8 - i % 3, false, false));
 
-                Assert.True(index.Intersects(in rangeAddress));
+                Assert.That(index.Intersects(in rangeAddress), Is.True);
             }
 
             for (var i = 2; i < 4; i++)
             {
                 var columnAddress = XLRangeAddress.EntireColumn(ws, i);
-                Assert.True(index.Intersects(in columnAddress));
+                Assert.That(index.Intersects(in columnAddress), Is.True);
             }
         }
 
@@ -79,13 +79,13 @@ namespace ClosedXML.Tests.Excel.Ranges
                     new XLAddress(ws, i * 2 + 1, 1 + i % 4, false, false),
                     new XLAddress(ws, i * 2 + 1, 8 - i % 3, false, false));
 
-                Assert.False(index.Intersects(in rangeAddress));
+                Assert.That(index.Intersects(in rangeAddress), Is.False);
             }
 
             var columnAddress = XLRangeAddress.EntireColumn(ws, 1);
-            Assert.False(index.Intersects(in columnAddress));
+            Assert.That(index.Intersects(in columnAddress), Is.False);
             columnAddress = XLRangeAddress.EntireColumn(ws, 5);
-            Assert.False(index.Intersects(in columnAddress));
+            Assert.That(index.Intersects(in columnAddress), Is.False);
         }
 
         [Test]
@@ -99,7 +99,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var address = new XLAddress(ws, 102, 1004, false, false);
 
-            Assert.True(index.Contains(in address));
+            Assert.That(index.Contains(in address), Is.True);
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var rangeAddress = new XLRangeAddress(ws, "F102:E103");
 
-            Assert.True(index.Intersects(in rangeAddress));
+            Assert.That(index.Intersects(in rangeAddress), Is.True);
         }
 
         [Test]
@@ -127,7 +127,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var address = new XLAddress(ws, 103, 4, false, false);
 
-            Assert.True(index.Contains(in address));
+            Assert.That(index.Contains(in address), Is.True);
         }
 
         [Test]
@@ -141,7 +141,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             var rangeAddress = new XLRangeAddress(ws, "C103:E103");
 
-            Assert.True(index.Intersects(in rangeAddress));
+            Assert.That(index.Intersects(in rangeAddress), Is.True);
         }
 
         [Test]
@@ -155,32 +155,32 @@ namespace ClosedXML.Tests.Excel.Ranges
             quadTree.Add(range);
 
             var level0 = quadTree;
-            Assert.AreEqual(1, level0.MinimumColumn);
-            Assert.AreEqual(XLHelper.MaxColumnNumber, level0.MaximumColumn);
-            Assert.AreEqual(1, level0.MinimumRow);
-            Assert.AreEqual(XLHelper.MaxRowNumber, level0.MaximumRow);
-            Assert.IsNull(level0.Ranges);
-            Assert.AreEqual(128, level0.Children.Count());
-            Assert.True(level0.Children.All(child => child.Level == 1));
-            Assert.AreEqual(64, level0.Children.Count(child =>
+            Assert.That(level0.MinimumColumn, Is.EqualTo(1));
+            Assert.That(level0.MaximumColumn, Is.EqualTo(XLHelper.MaxColumnNumber));
+            Assert.That(level0.MinimumRow, Is.EqualTo(1));
+            Assert.That(level0.MaximumRow, Is.EqualTo(XLHelper.MaxRowNumber));
+            Assert.That(level0.Ranges, Is.Null);
+            Assert.That(level0.Children.Count(), Is.EqualTo(128));
+            Assert.That(level0.Children.All(child => child.Level == 1), Is.True);
+            Assert.That(level0.Children.Count(child =>
                 child.MinimumColumn == 1 &&
                 child.MaximumColumn == 8192 &&
-                child.X == 0));
-            Assert.AreEqual(64, level0.Children.Count(child =>
+                child.X == 0), Is.EqualTo(64));
+            Assert.That(level0.Children.Count(child =>
                 child.MinimumColumn == 8193 &&
                 child.MaximumColumn == 16384 &&
-                child.X == 1));
-            Assert.AreEqual(2, level0.Children.Count(child =>
+                child.X == 1), Is.EqualTo(64));
+            Assert.That(level0.Children.Count(child =>
                 child.MinimumRow == 1 &&
                 child.MaximumRow == 8192 &&
-                child.Y == 0));
-            Assert.AreEqual(2, level0.Children.Count(child =>
+                child.Y == 0), Is.EqualTo(2));
+            Assert.That(level0.Children.Count(child =>
                 child.MinimumRow == 16385 &&
                 child.MaximumRow == 24576 &&
-                child.Y == 2));
+                child.Y == 2), Is.EqualTo(2));
 
-            Assert.True(level0.Children.ElementAt(0).Children.Any());
-            Assert.True(level0.Children.Skip(1).All(child => child.Children == null));
+            Assert.That(level0.Children.ElementAt(0).Children.Any(), Is.True);
+            Assert.That(level0.Children.Skip(1).All(child => child.Children == null), Is.True);
 
             var level8 = level0
                 .Children.First() // 1
@@ -192,14 +192,14 @@ namespace ClosedXML.Tests.Excel.Ranges
                 .Children.First() // 7
                 .Children.Last(); // 8
 
-            Assert.AreEqual(65, level8.MinimumColumn);
-            Assert.AreEqual(65, level8.MinimumRow);
-            Assert.AreEqual(128, level8.MaximumColumn);
-            Assert.AreEqual(128, level8.MaximumRow);
+            Assert.That(level8.MinimumColumn, Is.EqualTo(65));
+            Assert.That(level8.MinimumRow, Is.EqualTo(65));
+            Assert.That(level8.MaximumColumn, Is.EqualTo(128));
+            Assert.That(level8.MaximumRow, Is.EqualTo(128));
 
             var level9 = level8.Children.First();
-            Assert.NotNull(level9.Ranges);
-            Assert.AreEqual(range, level9.Ranges.Single());
+            Assert.That(level9.Ranges, Is.Not.Null);
+            Assert.That(level9.Ranges.Single(), Is.EqualTo(range));
         }
 
         [Test]
@@ -215,13 +215,13 @@ namespace ClosedXML.Tests.Excel.Ranges
             {
                 range1
             };
-            Assert.AreEqual(1, ranges.Count);
+            Assert.That(ranges.Count, Is.EqualTo(1));
             ranges.Add(range2);
-            Assert.AreEqual(2, ranges.Count);
+            Assert.That(ranges.Count, Is.EqualTo(2));
             ranges.Add(range3);
-            Assert.AreEqual(2, ranges.Count);
+            Assert.That(ranges.Count, Is.EqualTo(2));
 
-            Assert.AreEqual(ranges.Count, ranges.Count);
+            Assert.That(ranges.Count, Is.EqualTo(ranges.Count));
 
             // Add many entries to activate QuadTree
             for (var i = 1; i <= TEST_COUNT; i++)
@@ -229,21 +229,21 @@ namespace ClosedXML.Tests.Excel.Ranges
                 ranges.Add(ws.Range(i * 2, 2, i * 2, 4));
             }
 
-            Assert.AreEqual(2 + TEST_COUNT, ranges.Count);
+            Assert.That(ranges.Count, Is.EqualTo(2 + TEST_COUNT));
 
             for (var i = 1; i <= TEST_COUNT; i++)
             {
                 ranges.Remove(ws.Range(i * 2, 2, i * 2, 4));
             }
 
-            Assert.AreEqual(2, ranges.Count);
+            Assert.That(ranges.Count, Is.EqualTo(2));
 
             ranges.Remove(range3);
-            Assert.AreEqual(1, ranges.Count);
+            Assert.That(ranges.Count, Is.EqualTo(1));
             ranges.Remove(range2);
-            Assert.AreEqual(0, ranges.Count);
+            Assert.That(ranges.Count, Is.EqualTo(0));
             ranges.Remove(range1);
-            Assert.AreEqual(0, ranges.Count);
+            Assert.That(ranges.Count, Is.EqualTo(0));
         }
 
         private IXLRangeIndex CreateRangeIndex(IXLWorksheet worksheet)

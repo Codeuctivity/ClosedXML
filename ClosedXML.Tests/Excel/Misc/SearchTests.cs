@@ -18,35 +18,35 @@ namespace ClosedXML.Tests.Excel.Misc
             IXLCells foundCells;
 
             foundCells = ws.Search("Initial Value");
-            Assert.AreEqual(1, foundCells.Count());
-            Assert.AreEqual("B2", foundCells.Single().Address.ToString());
-            Assert.AreEqual("Initial Value", foundCells.Single().GetString());
+            Assert.That(foundCells.Count(), Is.EqualTo(1));
+            Assert.That(foundCells.Single().Address.ToString(), Is.EqualTo("B2"));
+            Assert.That(foundCells.Single().GetString(), Is.EqualTo("Initial Value"));
 
             foundCells = ws.Search("Using");
-            Assert.AreEqual(2, foundCells.Count());
-            Assert.AreEqual("D2", foundCells.First().Address.ToString());
-            Assert.AreEqual("Using Get...()", foundCells.First().GetString());
-            Assert.AreEqual(2, foundCells.Count());
-            Assert.AreEqual("E2", foundCells.Last().Address.ToString());
-            Assert.AreEqual("Using GetValue<T>()", foundCells.Last().GetString());
+            Assert.That(foundCells.Count(), Is.EqualTo(2));
+            Assert.That(foundCells.First().Address.ToString(), Is.EqualTo("D2"));
+            Assert.That(foundCells.First().GetString(), Is.EqualTo("Using Get...()"));
+            Assert.That(foundCells.Count(), Is.EqualTo(2));
+            Assert.That(foundCells.Last().Address.ToString(), Is.EqualTo("E2"));
+            Assert.That(foundCells.Last().GetString(), Is.EqualTo("Using GetValue<T>()"));
 
             foundCells = ws.Search("1234");
-            Assert.AreEqual(4, foundCells.Count());
-            Assert.AreEqual("C5,D5,E5,F5", string.Join(",", foundCells.Select(c => c.Address.ToString()).ToArray()));
+            Assert.That(foundCells.Count(), Is.EqualTo(4));
+            Assert.That(string.Join(",", foundCells.Select(c => c.Address.ToString()).ToArray()), Is.EqualTo("C5,D5,E5,F5"));
 
             foundCells = ws.Search("Sep");
-            Assert.AreEqual(2, foundCells.Count());
-            Assert.AreEqual("B3,G3", string.Join(",", foundCells.Select(c => c.Address.ToString()).ToArray()));
+            Assert.That(foundCells.Count(), Is.EqualTo(2));
+            Assert.That(string.Join(",", foundCells.Select(c => c.Address.ToString()).ToArray()), Is.EqualTo("B3,G3"));
 
             foundCells = ws.Search("1234", CompareOptions.Ordinal, true);
-            Assert.AreEqual(5, foundCells.Count());
-            Assert.AreEqual("B5,C5,D5,E5,F5", string.Join(",", foundCells.Select(c => c.Address.ToString()).ToArray()));
+            Assert.That(foundCells.Count(), Is.EqualTo(5));
+            Assert.That(string.Join(",", foundCells.Select(c => c.Address.ToString()).ToArray()), Is.EqualTo("B5,C5,D5,E5,F5"));
 
             foundCells = ws.Search("test case", CompareOptions.Ordinal);
-            Assert.AreEqual(0, foundCells.Count());
+            Assert.That(foundCells.Count(), Is.EqualTo(0));
 
             foundCells = ws.Search("test case", CompareOptions.OrdinalIgnoreCase);
-            Assert.AreEqual(6, foundCells.Count());
+            Assert.That(foundCells.Count(), Is.EqualTo(6));
         }
 
         [Test]
@@ -59,16 +59,16 @@ namespace ClosedXML.Tests.Excel.Misc
             IXLCells foundCells;
 
             foundCells = ws.Search("3", CompareOptions.Ordinal);
-            Assert.AreEqual(10, foundCells.Count());
-            Assert.AreEqual("C2", foundCells.First().Address.ToString());
+            Assert.That(foundCells.Count(), Is.EqualTo(10));
+            Assert.That(foundCells.First().Address.ToString(), Is.EqualTo("C2"));
 
             foundCells = ws.Search("A2", CompareOptions.Ordinal, true);
-            Assert.AreEqual(6, foundCells.Count());
-            Assert.AreEqual("C2,D2,B6,C6,D6,A11", string.Join(",", foundCells.Select(c => c.Address.ToString()).ToArray()));
+            Assert.That(foundCells.Count(), Is.EqualTo(6));
+            Assert.That(string.Join(",", foundCells.Select(c => c.Address.ToString()).ToArray()), Is.EqualTo("C2,D2,B6,C6,D6,A11"));
 
             foundCells = ws.Search("RC", CompareOptions.Ordinal, true);
-            Assert.AreEqual(3, foundCells.Count());
-            Assert.AreEqual("E2,E3,E4", string.Join(",", foundCells.Select(c => c.Address.ToString()).ToArray()));
+            Assert.That(foundCells.Count(), Is.EqualTo(3));
+            Assert.That(string.Join(",", foundCells.Select(c => c.Address.ToString()).ToArray()), Is.EqualTo("E2,E3,E4"));
         }
     }
 }

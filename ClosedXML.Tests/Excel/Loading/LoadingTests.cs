@@ -80,7 +80,7 @@ namespace ClosedXML.Tests.Excel.Loading
             using var stream = TestHelper.GetStreamFromResource(TestHelper.GetResourcePath(@"TryToLoad\CommentAsNoteWithNoTextBox.xlsx"));
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheets.First();
-            Assert.AreEqual("Author:\r\nbla", ws.Cell("A3").GetComment().Text);
+            Assert.That(ws.Cell("A3").GetComment().Text, Is.EqualTo("Author:\r\nbla"));
 
             using var ms = new MemoryStream();
             wb.SaveAs(ms, true);
@@ -95,8 +95,8 @@ namespace ClosedXML.Tests.Excel.Loading
             {
                 var ws = wb.Worksheets.First();
                 var c = ws.Cell("A2");
-                Assert.AreEqual(XLDataType.DateTime, c.DataType);
-                Assert.AreEqual(new DateTime(2017, 10, 27, 21, 0, 0), c.GetDateTime());
+                Assert.That(c.DataType, Is.EqualTo(XLDataType.DateTime));
+                Assert.That(c.GetDateTime(), Is.EqualTo(new DateTime(2017, 10, 27, 21, 0, 0)));
                 wb.SaveAs(ms);
             }
 
@@ -106,8 +106,8 @@ namespace ClosedXML.Tests.Excel.Loading
             {
                 var ws = wb.Worksheets.First();
                 var c = ws.Cell("A2");
-                Assert.AreEqual(XLDataType.DateTime, c.DataType);
-                Assert.AreEqual(new DateTime(2017, 10, 27, 21, 0, 0), c.GetDateTime());
+                Assert.That(c.DataType, Is.EqualTo(XLDataType.DateTime));
+                Assert.That(c.GetDateTime(), Is.EqualTo(new DateTime(2017, 10, 27, 21, 0, 0)));
                 wb.SaveAs(ms);
             }
         }
@@ -131,17 +131,17 @@ namespace ClosedXML.Tests.Excel.Loading
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheet("PivotTable1");
             var pt = ws.PivotTable("PivotTable1");
-            Assert.AreEqual("PivotTable1", pt.Name);
+            Assert.That(pt.Name, Is.EqualTo("PivotTable1"));
 
-            Assert.AreEqual(1, pt.RowLabels.Count());
-            Assert.AreEqual("Name", pt.RowLabels.Single().SourceName);
+            Assert.That(pt.RowLabels.Count(), Is.EqualTo(1));
+            Assert.That(pt.RowLabels.Single().SourceName, Is.EqualTo("Name"));
 
-            Assert.AreEqual(1, pt.ColumnLabels.Count());
-            Assert.AreEqual("Month", pt.ColumnLabels.Single().SourceName);
+            Assert.That(pt.ColumnLabels.Count(), Is.EqualTo(1));
+            Assert.That(pt.ColumnLabels.Single().SourceName, Is.EqualTo("Month"));
 
             var pv = pt.Values.Single();
-            Assert.AreEqual("Sum of NumberOfOrders", pv.CustomName);
-            Assert.AreEqual("NumberOfOrders", pv.SourceName);
+            Assert.That(pv.CustomName, Is.EqualTo("Sum of NumberOfOrders"));
+            Assert.That(pv.SourceName, Is.EqualTo("NumberOfOrders"));
         }
 
         [Test]
@@ -152,8 +152,8 @@ namespace ClosedXML.Tests.Excel.Loading
             var ws = wb.Worksheet("OrderedPivotTable");
             var pt = ws.PivotTable("OrderedPivotTable");
 
-            Assert.AreEqual(XLPivotSortType.Ascending, pt.RowLabels.Single().SortType);
-            Assert.AreEqual(XLPivotSortType.Descending, pt.ColumnLabels.Single().SortType);
+            Assert.That(pt.RowLabels.Single().SortType, Is.EqualTo(XLPivotSortType.Ascending));
+            Assert.That(pt.ColumnLabels.Single().SortType, Is.EqualTo(XLPivotSortType.Descending));
         }
 
         [Test]
@@ -165,10 +165,10 @@ namespace ClosedXML.Tests.Excel.Loading
             var pt = ws.PivotTable("PivotTableSubtotals");
 
             var subtotals = pt.RowLabels.Get("Group").Subtotals.ToArray();
-            Assert.AreEqual(3, subtotals.Length);
-            Assert.AreEqual(XLSubtotalFunction.Average, subtotals[0]);
-            Assert.AreEqual(XLSubtotalFunction.Count, subtotals[1]);
-            Assert.AreEqual(XLSubtotalFunction.Sum, subtotals[2]);
+            Assert.That(subtotals.Length, Is.EqualTo(3));
+            Assert.That(subtotals[0], Is.EqualTo(XLSubtotalFunction.Average));
+            Assert.That(subtotals[1], Is.EqualTo(XLSubtotalFunction.Count));
+            Assert.That(subtotals[2], Is.EqualTo(XLSubtotalFunction.Sum));
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace ClosedXML.Tests.Excel.Loading
             var ws = wb.Worksheets.First();
             foreach (var cell in ws.CellsUsed())
             {
-                Assert.AreEqual(XLDataType.DateTime, cell.DataType);
+                Assert.That(cell.DataType, Is.EqualTo(XLDataType.DateTime));
             }
         }
 
@@ -210,13 +210,13 @@ namespace ClosedXML.Tests.Excel.Loading
             using var stream = TestHelper.GetStreamFromResource(TestHelper.GetResourcePath(@"Examples\ImageHandling\ImageAnchors.xlsx"));
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheets.First();
-            Assert.AreEqual(2, ws.Pictures.Count);
-            Assert.AreEqual(XLPicturePlacement.FreeFloating, ws.Pictures.First().Placement);
-            Assert.AreEqual(XLPicturePlacement.Move, ws.Pictures.Skip(1).First().Placement);
+            Assert.That(ws.Pictures.Count, Is.EqualTo(2));
+            Assert.That(ws.Pictures.First().Placement, Is.EqualTo(XLPicturePlacement.FreeFloating));
+            Assert.That(ws.Pictures.Skip(1).First().Placement, Is.EqualTo(XLPicturePlacement.Move));
 
             var ws2 = wb.Worksheets.Skip(1).First();
-            Assert.AreEqual(1, ws2.Pictures.Count);
-            Assert.AreEqual(XLPicturePlacement.MoveAndSize, ws2.Pictures.First().Placement);
+            Assert.That(ws2.Pictures.Count, Is.EqualTo(1));
+            Assert.That(ws2.Pictures.First().Placement, Is.EqualTo(XLPicturePlacement.MoveAndSize));
         }
 
         [Test]
@@ -225,12 +225,12 @@ namespace ClosedXML.Tests.Excel.Loading
             using var stream = TestHelper.GetStreamFromResource(TestHelper.GetResourcePath(@"Examples\ImageHandling\ImageFormats.xlsx"));
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheets.First();
-            Assert.AreEqual(1, ws.Pictures.Count);
-            Assert.AreEqual(XLPictureFormat.Jpeg, ws.Pictures.First().Format);
+            Assert.That(ws.Pictures.Count, Is.EqualTo(1));
+            Assert.That(ws.Pictures.First().Format, Is.EqualTo(XLPictureFormat.Jpeg));
 
             var ws2 = wb.Worksheets.Skip(1).First();
-            Assert.AreEqual(1, ws2.Pictures.Count);
-            Assert.AreEqual(XLPictureFormat.Png, ws2.Pictures.First().Format);
+            Assert.That(ws2.Pictures.Count, Is.EqualTo(1));
+            Assert.That(ws2.Pictures.First().Format, Is.EqualTo(XLPictureFormat.Png));
         }
 
         [Test]
@@ -242,11 +242,11 @@ namespace ClosedXML.Tests.Excel.Loading
             using var stream = TestHelper.GetStreamFromResource(TestHelper.GetResourcePath(@"TryToLoad\ExcelProducedWorkbookWithImages.xlsx"));
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheets.First();
-            Assert.AreEqual(3, ws.Pictures.Count);
+            Assert.That(ws.Pictures.Count, Is.EqualTo(3));
 
-            Assert.AreEqual(XLPicturePlacement.MoveAndSize, ws.Picture("Picture 1").Placement);
-            Assert.AreEqual(XLPicturePlacement.Move, ws.Picture("Picture 2").Placement);
-            Assert.AreEqual(XLPicturePlacement.FreeFloating, ws.Picture("Picture 3").Placement);
+            Assert.That(ws.Picture("Picture 1").Placement, Is.EqualTo(XLPicturePlacement.MoveAndSize));
+            Assert.That(ws.Picture("Picture 2").Placement, Is.EqualTo(XLPicturePlacement.Move));
+            Assert.That(ws.Picture("Picture 3").Placement, Is.EqualTo(XLPicturePlacement.FreeFloating));
 
             using var ms = new MemoryStream();
             wb.SaveAs(ms, true);
@@ -265,7 +265,7 @@ namespace ClosedXML.Tests.Excel.Loading
             }
 
             using var workbook = XLWorkbook.OpenFromTemplate(tf1.Path);
-            Assert.True(workbook.Worksheets.Any());
+            Assert.That(workbook.Worksheets.Any(), Is.True);
             Assert.Throws<InvalidOperationException>(() => workbook.Save());
 
             workbook.SaveAs(tf2.Path);
@@ -287,7 +287,7 @@ namespace ClosedXML.Tests.Excel.Loading
             }
 
             Assert.DoesNotThrow(openWorkbook);
-            Assert.AreEqual("L'E", title);
+            Assert.That(title, Is.EqualTo("L'E"));
         }
 
         [Test]
@@ -298,7 +298,7 @@ namespace ClosedXML.Tests.Excel.Loading
             sheet.Protect()
                 .AllowElement(XLSheetProtectionElements.EditObjects | XLSheetProtectionElements.EditScenarios);
 
-            Assert.AreEqual(XLSheetProtectionElements.SelectEverything | XLSheetProtectionElements.EditObjects | XLSheetProtectionElements.EditScenarios, sheet.Protection.AllowedElements);
+            Assert.That(sheet.Protection.AllowedElements, Is.EqualTo(XLSheetProtectionElements.SelectEverything | XLSheetProtectionElements.EditObjects | XLSheetProtectionElements.EditScenarios));
 
             using var xlStream = new MemoryStream();
             book.SaveAs(xlStream);
@@ -306,7 +306,7 @@ namespace ClosedXML.Tests.Excel.Loading
             using var persistedBook = new XLWorkbook(xlStream);
             var persistedSheet = persistedBook.Worksheets.Worksheet(1);
 
-            Assert.AreEqual(sheet.Protection.AllowedElements, persistedSheet.Protection.AllowedElements);
+            Assert.That(persistedSheet.Protection.AllowedElements, Is.EqualTo(sheet.Protection.AllowedElements));
         }
 
         [Test]
@@ -333,8 +333,8 @@ namespace ClosedXML.Tests.Excel.Loading
 
             using var book2 = new XLWorkbook(ms);
             var ws = book2.Worksheet(1);
-            Assert.IsFalse(ws.Cell("A2").NeedsRecalculation);
-            Assert.AreEqual(expectedCachedValue, ws.Cell("A2").CachedValue);
+            Assert.That(ws.Cell("A2").NeedsRecalculation, Is.False);
+            Assert.That(ws.Cell("A2").CachedValue, Is.EqualTo(expectedCachedValue));
         }
 
         [Test]
@@ -345,9 +345,9 @@ namespace ClosedXML.Tests.Excel.Loading
             Assert.Throws<ArgumentOutOfRangeException>(() => new XLWorkbook(stream, new LoadOptions { RecalculateAllFormulas = true }));
 
             using var xLWorkbookExpectedDisabled = new XLWorkbook(stream, new LoadOptions { EventTracking = XLEventTracking.Disabled });
-            Assert.AreEqual(XLEventTracking.Disabled, xLWorkbookExpectedDisabled.EventTracking);
+            Assert.That(xLWorkbookExpectedDisabled.EventTracking, Is.EqualTo(XLEventTracking.Disabled));
             using var xLWorkbookExpectedEnabled = new XLWorkbook(stream, new LoadOptions { EventTracking = XLEventTracking.Enabled });
-            Assert.AreEqual(XLEventTracking.Enabled, xLWorkbookExpectedEnabled.EventTracking);
+            Assert.That(xLWorkbookExpectedEnabled.EventTracking, Is.EqualTo(XLEventTracking.Enabled));
         }
 
         [Test]
@@ -357,10 +357,10 @@ namespace ClosedXML.Tests.Excel.Loading
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheet(1);
 
-            Assert.AreEqual(8, ws.Style.Font.FontSize);
-            Assert.AreEqual("Arial", ws.Style.Font.FontName);
-            Assert.AreEqual(8, ws.Cell("A1").Style.Font.FontSize);
-            Assert.AreEqual("Arial", ws.Cell("A1").Style.Font.FontName);
+            Assert.That(ws.Style.Font.FontSize, Is.EqualTo(8));
+            Assert.That(ws.Style.Font.FontName, Is.EqualTo("Arial"));
+            Assert.That(ws.Cell("A1").Style.Font.FontSize, Is.EqualTo(8));
+            Assert.That(ws.Cell("A1").Style.Font.FontName, Is.EqualTo("Arial"));
         }
 
         [Test]
@@ -384,8 +384,8 @@ namespace ClosedXML.Tests.Excel.Loading
             using var stream = TestHelper.GetStreamFromResource(TestHelper.GetResourcePath(@"TryToLoad\CellWithStringDataType.xlsx"));
             using var wb = new XLWorkbook(stream);
             var cellToCheck = wb.Worksheet(1).Cell("B2");
-            Assert.AreEqual(XLDataType.Text, cellToCheck.DataType);
-            Assert.AreEqual("String with String Data type", cellToCheck.Value);
+            Assert.That(cellToCheck.DataType, Is.EqualTo(XLDataType.Text));
+            Assert.That(cellToCheck.Value, Is.EqualTo("String with String Data type"));
         }
 
         [Test]
@@ -395,9 +395,9 @@ namespace ClosedXML.Tests.Excel.Loading
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheet(1);
 
-            Assert.AreEqual(2, ws.SelectedRanges.Count);
-            Assert.AreEqual("B2:B2", ws.SelectedRanges.First().RangeAddress.ToString());
-            Assert.AreEqual("B2:C2", ws.SelectedRanges.Last().RangeAddress.ToString());
+            Assert.That(ws.SelectedRanges.Count, Is.EqualTo(2));
+            Assert.That(ws.SelectedRanges.First().RangeAddress.ToString(), Is.EqualTo("B2:B2"));
+            Assert.That(ws.SelectedRanges.Last().RangeAddress.ToString(), Is.EqualTo("B2:C2"));
         }
 
         [Test]
@@ -407,7 +407,7 @@ namespace ClosedXML.Tests.Excel.Loading
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheet(1);
 
-            Assert.AreEqual("Page 1", ws.Name);
+            Assert.That(ws.Name, Is.EqualTo("Page 1"));
 
             var expected = new Dictionary<string, string>
             {
@@ -421,7 +421,7 @@ namespace ClosedXML.Tests.Excel.Loading
 
             foreach (var pair in expected)
             {
-                Assert.AreEqual(pair.Value, ws.Cell(pair.Key).GetString(), pair.Key);
+                Assert.That(ws.Cell(pair.Key).GetString(), Is.EqualTo(pair.Value), pair.Key);
             }
         }
 
@@ -433,9 +433,9 @@ namespace ClosedXML.Tests.Excel.Loading
             var ws = wb.Worksheet(1);
 
             var c = ws.Cell("B2");
-            Assert.AreEqual(XLColorType.Theme, c.Style.Border.TopBorderColor.ColorType);
-            Assert.AreEqual(XLThemeColor.Accent1, c.Style.Border.TopBorderColor.ThemeColor);
-            Assert.AreEqual(0.39994506668294322d, c.Style.Border.TopBorderColor.ThemeTint, XLHelper.Epsilon);
+            Assert.That(c.Style.Border.TopBorderColor.ColorType, Is.EqualTo(XLColorType.Theme));
+            Assert.That(c.Style.Border.TopBorderColor.ThemeColor, Is.EqualTo(XLThemeColor.Accent1));
+            Assert.That(c.Style.Border.TopBorderColor.ThemeTint, Is.EqualTo(0.39994506668294322d).Within(XLHelper.Epsilon));
         }
 
         [Test]
@@ -445,9 +445,9 @@ namespace ClosedXML.Tests.Excel.Loading
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheet(1);
 
-            Assert.AreEqual(8, ws.Row(1).Style.Font.FontSize);
-            Assert.AreEqual(8, ws.Row(2).Style.Font.FontSize);
-            Assert.AreEqual(8, ws.Column("A").Style.Font.FontSize);
+            Assert.That(ws.Row(1).Style.Font.FontSize, Is.EqualTo(8));
+            Assert.That(ws.Row(2).Style.Font.FontSize, Is.EqualTo(8));
+            Assert.That(ws.Column("A").Style.Font.FontSize, Is.EqualTo(8));
         }
 
         [Test]
@@ -457,7 +457,7 @@ namespace ClosedXML.Tests.Excel.Loading
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheet(1);
 
-            Assert.AreEqual(XLPredefinedFormat.General, ws.Cell("A2").Style.NumberFormat.NumberFormatId);
+            Assert.That(ws.Cell("A2").Style.NumberFormat.NumberFormatId, Is.EqualTo(XLPredefinedFormat.General));
         }
 
         [Test]
@@ -501,18 +501,18 @@ namespace ClosedXML.Tests.Excel.Loading
 
             using (var wb = new XLWorkbook(stream))
             {
-                Assert.AreEqual(author, wb.Properties.Author);
-                Assert.AreEqual(title, wb.Properties.Title);
-                Assert.AreEqual(subject, wb.Properties.Subject);
-                Assert.AreEqual(category, wb.Properties.Category);
-                Assert.AreEqual(keywords, wb.Properties.Keywords);
-                Assert.AreEqual(comments, wb.Properties.Comments);
-                Assert.AreEqual(status, wb.Properties.Status);
-                Assert.AreEqual(created, wb.Properties.Created);
-                Assert.AreEqual(modified, wb.Properties.Modified);
-                Assert.AreEqual(lastModifiedBy, wb.Properties.LastModifiedBy);
-                Assert.AreEqual(company, wb.Properties.Company);
-                Assert.AreEqual(manager, wb.Properties.Manager);
+                Assert.That(wb.Properties.Author, Is.EqualTo(author));
+                Assert.That(wb.Properties.Title, Is.EqualTo(title));
+                Assert.That(wb.Properties.Subject, Is.EqualTo(subject));
+                Assert.That(wb.Properties.Category, Is.EqualTo(category));
+                Assert.That(wb.Properties.Keywords, Is.EqualTo(keywords));
+                Assert.That(wb.Properties.Comments, Is.EqualTo(comments));
+                Assert.That(wb.Properties.Status, Is.EqualTo(status));
+                Assert.That(wb.Properties.Created, Is.EqualTo(created));
+                Assert.That(wb.Properties.Modified, Is.EqualTo(modified));
+                Assert.That(wb.Properties.LastModifiedBy, Is.EqualTo(lastModifiedBy));
+                Assert.That(wb.Properties.Company, Is.EqualTo(company));
+                Assert.That(wb.Properties.Manager, Is.EqualTo(manager));
             }
         }
     }

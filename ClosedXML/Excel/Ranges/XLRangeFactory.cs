@@ -16,10 +16,7 @@ namespace ClosedXML.Excel
 
         public XLRangeFactory(XLWorksheet worksheet)
         {
-            if (worksheet == null)
-            {
-                throw new ArgumentNullException(nameof(worksheet));
-            }
+            ArgumentNullException.ThrowIfNull(worksheet);
 
             Worksheet = worksheet;
         }

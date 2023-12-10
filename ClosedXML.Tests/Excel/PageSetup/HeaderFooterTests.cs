@@ -34,7 +34,7 @@ namespace ClosedXML.Tests.Excel.PageSetup
             ws = wb.Worksheets.First();
 
             var newHeader = ws.PageSetup.Header.Center.GetText(XLHFOccurrence.EvenPages);
-            Assert.AreEqual("Changed header", newHeader);
+            Assert.That(newHeader, Is.EqualTo("Changed header"));
         }
 
         [TestCase("")]

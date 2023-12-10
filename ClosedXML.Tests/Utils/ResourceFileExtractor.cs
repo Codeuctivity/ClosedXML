@@ -129,10 +129,7 @@ namespace ClosedXML.Tests.Utils
         {
             #region Check
 
-            if (assembly is null)
-            {
-                throw new ArgumentNullException("assembly");
-            }
+            ArgumentNullException.ThrowIfNull(assembly);
 
             #endregion Check
 

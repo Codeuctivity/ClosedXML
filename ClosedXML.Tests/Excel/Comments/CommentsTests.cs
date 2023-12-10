@@ -17,11 +17,11 @@ namespace ClosedXML.Tests.Excel.Comments
             var c = ws.FirstCellUsed();
 
             var xlColor = c.GetComment().Style.ColorsAndLines.LineColor;
-            Assert.AreEqual(XLColorType.Indexed, xlColor.ColorType);
-            Assert.AreEqual(81, xlColor.Indexed);
+            Assert.That(xlColor.ColorType, Is.EqualTo(XLColorType.Indexed));
+            Assert.That(xlColor.Indexed, Is.EqualTo(81));
 
             var color = xlColor.Color.ToHex();
-            Assert.AreEqual("FF000000", color);
+            Assert.That(color, Is.EqualTo("FF000000"));
         }
 
         [Test]
@@ -34,16 +34,16 @@ namespace ClosedXML.Tests.Excel.Comments
 
             ws.Rows("1,4").Height = 20;
 
-            Assert.AreEqual(2, ws.Internals.RowsCollection.Count);
-            Assert.AreEqual(3, ws.Internals.CellsCollection.RowsCollection.SelectMany(r => r.Value.Values).Count());
+            Assert.That(ws.Internals.RowsCollection.Count, Is.EqualTo(2));
+            Assert.That(ws.Internals.CellsCollection.RowsCollection.SelectMany(r => r.Value.Values).Count(), Is.EqualTo(3));
 
             ws.Cell("A4").GetComment().AddText("Comment");
-            Assert.AreEqual(2, ws.Internals.RowsCollection.Count);
-            Assert.AreEqual(3, ws.Internals.CellsCollection.RowsCollection.SelectMany(r => r.Value.Values).Count());
+            Assert.That(ws.Internals.RowsCollection.Count, Is.EqualTo(2));
+            Assert.That(ws.Internals.CellsCollection.RowsCollection.SelectMany(r => r.Value.Values).Count(), Is.EqualTo(3));
 
             ws.Row(1).Delete();
-            Assert.AreEqual(1, ws.Internals.RowsCollection.Count);
-            Assert.AreEqual(2, ws.Internals.CellsCollection.RowsCollection.SelectMany(r => r.Value.Values).Count());
+            Assert.That(ws.Internals.RowsCollection.Count, Is.EqualTo(1));
+            Assert.That(ws.Internals.CellsCollection.RowsCollection.SelectMany(r => r.Value.Values).Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -83,8 +83,8 @@ namespace ClosedXML.Tests.Excel.Comments
 
             static void validate(IXLCell c)
             {
-                Assert.IsTrue(c.GetComment().Style.Alignment.AutomaticSize);
-                Assert.AreEqual(XLColor.Red, c.GetComment().Style.ColorsAndLines.FillColor);
+                Assert.That(c.GetComment().Style.Alignment.AutomaticSize, Is.True);
+                Assert.That(c.GetComment().Style.ColorsAndLines.FillColor, Is.EqualTo(XLColor.Red));
             }
 
             validate(ws.Cell("B3"));
@@ -134,7 +134,7 @@ namespace ClosedXML.Tests.Excel.Comments
             using (var wb = new XLWorkbook(ms))
             {
                 var ws = wb.Worksheets.First();
-                Assert.IsTrue(ws.FirstCell().HasComment);
+                Assert.That(ws.FirstCell().HasComment, Is.True);
 
                 wb.SaveAs(ms);
             }
@@ -147,12 +147,12 @@ namespace ClosedXML.Tests.Excel.Comments
                 var wsp = wbp.GetPartsOfType<WorksheetPart>().Last();
 
                 var wscp = wsp.GetPartsOfType<WorksheetCommentsPart>().Single();
-                Assert.AreEqual(commentPartUri, wscp.Uri.ToString());
-                Assert.AreEqual(commentPartId, wsp.GetIdOfPart(wscp));
+                Assert.That(wscp.Uri.ToString(), Is.EqualTo(commentPartUri));
+                Assert.That(wsp.GetIdOfPart(wscp), Is.EqualTo(commentPartId));
 
                 var vmlp = wsp.GetPartsOfType<VmlDrawingPart>().Single();
-                Assert.AreEqual(vmlPartUri, vmlp.Uri.ToString());
-                Assert.AreEqual(vmlPartId, wsp.GetIdOfPart(vmlp));
+                Assert.That(vmlp.Uri.ToString(), Is.EqualTo(vmlPartUri));
+                Assert.That(wsp.GetIdOfPart(vmlp), Is.EqualTo(vmlPartId));
             }
         }
 
@@ -176,8 +176,8 @@ namespace ClosedXML.Tests.Excel.Comments
             using var workbook = new XLWorkbook(inputStream);
             var ws = workbook.Worksheets.First();
 
-            Assert.True(ws.Cell("A1").GetComment().Visible);
-            Assert.False(ws.Cell("A4").GetComment().Visible);
+            Assert.That(ws.Cell("A1").GetComment().Visible, Is.True);
+            Assert.That(ws.Cell("A4").GetComment().Visible, Is.False);
         }
 
         [Test]
@@ -265,14 +265,14 @@ namespace ClosedXML.Tests.Excel.Comments
             var ws = wb.Worksheets.First();
             var c = ws.FirstCellUsed();
 
-            Assert.AreEqual(c.GetComment().Text, @"[Threaded comment]
+            Assert.That(@"[Threaded comment]
 
 Your version of Excel allows you to read this threaded comment; however, any edits to it will get removed if the file is opened in a newer version of Excel. Learn more: https://go.microsoft.com/fwlink/?linkid=870924
 
 Comment:
     This is a threaded comment.
 Reply:
-    This is a reply.");
+    This is a reply.", Is.EqualTo(c.GetComment().Text));
         }
     }
 }

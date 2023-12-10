@@ -20,11 +20,11 @@ namespace ClosedXML.Tests.Excel.Styles
                 ws.FirstCell().SetValue("Empty cell with quote prefix:");
                 var cell = ws.FirstCell().CellRight() as XLCell;
 
-                Assert.IsTrue(cell.IsEmpty());
+                Assert.That(cell.IsEmpty(), Is.True);
                 cell.Style.IncludeQuotePrefix = true;
 
-                Assert.IsTrue(cell.IsEmpty());
-                Assert.IsFalse(cell.IsEmpty(XLCellsUsedOptions.All));
+                Assert.That(cell.IsEmpty(), Is.True);
+                Assert.That(cell.IsEmpty(XLCellsUsedOptions.All), Is.False);
 
                 wb.SaveAs(ms);
             }
@@ -35,10 +35,10 @@ namespace ClosedXML.Tests.Excel.Styles
             {
                 var ws = wb.Worksheets.First();
                 var cell = ws.FirstCell().CellRight() as XLCell;
-                Assert.AreEqual(1, cell.SharedStringId);
+                Assert.That(cell.SharedStringId, Is.EqualTo(1));
 
-                Assert.IsTrue(cell.IsEmpty());
-                Assert.IsFalse(cell.IsEmpty(XLCellsUsedOptions.All));
+                Assert.That(cell.IsEmpty(), Is.True);
+                Assert.That(cell.IsEmpty(XLCellsUsedOptions.All), Is.False);
             }
         }
 
@@ -58,8 +58,8 @@ namespace ClosedXML.Tests.Excel.Styles
             ws.Style.Font.SetFontSize(9);
 
             var cell = ws.Cell(cellAddress);
-            Assert.AreEqual("Arial", cell.Style.Font.FontName);
-            Assert.AreEqual(9, cell.Style.Font.FontSize);
+            Assert.That(cell.Style.Font.FontName, Is.EqualTo("Arial"));
+            Assert.That(cell.Style.Font.FontSize, Is.EqualTo(9));
         }
 
         [TestCaseSource(nameof(StylizedEntities))]
@@ -72,7 +72,7 @@ namespace ClosedXML.Tests.Excel.Styles
 
             var style = getEntityStyle(ws);
 
-            Assert.AreEqual(8, style.Font.FontSize);
+            Assert.That(style.Font.FontSize, Is.EqualTo(8));
         }
 
         private static IEnumerable<TestCaseData> StylizedEntities

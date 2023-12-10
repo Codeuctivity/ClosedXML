@@ -27,7 +27,7 @@ namespace ClosedXML.Tests.Extensions
             MissingCalibriTestGuard(xLFont);
 
             var actualHeight = xLFont.GetHeight(fontCache);
-            Assert.AreEqual(expectedHeight, actualHeight, toleratedDiff);
+            Assert.That(actualHeight, Is.EqualTo(expectedHeight).Within(toleratedDiff));
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace ClosedXML.Tests.Extensions
             };
 
             var actualHeight = xLFont.GetHeight(fontCache);
-            Assert.AreEqual(expectedHeight, actualHeight, toleratedDiff);
+            Assert.That(actualHeight, Is.EqualTo(expectedHeight).Within(toleratedDiff));
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace ClosedXML.Tests.Extensions
             MissingCalibriTestGuard(xLFont);
 
             var actualWidth = xLFont.GetWidth(text, fontCache);
-            Assert.AreEqual(expectedWidth, actualWidth, 3);
+            Assert.That(actualWidth, Is.EqualTo(expectedWidth).Within(3));
         }
 
         private static void MissingCalibriTestGuard(XLFont xLFont)
@@ -96,7 +96,7 @@ namespace ClosedXML.Tests.Extensions
             };
 
             var actualWidth = xLFont.GetWidth(text, fontCache);
-            Assert.AreEqual(expectedFontSize, actualWidth, tolerance);
+            Assert.That(actualWidth, Is.EqualTo(expectedFontSize).Within(tolerance));
         }
     }
 }
