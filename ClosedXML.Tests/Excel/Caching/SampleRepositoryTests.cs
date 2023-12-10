@@ -52,7 +52,7 @@ namespace ClosedXML.Tests.Excel.Caching
            if (count == 10)
                 Assert.Fail("storedEntityRef1 was not GCed");
 
-            Assert.IsFalse(sampleRepository.Any());
+            Assert.That(sampleRepository.Any(), Is.False);
 #else
             Assert.Ignore("Can't run in DEBUG");
 #endif
@@ -89,7 +89,7 @@ namespace ClosedXML.Tests.Excel.Caching
             var storedEntries = sampleRepository.ToList();
 
             // Assert
-            Assert.AreEqual(0, storedEntries.Count);
+            Assert.That(storedEntries.Count, Is.Zero);
 #else
             Assert.Ignore("Can't run in DEBUG");
 #endif
