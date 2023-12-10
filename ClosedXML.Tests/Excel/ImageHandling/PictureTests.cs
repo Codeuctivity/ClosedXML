@@ -27,9 +27,9 @@ namespace ClosedXML.Tests.Excel.ImageHandling
                 .MoveTo(50.1f, 50.1f)
                 .WithSize(200, 200);
 
-            Assert.AreEqual(XLPictureFormat.Jpeg, picture.Format);
-            Assert.AreEqual(200, picture.Width);
-            Assert.AreEqual(200, picture.Height);
+            Assert.That(picture.Format, Is.EqualTo(XLPictureFormat.Jpeg));
+            Assert.That(picture.Width, Is.EqualTo(200));
+            Assert.That(picture.Height, Is.EqualTo(200));
         }
 
         [Test]
@@ -44,9 +44,9 @@ namespace ClosedXML.Tests.Excel.ImageHandling
                 .MoveTo(50, 50)
                 .WithSize(200, 200);
 
-            Assert.AreEqual(XLPictureFormat.Jpeg, picture.Format);
-            Assert.AreEqual(200, picture.Width);
-            Assert.AreEqual(200, picture.Height);
+            Assert.That(picture.Format, Is.EqualTo(XLPictureFormat.Jpeg));
+            Assert.That(picture.Width, Is.EqualTo(200));
+            Assert.That(picture.Height, Is.EqualTo(200));
         }
 
         [Test]
@@ -71,9 +71,9 @@ namespace ClosedXML.Tests.Excel.ImageHandling
                     .WithPlacement(XLPicturePlacement.FreeFloating)
                     .MoveTo(50, 50);
 
-                Assert.AreEqual(XLPictureFormat.Jpeg, picture.Format);
-                Assert.AreEqual(400, picture.Width);
-                Assert.AreEqual(400, picture.Height);
+                Assert.That(picture.Format, Is.EqualTo(XLPictureFormat.Jpeg));
+                Assert.That(picture.Width, Is.EqualTo(400));
+                Assert.That(picture.Height, Is.EqualTo(400));
             }
             finally
             {
@@ -119,9 +119,9 @@ namespace ClosedXML.Tests.Excel.ImageHandling
                        .WithPlacement(XLPicturePlacement.FreeFloating)
                        .MoveTo(50, 50);
 
-            Assert.AreEqual(XLPictureFormat.Jpeg, picture.Format);
-            Assert.AreEqual(400, picture.Width);
-            Assert.AreEqual(50, picture.Top);
+            Assert.That(picture.Format, Is.EqualTo(XLPictureFormat.Jpeg));
+            Assert.That(picture.Width, Is.EqualTo(400));
+            Assert.That(picture.Top, Is.EqualTo(50));
         }
 
         [Test]
@@ -135,34 +135,34 @@ namespace ClosedXML.Tests.Excel.ImageHandling
                 .WithPlacement(XLPicturePlacement.FreeFloating)
                 .MoveTo(50, 50);
 
-            Assert.AreEqual(252, pic.OriginalWidth);
-            Assert.AreEqual(152, pic.OriginalHeight);
-            Assert.AreEqual(252, pic.Width);
-            Assert.AreEqual(152, pic.Height);
+            Assert.That(pic.OriginalWidth, Is.EqualTo(252));
+            Assert.That(pic.OriginalHeight, Is.EqualTo(152));
+            Assert.That(pic.Width, Is.EqualTo(252));
+            Assert.That(pic.Height, Is.EqualTo(152));
 
             pic.ScaleHeight(0.7);
             pic.ScaleWidth(1.2);
 
-            Assert.AreEqual(252, pic.OriginalWidth);
-            Assert.AreEqual(152, pic.OriginalHeight);
-            Assert.AreEqual(302, pic.Width);
-            Assert.AreEqual(106, pic.Height);
+            Assert.That(pic.OriginalWidth, Is.EqualTo(252));
+            Assert.That(pic.OriginalHeight, Is.EqualTo(152));
+            Assert.That(pic.Width, Is.EqualTo(302));
+            Assert.That(pic.Height, Is.EqualTo(106));
 
             pic.ScaleHeight(0.7);
             pic.ScaleWidth(1.2);
 
-            Assert.AreEqual(252, pic.OriginalWidth);
-            Assert.AreEqual(152, pic.OriginalHeight);
-            Assert.AreEqual(362, pic.Width);
-            Assert.AreEqual(74, pic.Height);
+            Assert.That(pic.OriginalWidth, Is.EqualTo(252));
+            Assert.That(pic.OriginalHeight, Is.EqualTo(152));
+            Assert.That(pic.Width, Is.EqualTo(362));
+            Assert.That(pic.Height, Is.EqualTo(74));
 
             pic.ScaleHeight(0.8, true);
             pic.ScaleWidth(1.1, true);
 
-            Assert.AreEqual(252, pic.OriginalWidth);
-            Assert.AreEqual(152, pic.OriginalHeight);
-            Assert.AreEqual(277, pic.Width);
-            Assert.AreEqual(122, pic.Height);
+            Assert.That(pic.OriginalWidth, Is.EqualTo(252));
+            Assert.That(pic.OriginalHeight, Is.EqualTo(152));
+            Assert.That(pic.Width, Is.EqualTo(277));
+            Assert.That(pic.Height, Is.EqualTo(122));
         }
 
         [Test]
@@ -186,10 +186,10 @@ namespace ClosedXML.Tests.Excel.ImageHandling
                 stream.Position = 0;
             }
 
-            Assert.AreEqual("Picture 1", ws.Pictures.Skip(0).First().Name);
-            Assert.AreEqual("Picture 2", ws.Pictures.Skip(1).First().Name);
-            Assert.AreEqual("Picture 4", ws.Pictures.Skip(2).First().Name);
-            Assert.AreEqual("Picture 5", ws.Pictures.Skip(3).First().Name);
+            Assert.That(ws.Pictures.Skip(0).First().Name, Is.EqualTo("Picture 1"));
+            Assert.That(ws.Pictures.Skip(1).First().Name, Is.EqualTo("Picture 2"));
+            Assert.That(ws.Pictures.Skip(2).First().Name, Is.EqualTo("Picture 4"));
+            Assert.That(ws.Pictures.Skip(3).First().Name, Is.EqualTo("Picture 5"));
         }
 
         [Test]
@@ -213,10 +213,10 @@ namespace ClosedXML.Tests.Excel.ImageHandling
                 stream.Position = 0;
             }
 
-            Assert.AreEqual(1, ws.Pictures.Skip(0).First().Id);
-            Assert.AreEqual(2, ws.Pictures.Skip(1).First().Id);
-            Assert.AreEqual(3, ws.Pictures.Skip(2).First().Id);
-            Assert.AreEqual(4, ws.Pictures.Skip(3).First().Id);
+            Assert.That(ws.Pictures.Skip(0).First().Id, Is.EqualTo(1));
+            Assert.That(ws.Pictures.Skip(1).First().Id, Is.EqualTo(2));
+            Assert.That(ws.Pictures.Skip(2).First().Id, Is.EqualTo(3));
+            Assert.That(ws.Pictures.Skip(3).First().Id, Is.EqualTo(4));
         }
 
         [Test]
@@ -225,10 +225,10 @@ namespace ClosedXML.Tests.Excel.ImageHandling
             using var xLWorkbook = new XLWorkbook(); var ws = xLWorkbook.Worksheets.Add("Sheet1");
             var firstMarker = new XLMarker(ws.Cell(1, 10), new SKPoint(100, 0));
 
-            Assert.AreEqual(10, firstMarker.ColumnNumber);
-            Assert.AreEqual(1, firstMarker.RowNumber);
-            Assert.AreEqual(100, firstMarker.Offset.X);
-            Assert.AreEqual(0, firstMarker.Offset.Y);
+            Assert.That(firstMarker.ColumnNumber, Is.EqualTo(10));
+            Assert.That(firstMarker.RowNumber, Is.EqualTo(1));
+            Assert.That(firstMarker.Offset.X, Is.EqualTo(100));
+            Assert.That(firstMarker.Offset.Y, Is.EqualTo(0));
         }
 
         [Test]
@@ -242,15 +242,15 @@ namespace ClosedXML.Tests.Excel.ImageHandling
                 .WithPlacement(XLPicturePlacement.FreeFloating)
                 .MoveTo(220, 155);
 
-            Assert.AreEqual(XLPicturePlacement.FreeFloating, pic.Placement);
-            Assert.AreEqual("Image1", pic.Name);
-            Assert.AreEqual(XLPictureFormat.Png, pic.Format);
-            Assert.AreEqual(252, pic.OriginalWidth);
-            Assert.AreEqual(152, pic.OriginalHeight);
-            Assert.AreEqual(252, pic.Width);
-            Assert.AreEqual(152, pic.Height);
-            Assert.AreEqual(220, pic.Left);
-            Assert.AreEqual(155, pic.Top);
+            Assert.That(pic.Placement, Is.EqualTo(XLPicturePlacement.FreeFloating));
+            Assert.That(pic.Name, Is.EqualTo("Image1"));
+            Assert.That(pic.Format, Is.EqualTo(XLPictureFormat.Png));
+            Assert.That(pic.OriginalWidth, Is.EqualTo(252));
+            Assert.That(pic.OriginalHeight, Is.EqualTo(152));
+            Assert.That(pic.Width, Is.EqualTo(252));
+            Assert.That(pic.Height, Is.EqualTo(152));
+            Assert.That(pic.Left, Is.EqualTo(220));
+            Assert.That(pic.Top, Is.EqualTo(155));
         }
 
         [Test]
@@ -259,10 +259,10 @@ namespace ClosedXML.Tests.Excel.ImageHandling
             using var stream = TestHelper.GetStreamFromResource(TestHelper.GetResourcePath(@"Examples\ImageHandling\ImageAnchors.xlsx"));
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheets.First();
-            Assert.AreEqual(2, ws.Pictures.Count);
+            Assert.That(ws.Pictures.Count, Is.EqualTo(2));
 
             var copy = ws.CopyTo("NewSheet");
-            Assert.AreEqual(2, copy.Pictures.Count);
+            Assert.That(copy.Pictures.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -284,7 +284,7 @@ namespace ClosedXML.Tests.Excel.ImageHandling
             using (var wb = new XLWorkbook(ms))
             {
                 var ws = wb.Worksheets.First();
-                Assert.AreEqual(originalCount - 1, ws.Pictures.Count);
+                Assert.That(ws.Pictures.Count, Is.EqualTo(originalCount - 1));
             }
         }
 
@@ -310,7 +310,7 @@ namespace ClosedXML.Tests.Excel.ImageHandling
             using (var wb = new XLWorkbook(ms))
             {
                 var ws = wb.Worksheets.First();
-                Assert.AreEqual(originalCount - 2, ws.Pictures.Count);
+                Assert.That(ws.Pictures.Count, Is.EqualTo(originalCount - 2));
             }
         }
 
@@ -321,7 +321,7 @@ namespace ClosedXML.Tests.Excel.ImageHandling
             using var wb = new XLWorkbook(stream);
             var ws = wb.Worksheet("Images3");
             var picture = ws.Pictures.First();
-            Assert.AreEqual("Picture 1", picture.Name);
+            Assert.That(picture.Name, Is.EqualTo("Picture 1"));
 
             picture.Name = "picture 1";
             picture.Name = "pICture 1";
@@ -353,10 +353,10 @@ namespace ClosedXML.Tests.Excel.ImageHandling
             var id = pic.Id;
 
             pic.Id = id;
-            Assert.AreEqual(id, pic.Id);
+            Assert.That(pic.Id, Is.EqualTo(id));
 
             pic.Id = 3;
-            Assert.AreEqual(3, pic.Id);
+            Assert.That(pic.Id, Is.EqualTo(3));
 
             pic.Id = id;
 
@@ -382,19 +382,19 @@ namespace ClosedXML.Tests.Excel.ImageHandling
             var copy = original.Duplicate()
                 .MoveTo(300, 200) as XLPicture;
 
-            Assert.AreEqual(2, ws1.Pictures.Count);
-            Assert.AreEqual(ws1, copy.Worksheet);
-            Assert.AreEqual(original.Format, copy.Format);
-            Assert.AreEqual(original.Height, copy.Height);
-            Assert.AreEqual(original.Placement, copy.Placement);
-            Assert.AreEqual(original.TopLeftCell.ToString(), copy.TopLeftCell.ToString());
-            Assert.AreEqual(original.Width, copy.Width);
-            Assert.AreEqual(original.ImageStream.ToArray(), copy.ImageStream.ToArray(), "Image streams differ");
+            Assert.That(ws1.Pictures.Count, Is.EqualTo(2));
+            Assert.That(copy.Worksheet, Is.EqualTo(ws1));
+            Assert.That(copy.Format, Is.EqualTo(original.Format));
+            Assert.That(copy.Height, Is.EqualTo(original.Height));
+            Assert.That(copy.Placement, Is.EqualTo(original.Placement));
+            Assert.That(copy.TopLeftCell.ToString(), Is.EqualTo(original.TopLeftCell.ToString()));
+            Assert.That(copy.Width, Is.EqualTo(original.Width));
+            Assert.That(copy.ImageStream.ToArray(), Is.EqualTo(original.ImageStream.ToArray()), "Image streams differ");
 
-            Assert.AreEqual(200, copy.Top);
-            Assert.AreEqual(300, copy.Left);
-            Assert.AreNotEqual(original.Id, copy.Id);
-            Assert.AreNotEqual(original.Name, copy.Name);
+            Assert.That(copy.Top, Is.EqualTo(200));
+            Assert.That(copy.Left, Is.EqualTo(300));
+            Assert.That(copy.Id, Is.Not.EqualTo(original.Id));
+            Assert.That(copy.Name, Is.Not.EqualTo(original.Name));
         }
 
         [Test]
@@ -413,22 +413,22 @@ namespace ClosedXML.Tests.Excel.ImageHandling
 
             var copy = original.CopyTo(ws2);
 
-            Assert.AreEqual(1, ws1.Pictures.Count);
-            Assert.AreEqual(1, ws2.Pictures.Count);
+            Assert.That(ws1.Pictures.Count, Is.EqualTo(1));
+            Assert.That(ws2.Pictures.Count, Is.EqualTo(1));
 
-            Assert.AreEqual(ws2, copy.Worksheet);
+            Assert.That(copy.Worksheet, Is.EqualTo(ws2));
 
-            Assert.AreEqual(original.Format, copy.Format);
-            Assert.AreEqual(original.Height, copy.Height);
-            Assert.AreEqual(original.Left, copy.Left);
-            Assert.AreEqual(original.Name, copy.Name);
-            Assert.AreEqual(original.Placement, copy.Placement);
-            Assert.AreEqual(original.Top, copy.Top);
-            Assert.AreEqual(original.TopLeftCell.ToString(), copy.TopLeftCell.ToString());
-            Assert.AreEqual(original.Width, copy.Width);
-            Assert.AreEqual(original.ImageStream.ToArray(), copy.ImageStream.ToArray(), "Image streams differ");
+            Assert.That(copy.Format, Is.EqualTo(original.Format));
+            Assert.That(copy.Height, Is.EqualTo(original.Height));
+            Assert.That(copy.Left, Is.EqualTo(original.Left));
+            Assert.That(copy.Name, Is.EqualTo(original.Name));
+            Assert.That(copy.Placement, Is.EqualTo(original.Placement));
+            Assert.That(copy.Top, Is.EqualTo(original.Top));
+            Assert.That(copy.TopLeftCell.ToString(), Is.EqualTo(original.TopLeftCell.ToString()));
+            Assert.That(copy.Width, Is.EqualTo(original.Width));
+            Assert.That(copy.ImageStream.ToArray(), Is.EqualTo(original.ImageStream.ToArray()), "Image streams differ");
 
-            Assert.AreNotEqual(original.Id, copy.Id);
+            Assert.That(copy.Id, Is.Not.EqualTo(original.Id));
         }
 
         [Test]
@@ -443,7 +443,7 @@ namespace ClosedXML.Tests.Excel.ImageHandling
 
             ws.Row(2).InsertRowsBelow(20);
 
-            Assert.AreEqual(25, picture.TopLeftCell.Address.RowNumber);
+            Assert.That(picture.TopLeftCell.Address.RowNumber, Is.EqualTo(25));
         }
 
         [Test]
@@ -470,7 +470,7 @@ namespace ClosedXML.Tests.Excel.ImageHandling
 
             var img2 = img1.CopyTo(ws2);
 
-            Assert.AreEqual(XLPictureFormat.Emf, img2.Format);
+            Assert.That(img2.Format, Is.EqualTo(XLPictureFormat.Emf));
 
             using var ms = new MemoryStream();
             wb.SaveAs(ms);
@@ -480,7 +480,7 @@ namespace ClosedXML.Tests.Excel.ImageHandling
             using var wb2 = new XLWorkbook(ms);
             ws2 = wb2.Worksheet("Sheet2");
             img2 = ws2.Pictures.First();
-            Assert.AreEqual(XLPictureFormat.Emf, img2.Format);
+            Assert.That(img2.Format, Is.EqualTo(XLPictureFormat.Emf));
         }
     }
 }

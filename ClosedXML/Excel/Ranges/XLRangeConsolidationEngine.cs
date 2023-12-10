@@ -14,10 +14,7 @@ namespace ClosedXML.Excel
 
         public XLRangeConsolidationEngine(IXLRanges ranges)
         {
-            if (ranges == null)
-            {
-                throw new ArgumentNullException(nameof(ranges));
-            }
+            ArgumentNullException.ThrowIfNull(ranges);
 
             _allRanges = ranges;
         }

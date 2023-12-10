@@ -94,16 +94,16 @@ namespace ClosedXML.Tests.Excel.Tables
             var table = ws.Tables.First();
 
             IEnumerable<Person> personEnumerable = null;
-            Assert.AreEqual(null, table.AppendData(personEnumerable));
+            Assert.That(table.AppendData(personEnumerable), Is.EqualTo(null));
 
             personEnumerable = new Person[] { };
-            Assert.AreEqual(null, table.AppendData(personEnumerable));
+            Assert.That(table.AppendData(personEnumerable), Is.EqualTo(null));
 
             IEnumerable enumerable = null;
-            Assert.AreEqual(null, table.AppendData(enumerable));
+            Assert.That(table.AppendData(enumerable), Is.EqualTo(null));
 
             enumerable = new Person[] { };
-            Assert.AreEqual(null, table.AppendData(enumerable));
+            Assert.That(table.AppendData(enumerable), Is.EqualTo(null));
         }
 
         [Test]
@@ -144,7 +144,7 @@ namespace ClosedXML.Tests.Excel.Tables
                 IEnumerable<Person> personEnumerable = NewData;
                 var addedRange = table.AppendData(personEnumerable);
 
-                Assert.AreEqual("B6:G7", addedRange.RangeAddress.ToString());
+                Assert.That(addedRange.RangeAddress.ToString(), Is.EqualTo("B6:G7"));
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(ms);
@@ -154,8 +154,8 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(5, table.DataRange.RowCount());
-                Assert.AreEqual(6, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(5));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(6));
             }
         }
 
@@ -176,7 +176,7 @@ namespace ClosedXML.Tests.Excel.Tables
                 IEnumerable<Person> personEnumerable = NewData;
                 var addedRange = table.AppendData(personEnumerable);
 
-                Assert.AreEqual("B6:G7", addedRange.RangeAddress.ToString());
+                Assert.That(addedRange.RangeAddress.ToString(), Is.EqualTo("B6:G7"));
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(ms);
@@ -186,8 +186,8 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(5, table.DataRange.RowCount());
-                Assert.AreEqual(6, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(5));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(6));
             }
         }
 
@@ -212,7 +212,7 @@ namespace ClosedXML.Tests.Excel.Tables
                 IEnumerable<Person> personEnumerable = NewData;
                 var addedRange = table.AppendData(personEnumerable);
 
-                Assert.AreEqual("B6:G7", addedRange.RangeAddress.ToString());
+                Assert.That(addedRange.RangeAddress.ToString(), Is.EqualTo("B6:G7"));
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(ms);
@@ -225,11 +225,11 @@ namespace ClosedXML.Tests.Excel.Tables
                 var table = ws.Tables.First();
 
                 var cell = ws.Cell(address);
-                Assert.AreEqual("de Beer", cell.Value);
-                Assert.AreEqual(5, table.DataRange.RowCount());
-                Assert.AreEqual(6, table.DataRange.ColumnCount());
+                Assert.That(cell.Value, Is.EqualTo("de Beer"));
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(5));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(6));
 
-                Assert.AreEqual(value, cell.CellBelow(NewData.Length).Value);
+                Assert.That(cell.CellBelow(NewData.Length).Value, Is.EqualTo(value));
             }
         }
 
@@ -250,7 +250,7 @@ namespace ClosedXML.Tests.Excel.Tables
 
                 var addedRange = table.AppendData(list);
 
-                Assert.AreEqual("B6:G7", addedRange.RangeAddress.ToString());
+                Assert.That(addedRange.RangeAddress.ToString(), Is.EqualTo("B6:G7"));
 
                 ws.Columns().AdjustToContents();
 
@@ -261,8 +261,8 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(5, table.DataRange.RowCount());
-                Assert.AreEqual(6, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(5));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(6));
             }
         }
 
@@ -285,7 +285,7 @@ namespace ClosedXML.Tests.Excel.Tables
 
                 var addedRange = table.AppendData(dataTable);
 
-                Assert.AreEqual("B6:G7", addedRange.RangeAddress.ToString());
+                Assert.That(addedRange.RangeAddress.ToString(), Is.EqualTo("B6:G7"));
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(ms);
@@ -295,8 +295,8 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(5, table.DataRange.RowCount());
-                Assert.AreEqual(6, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(5));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(6));
             }
         }
 
@@ -315,7 +315,7 @@ namespace ClosedXML.Tests.Excel.Tables
                 IEnumerable<Person> personEnumerable = NewData;
                 var replacedRange = table.ReplaceData(personEnumerable);
 
-                Assert.AreEqual("B3:G4", replacedRange.RangeAddress.ToString());
+                Assert.That(replacedRange.RangeAddress.ToString(), Is.EqualTo("B3:G4"));
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(ms);
@@ -325,8 +325,8 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(2, table.DataRange.RowCount());
-                Assert.AreEqual(6, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(2));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(6));
             }
         }
 
@@ -347,7 +347,7 @@ namespace ClosedXML.Tests.Excel.Tables
 
                 var replacedRange = table.ReplaceData(list);
 
-                Assert.AreEqual("B3:G4", replacedRange.RangeAddress.ToString());
+                Assert.That(replacedRange.RangeAddress.ToString(), Is.EqualTo("B3:G4"));
 
                 ws.Columns().AdjustToContents();
 
@@ -358,8 +358,8 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(2, table.DataRange.RowCount());
-                Assert.AreEqual(6, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(2));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(6));
             }
         }
 
@@ -382,7 +382,7 @@ namespace ClosedXML.Tests.Excel.Tables
 
                 var replacedRange = table.ReplaceData(dataTable);
 
-                Assert.AreEqual("B3:G4", replacedRange.RangeAddress.ToString());
+                Assert.That(replacedRange.RangeAddress.ToString(), Is.EqualTo("B3:G4"));
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(ms);
@@ -392,8 +392,8 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(2, table.DataRange.RowCount());
-                Assert.AreEqual(6, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(2));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(6));
             }
         }
 
@@ -415,7 +415,7 @@ namespace ClosedXML.Tests.Excel.Tables
                 var personEnumerable = NewData.Union(NewData).Union(NewData);
                 var replacedRange = table.ReplaceData(personEnumerable);
 
-                Assert.AreEqual("B3:G8", replacedRange.RangeAddress.ToString());
+                Assert.That(replacedRange.RangeAddress.ToString(), Is.EqualTo("B3:G8"));
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(ms);
@@ -425,8 +425,8 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(6, table.DataRange.RowCount());
-                Assert.AreEqual(6, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(6));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(6));
             }
         }
 
@@ -448,7 +448,7 @@ namespace ClosedXML.Tests.Excel.Tables
                 var personEnumerable = NewData.Take(1);
                 var replacedRange = table.ReplaceData(personEnumerable);
 
-                Assert.AreEqual("B3:G3", replacedRange.RangeAddress.ToString());
+                Assert.That(replacedRange.RangeAddress.ToString(), Is.EqualTo("B3:G3"));
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(ms);
@@ -458,8 +458,8 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(1, table.DataRange.RowCount());
-                Assert.AreEqual(6, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(1));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(6));
             }
         }
 
@@ -480,7 +480,7 @@ namespace ClosedXML.Tests.Excel.Tables
 
                 var replacedRange = table.ReplaceData(list, propagateExtraColumns: true);
 
-                Assert.AreEqual("B3:G6", replacedRange.RangeAddress.ToString());
+                Assert.That(replacedRange.RangeAddress.ToString(), Is.EqualTo("B3:G6"));
 
                 ws.Columns().AdjustToContents();
 
@@ -491,26 +491,26 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(4, table.DataRange.RowCount());
-                Assert.AreEqual(10, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(4));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(10));
 
-                Assert.AreEqual("SUM($G$3:G5)", table.Worksheet.Cell("H5").FormulaA1);
-                Assert.AreEqual("SUM($G$3:G6)", table.Worksheet.Cell("H6").FormulaA1);
-                Assert.AreEqual(100, table.Worksheet.Cell("H5").Value);
-                Assert.AreEqual(130, table.Worksheet.Cell("H6").Value);
+                Assert.That(table.Worksheet.Cell("H5").FormulaA1, Is.EqualTo("SUM($G$3:G5)"));
+                Assert.That(table.Worksheet.Cell("H6").FormulaA1, Is.EqualTo("SUM($G$3:G6)"));
+                Assert.That(table.Worksheet.Cell("H5").Value, Is.EqualTo(100));
+                Assert.That(table.Worksheet.Cell("H6").Value, Is.EqualTo(130));
 
-                Assert.AreEqual("LEN(B5)", table.Worksheet.Cell("I5").FormulaA1);
-                Assert.AreEqual("LEN(B6)", table.Worksheet.Cell("I6").FormulaA1);
-                Assert.AreEqual(16, table.Worksheet.Cell("I5").Value);
-                Assert.AreEqual(21, table.Worksheet.Cell("I6").Value);
+                Assert.That(table.Worksheet.Cell("I5").FormulaA1, Is.EqualTo("LEN(B5)"));
+                Assert.That(table.Worksheet.Cell("I6").FormulaA1, Is.EqualTo("LEN(B6)"));
+                Assert.That(table.Worksheet.Cell("I5").Value, Is.EqualTo(16));
+                Assert.That(table.Worksheet.Cell("I6").Value, Is.EqualTo(21));
 
-                Assert.AreEqual("G5>=40", table.Worksheet.Cell("J5").FormulaA1);
-                Assert.AreEqual("G6>=40", table.Worksheet.Cell("J6").FormulaA1);
-                Assert.AreEqual(false, table.Worksheet.Cell("J5").Value);
-                Assert.AreEqual(false, table.Worksheet.Cell("J6").Value);
+                Assert.That(table.Worksheet.Cell("J5").FormulaA1, Is.EqualTo("G5>=40"));
+                Assert.That(table.Worksheet.Cell("J6").FormulaA1, Is.EqualTo("G6>=40"));
+                Assert.That(table.Worksheet.Cell("J5").Value, Is.EqualTo(false));
+                Assert.That(table.Worksheet.Cell("J6").Value, Is.EqualTo(false));
 
-                Assert.AreEqual("40 is not old!", table.Worksheet.Cell("K5").Value);
-                Assert.AreEqual("40 is not old!", table.Worksheet.Cell("K6").Value);
+                Assert.That(table.Worksheet.Cell("K5").Value, Is.EqualTo("40 is not old!"));
+                Assert.That(table.Worksheet.Cell("K6").Value, Is.EqualTo("40 is not old!"));
             }
         }
 
@@ -529,7 +529,7 @@ namespace ClosedXML.Tests.Excel.Tables
                 IEnumerable<Person> personEnumerable = NewData.Concat(NewData).OrderBy(p => p.Age);
                 var replacedRange = table.ReplaceData(personEnumerable, propagateExtraColumns: true);
 
-                Assert.AreEqual("B3:G6", replacedRange.RangeAddress.ToString());
+                Assert.That(replacedRange.RangeAddress.ToString(), Is.EqualTo("B3:G6"));
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(ms);
@@ -539,26 +539,26 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(4, table.DataRange.RowCount());
-                Assert.AreEqual(10, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(4));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(10));
 
-                Assert.AreEqual("SUM($G$3:G5)", table.Worksheet.Cell("H5").FormulaA1);
-                Assert.AreEqual("SUM($G$3:G6)", table.Worksheet.Cell("H6").FormulaA1);
-                Assert.AreEqual(95, table.Worksheet.Cell("H5").Value);
-                Assert.AreEqual(130, table.Worksheet.Cell("H6").Value);
+                Assert.That(table.Worksheet.Cell("H5").FormulaA1, Is.EqualTo("SUM($G$3:G5)"));
+                Assert.That(table.Worksheet.Cell("H6").FormulaA1, Is.EqualTo("SUM($G$3:G6)"));
+                Assert.That(table.Worksheet.Cell("H5").Value, Is.EqualTo(95));
+                Assert.That(table.Worksheet.Cell("H6").Value, Is.EqualTo(130));
 
-                Assert.AreEqual("LEN(B5)", table.Worksheet.Cell("I5").FormulaA1);
-                Assert.AreEqual("LEN(B6)", table.Worksheet.Cell("I6").FormulaA1);
-                Assert.AreEqual(16, table.Worksheet.Cell("I5").Value);
-                Assert.AreEqual(16, table.Worksheet.Cell("I6").Value);
+                Assert.That(table.Worksheet.Cell("I5").FormulaA1, Is.EqualTo("LEN(B5)"));
+                Assert.That(table.Worksheet.Cell("I6").FormulaA1, Is.EqualTo("LEN(B6)"));
+                Assert.That(table.Worksheet.Cell("I5").Value, Is.EqualTo(16));
+                Assert.That(table.Worksheet.Cell("I6").Value, Is.EqualTo(16));
 
-                Assert.AreEqual("G5>=40", table.Worksheet.Cell("J5").FormulaA1);
-                Assert.AreEqual("G6>=40", table.Worksheet.Cell("J6").FormulaA1);
-                Assert.AreEqual(false, table.Worksheet.Cell("J5").Value);
-                Assert.AreEqual(false, table.Worksheet.Cell("J6").Value);
+                Assert.That(table.Worksheet.Cell("J5").FormulaA1, Is.EqualTo("G5>=40"));
+                Assert.That(table.Worksheet.Cell("J6").FormulaA1, Is.EqualTo("G6>=40"));
+                Assert.That(table.Worksheet.Cell("J5").Value, Is.EqualTo(false));
+                Assert.That(table.Worksheet.Cell("J6").Value, Is.EqualTo(false));
 
-                Assert.AreEqual("40 is not old!", table.Worksheet.Cell("K5").Value);
-                Assert.AreEqual("40 is not old!", table.Worksheet.Cell("K6").Value);
+                Assert.That(table.Worksheet.Cell("K5").Value, Is.EqualTo("40 is not old!"));
+                Assert.That(table.Worksheet.Cell("K6").Value, Is.EqualTo("40 is not old!"));
             }
         }
 
@@ -579,7 +579,7 @@ namespace ClosedXML.Tests.Excel.Tables
 
                 var appendedRange = table.AppendData(list, propagateExtraColumns: true);
 
-                Assert.AreEqual("B6:G9", appendedRange.RangeAddress.ToString());
+                Assert.That(appendedRange.RangeAddress.ToString(), Is.EqualTo("B6:G9"));
 
                 ws.Columns().AdjustToContents();
 
@@ -590,26 +590,26 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(7, table.DataRange.RowCount());
-                Assert.AreEqual(10, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(7));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(10));
 
-                Assert.AreEqual("SUM($G$3:G8)", table.Worksheet.Cell("H8").FormulaA1);
-                Assert.AreEqual("SUM($G$3:G9)", table.Worksheet.Cell("H9").FormulaA1);
-                Assert.AreEqual(220, table.Worksheet.Cell("H8").Value);
-                Assert.AreEqual(250, table.Worksheet.Cell("H9").Value);
+                Assert.That(table.Worksheet.Cell("H8").FormulaA1, Is.EqualTo("SUM($G$3:G8)"));
+                Assert.That(table.Worksheet.Cell("H9").FormulaA1, Is.EqualTo("SUM($G$3:G9)"));
+                Assert.That(table.Worksheet.Cell("H8").Value, Is.EqualTo(220));
+                Assert.That(table.Worksheet.Cell("H9").Value, Is.EqualTo(250));
 
-                Assert.AreEqual("LEN(B8)", table.Worksheet.Cell("I8").FormulaA1);
-                Assert.AreEqual("LEN(B9)", table.Worksheet.Cell("I9").FormulaA1);
-                Assert.AreEqual(16, table.Worksheet.Cell("I8").Value);
-                Assert.AreEqual(21, table.Worksheet.Cell("I9").Value);
+                Assert.That(table.Worksheet.Cell("I8").FormulaA1, Is.EqualTo("LEN(B8)"));
+                Assert.That(table.Worksheet.Cell("I9").FormulaA1, Is.EqualTo("LEN(B9)"));
+                Assert.That(table.Worksheet.Cell("I8").Value, Is.EqualTo(16));
+                Assert.That(table.Worksheet.Cell("I9").Value, Is.EqualTo(21));
 
-                Assert.AreEqual("G8>=40", table.Worksheet.Cell("J8").FormulaA1);
-                Assert.AreEqual("G9>=40", table.Worksheet.Cell("J9").FormulaA1);
-                Assert.AreEqual(false, table.Worksheet.Cell("J8").Value);
-                Assert.AreEqual(false, table.Worksheet.Cell("J9").Value);
+                Assert.That(table.Worksheet.Cell("J8").FormulaA1, Is.EqualTo("G8>=40"));
+                Assert.That(table.Worksheet.Cell("J9").FormulaA1, Is.EqualTo("G9>=40"));
+                Assert.That(table.Worksheet.Cell("J8").Value, Is.EqualTo(false));
+                Assert.That(table.Worksheet.Cell("J9").Value, Is.EqualTo(false));
 
-                Assert.AreEqual("40 is not old!", table.Worksheet.Cell("K8").Value);
-                Assert.AreEqual("40 is not old!", table.Worksheet.Cell("K9").Value);
+                Assert.That(table.Worksheet.Cell("K8").Value, Is.EqualTo("40 is not old!"));
+                Assert.That(table.Worksheet.Cell("K9").Value, Is.EqualTo("40 is not old!"));
             }
         }
 
@@ -633,7 +633,7 @@ namespace ClosedXML.Tests.Excel.Tables
 
                 var addedRange = table.AppendData(personEnumerable);
 
-                Assert.AreEqual("B6:G11", addedRange.RangeAddress.ToString());
+                Assert.That(addedRange.RangeAddress.ToString(), Is.EqualTo("B6:G11"));
                 ws.Columns().AdjustToContents();
 
                 wb.SaveAs(ms);
@@ -643,26 +643,26 @@ namespace ClosedXML.Tests.Excel.Tables
             {
                 var table = wb.Worksheets.SelectMany(ws => ws.Tables).First();
 
-                Assert.AreEqual(9, table.DataRange.RowCount());
-                Assert.AreEqual(10, table.DataRange.ColumnCount());
+                Assert.That(table.DataRange.RowCount(), Is.EqualTo(9));
+                Assert.That(table.DataRange.ColumnCount(), Is.EqualTo(10));
 
-                Assert.AreEqual("SUM($G$3:G10)", table.Worksheet.Cell("H10").FormulaA1);
-                Assert.AreEqual("SUM($G$3:G11)", table.Worksheet.Cell("H11").FormulaA1);
-                Assert.AreEqual(280, table.Worksheet.Cell("H10").Value);
-                Assert.AreEqual(315, table.Worksheet.Cell("H11").Value);
+                Assert.That(table.Worksheet.Cell("H10").FormulaA1, Is.EqualTo("SUM($G$3:G10)"));
+                Assert.That(table.Worksheet.Cell("H11").FormulaA1, Is.EqualTo("SUM($G$3:G11)"));
+                Assert.That(table.Worksheet.Cell("H10").Value, Is.EqualTo(280));
+                Assert.That(table.Worksheet.Cell("H11").Value, Is.EqualTo(315));
 
-                Assert.AreEqual("LEN(B10)", table.Worksheet.Cell("I10").FormulaA1);
-                Assert.AreEqual("LEN(B11)", table.Worksheet.Cell("I11").FormulaA1);
-                Assert.AreEqual(16, table.Worksheet.Cell("I10").Value);
-                Assert.AreEqual(16, table.Worksheet.Cell("I11").Value);
+                Assert.That(table.Worksheet.Cell("I10").FormulaA1, Is.EqualTo("LEN(B10)"));
+                Assert.That(table.Worksheet.Cell("I11").FormulaA1, Is.EqualTo("LEN(B11)"));
+                Assert.That(table.Worksheet.Cell("I10").Value, Is.EqualTo(16));
+                Assert.That(table.Worksheet.Cell("I11").Value, Is.EqualTo(16));
 
-                Assert.AreEqual("G10>=40", table.Worksheet.Cell("J10").FormulaA1);
-                Assert.AreEqual("G11>=40", table.Worksheet.Cell("J11").FormulaA1);
-                Assert.AreEqual(false, table.Worksheet.Cell("J10").Value);
-                Assert.AreEqual(false, table.Worksheet.Cell("J11").Value);
+                Assert.That(table.Worksheet.Cell("J10").FormulaA1, Is.EqualTo("G10>=40"));
+                Assert.That(table.Worksheet.Cell("J11").FormulaA1, Is.EqualTo("G11>=40"));
+                Assert.That(table.Worksheet.Cell("J10").Value, Is.EqualTo(false));
+                Assert.That(table.Worksheet.Cell("J11").Value, Is.EqualTo(false));
 
-                Assert.AreEqual("40 is not old!", table.Worksheet.Cell("K10").Value);
-                Assert.AreEqual("40 is not old!", table.Worksheet.Cell("K11").Value);
+                Assert.That(table.Worksheet.Cell("K10").Value, Is.EqualTo("40 is not old!"));
+                Assert.That(table.Worksheet.Cell("K11").Value, Is.EqualTo("40 is not old!"));
             }
         }
     }

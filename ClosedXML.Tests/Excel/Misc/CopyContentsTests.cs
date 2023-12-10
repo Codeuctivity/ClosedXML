@@ -30,7 +30,7 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().AddConditionalFormat().WhenContains("1").Fill.SetBackgroundColor(XLColor.Blue);
             ws.Cell("A2").Value = ws.FirstCell();
-            Assert.AreEqual(2, ws.ConditionalFormats.Count());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -42,8 +42,8 @@ namespace ClosedXML.Tests.Excel.Misc
             ws.Cell("B1").Value = "1";
             ws.Cell("A1").AddConditionalFormat().WhenEquals(1).Fill.SetBackgroundColor(XLColor.Blue);
             ws.Cell("A2").Value = ws.Cell("A1");
-            Assert.IsTrue(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "1" && !v.Value.IsFormula)));
-            Assert.IsTrue(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "1" && !v.Value.IsFormula)));
+            Assert.That(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "1" && !v.Value.IsFormula)), Is.True);
+            Assert.That(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "1" && !v.Value.IsFormula)), Is.True);
         }
 
         [Test]
@@ -55,8 +55,8 @@ namespace ClosedXML.Tests.Excel.Misc
             ws.Cell("B1").Value = "B";
             ws.Cell("A1").AddConditionalFormat().WhenEquals("A").Fill.SetBackgroundColor(XLColor.Blue);
             ws.Cell("A2").Value = ws.Cell("A1");
-            Assert.IsTrue(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "A" && !v.Value.IsFormula)));
-            Assert.IsTrue(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "A" && !v.Value.IsFormula)));
+            Assert.That(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "A" && !v.Value.IsFormula)), Is.True);
+            Assert.That(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "A" && !v.Value.IsFormula)), Is.True);
         }
 
         [Test]
@@ -68,8 +68,8 @@ namespace ClosedXML.Tests.Excel.Misc
             ws.Cell("B1").Value = "1";
             ws.Cell("A1").AddConditionalFormat().WhenEquals("1").Fill.SetBackgroundColor(XLColor.Blue);
             ws.Cell("A2").Value = ws.Cell("A1");
-            Assert.IsTrue(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "1" && !v.Value.IsFormula)));
-            Assert.IsTrue(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "1" && !v.Value.IsFormula)));
+            Assert.That(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "1" && !v.Value.IsFormula)), Is.True);
+            Assert.That(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "1" && !v.Value.IsFormula)), Is.True);
         }
 
         [Test]
@@ -81,8 +81,8 @@ namespace ClosedXML.Tests.Excel.Misc
             ws.Cell("B1").Value = "1";
             ws.Cell("A1").AddConditionalFormat().WhenEquals("=B1").Fill.SetBackgroundColor(XLColor.Blue);
             ws.Cell("A2").Value = ws.Cell("A1");
-            Assert.IsTrue(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "B1" && v.Value.IsFormula)));
-            Assert.IsTrue(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "B2" && v.Value.IsFormula)));
+            Assert.That(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "B1" && v.Value.IsFormula)), Is.True);
+            Assert.That(ws.ConditionalFormats.Any(cf => cf.Values.Any(v => v.Value.Value == "B2" && v.Value.IsFormula)), Is.True);
         }
 
         [Test]
@@ -122,8 +122,8 @@ namespace ClosedXML.Tests.Excel.Misc
 
             var ws2 = ws1.CopyTo("Sheet2");
 
-            Assert.AreEqual("Sheet1", ws1.FirstCell().Address.Worksheet.Name);
-            Assert.AreEqual("Sheet2", ws2.FirstCell().Address.Worksheet.Name);
+            Assert.That(ws1.FirstCell().Address.Worksheet.Name, Is.EqualTo("Sheet1"));
+            Assert.That(ws2.FirstCell().Address.Worksheet.Name, Is.EqualTo("Sheet2"));
         }
     }
 }

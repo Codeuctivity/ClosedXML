@@ -256,7 +256,7 @@ namespace ClosedXML.Excel
         {
             ThrowIfDisposed();
 
-            if (rangeName == null) throw new ArgumentNullException(nameof(rangeName));
+            ArgumentNullException.ThrowIfNull(rangeName);
 
             if (rangeName.Contains("!"))
             {
@@ -403,8 +403,8 @@ namespace ClosedXML.Excel
 
             CheckForWorksheetsPresent();
 
-            if (options == null) throw new ArgumentNullException(nameof(options));
-            if (file == null) throw new ArgumentNullException(nameof(file));
+            ArgumentNullException.ThrowIfNull(options);
+            ArgumentNullException.ThrowIfNull(file);
 
             var directoryName = Path.GetDirectoryName(file);
             if (!string.IsNullOrWhiteSpace(directoryName))

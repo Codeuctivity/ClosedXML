@@ -79,10 +79,7 @@ namespace ClosedXML.Excel
 
         public void Delete(IXLRange range)
         {
-            if (range == null)
-            {
-                throw new ArgumentNullException(nameof(range));
-            }
+            ArgumentNullException.ThrowIfNull(range);
 
             var dataValidationsToRemove = _dataValidationIndex.GetIntersectedRanges((XLRangeAddress)range.RangeAddress)
                 .Select(e => e.DataValidation)
@@ -150,10 +147,7 @@ namespace ClosedXML.Excel
 
         internal IXLDataValidation Add(IXLDataValidation dataValidation, bool skipIntersectionsCheck)
         {
-            if (dataValidation == null)
-            {
-                throw new ArgumentNullException(nameof(dataValidation));
-            }
+            ArgumentNullException.ThrowIfNull(dataValidation);
 
             XLDataValidation xlDataValidation;
             if (!(dataValidation is XLDataValidation) ||

@@ -46,7 +46,7 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
             using var ms = new MemoryStream();
             wb.SaveAs(ms, options);
             using var wb_saved = new XLWorkbook(ms);
-            Assert.AreEqual(expectedCount, wb_saved.Worksheet("Sheet").ConditionalFormats.Count());
+            Assert.That(wb_saved.Worksheet("Sheet").ConditionalFormats.Count(), Is.EqualTo(expectedCount));
         }
 
         [TestCase(true, 1)]
@@ -66,7 +66,7 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
             using var ms = new MemoryStream();
             wb.SaveAs(ms, options);
             using var wb_saved = new XLWorkbook(ms);
-            Assert.AreEqual(expectedCount, wb_saved.Worksheet("Sheet").DataValidations.Count());
+            Assert.That(wb_saved.Worksheet("Sheet").DataValidations.Count(), Is.EqualTo(expectedCount));
         }
 
         [TestCase("en-US")]
@@ -102,8 +102,8 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
                     .Select(v => v.Value)
                     .Distinct();
 
-                Assert.AreEqual(1, conditionalFormatValues.Count());
-                Assert.AreEqual("1.5", conditionalFormatValues.Single());
+                Assert.That(conditionalFormatValues.Count(), Is.EqualTo(1));
+                Assert.That(conditionalFormatValues.Single(), Is.EqualTo("1.5"));
             }
         }
     }

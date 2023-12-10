@@ -62,16 +62,16 @@ namespace ClosedXML.Tests.OleDb
                 using var dt = new DataTable();
                 dataAdapter.Fill(dt);
 
-                Assert.AreEqual("Base", dt.Columns[0].ColumnName);
-                Assert.AreEqual("Ref", dt.Columns[1].ColumnName);
+                Assert.That(dt.Columns[0].ColumnName, Is.EqualTo("Base"));
+                Assert.That(dt.Columns[1].ColumnName, Is.EqualTo("Ref"));
 
-                Assert.AreEqual(2, dt.Rows.Count);
+                Assert.That(dt.Rows.Count, Is.EqualTo(2));
 
-                Assert.AreEqual(42, dt.Rows.Cast<DataRow>().First()[0]);
-                Assert.AreEqual(42, dt.Rows.Cast<DataRow>().First()[1]);
+                Assert.That(dt.Rows.Cast<DataRow>().First()[0], Is.EqualTo(42));
+                Assert.That(dt.Rows.Cast<DataRow>().First()[1], Is.EqualTo(42));
 
-                Assert.AreEqual(41, dt.Rows.Cast<DataRow>().Last()[0]);
-                Assert.AreEqual(41, dt.Rows.Cast<DataRow>().Last()[1]);
+                Assert.That(dt.Rows.Cast<DataRow>().Last()[0], Is.EqualTo(41));
+                Assert.That(dt.Rows.Cast<DataRow>().Last()[1], Is.EqualTo(41));
             }
 
             using (var command = new OleDbCommand("select * from [Sheet2$]", connection))
@@ -81,10 +81,10 @@ namespace ClosedXML.Tests.OleDb
                 using var dt = new DataTable();
                 dataAdapter.Fill(dt);
 
-                Assert.AreEqual("Ref1", dt.Columns[0].ColumnName);
-                Assert.AreEqual("Ref2", dt.Columns[1].ColumnName);
-                Assert.AreEqual("Sum", dt.Columns[2].ColumnName);
-                Assert.AreEqual("SumRef", dt.Columns[3].ColumnName);
+                Assert.That(dt.Columns[0].ColumnName, Is.EqualTo("Ref1"));
+                Assert.That(dt.Columns[1].ColumnName, Is.EqualTo("Ref2"));
+                Assert.That(dt.Columns[2].ColumnName, Is.EqualTo("Sum"));
+                Assert.That(dt.Columns[3].ColumnName, Is.EqualTo("SumRef"));
 
                 var expected = new Dictionary<string, double>()
                         {
@@ -98,11 +98,11 @@ namespace ClosedXML.Tests.OleDb
                 {
                     foreach (var row in dt.Rows.Cast<DataRow>())
                     {
-                        Assert.AreEqual(expected[col.ColumnName], row[col]);
+                        Assert.That(row[col], Is.EqualTo(expected[col.ColumnName]));
                     }
                 }
 
-                Assert.AreEqual(2, dt.Rows.Count);
+                Assert.That(dt.Rows.Count, Is.EqualTo(2));
             }
 
             connection.Close();

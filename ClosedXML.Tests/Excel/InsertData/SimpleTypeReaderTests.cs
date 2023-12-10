@@ -34,14 +34,14 @@ namespace ClosedXML.Tests.Excel.InsertData
         public void CanGetPropertiesCount()
         {
             var reader = InsertDataReaderFactory.Instance.CreateReader(_data);
-            Assert.AreEqual(1, reader.GetPropertiesCount());
+            Assert.That(reader.GetPropertiesCount(), Is.EqualTo(1));
         }
 
         [Test]
         public void CanGetRecordsCount()
         {
             var reader = InsertDataReaderFactory.Instance.CreateReader(_data);
-            Assert.AreEqual(3, reader.GetRecordsCount());
+            Assert.That(reader.GetRecordsCount(), Is.EqualTo(3));
         }
 
         [Test]
@@ -50,8 +50,8 @@ namespace ClosedXML.Tests.Excel.InsertData
             var reader = InsertDataReaderFactory.Instance.CreateReader(_data);
             var result = reader.GetData();
 
-            Assert.AreEqual(1, result.First().Single());
-            Assert.AreEqual(3, result.Last().Single());
+            Assert.That(result.First().Single(), Is.EqualTo(1));
+            Assert.That(result.Last().Single(), Is.EqualTo(3));
         }
     }
 }

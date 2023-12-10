@@ -35,8 +35,8 @@ namespace ClosedXML.Tests.Excel.AutoFilters
             table.DataRange.InsertRowsBelow(listOfArr.Count - table.DataRange.RowCount());
             table.DataRange.FirstCell().InsertData(listOfArr);
 
-            Assert.AreEqual("A1:A5", table.AutoFilter.Range.RangeAddress.ToStringRelative());
-            Assert.AreEqual(5, table.AutoFilter.VisibleRows.Count());
+            Assert.That(table.AutoFilter.Range.RangeAddress.ToStringRelative(), Is.EqualTo("A1:A5"));
+            Assert.That(table.AutoFilter.VisibleRows.Count(), Is.EqualTo(5));
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace ClosedXML.Tests.Excel.AutoFilters
                 .CellBelow().SetValue("Carlos")
                 .CellBelow().SetValue("Dominic");
             ws.RangeUsed().SetAutoFilter().Sort();
-            Assert.AreEqual("Carlos", ws.Cell(4, 3).GetString());
+            Assert.That(ws.Cell(4, 3).GetString(), Is.EqualTo("Carlos"));
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace ClosedXML.Tests.Excel.AutoFilters
 
             using (var wb2 = new XLWorkbook(ms2))
             {
-                Assert.IsTrue(wb2.Worksheets.First().AutoFilter.IsEnabled);
+                Assert.That(wb2.Worksheets.First().AutoFilter.IsEnabled, Is.True);
             }
         }
 
@@ -162,7 +162,7 @@ namespace ClosedXML.Tests.Excel.AutoFilters
             range.InsertColumnsBefore(1);
 
             //Assert
-            Assert.IsTrue(ws.AutoFilter.Range.RangeAddress.IsValid);
+            Assert.That(ws.AutoFilter.Range.RangeAddress.IsValid, Is.True);
         }
 
         [Test]
@@ -181,10 +181,10 @@ namespace ClosedXML.Tests.Excel.AutoFilters
 
             autoFilter.Column(1).AddFilter("Carlos");
 
-            Assert.AreEqual("Carlos", ws.Cell(5, 3).GetString());
-            Assert.AreEqual(2, autoFilter.VisibleRows.Count());
-            Assert.AreEqual(3, autoFilter.VisibleRows.First().WorksheetRow().RowNumber());
-            Assert.AreEqual(5, autoFilter.VisibleRows.Last().WorksheetRow().RowNumber());
+            Assert.That(ws.Cell(5, 3).GetString(), Is.EqualTo("Carlos"));
+            Assert.That(autoFilter.VisibleRows.Count(), Is.EqualTo(2));
+            Assert.That(autoFilter.VisibleRows.First().WorksheetRow().RowNumber(), Is.EqualTo(3));
+            Assert.That(autoFilter.VisibleRows.Last().WorksheetRow().RowNumber(), Is.EqualTo(5));
         }
 
         [Test]
@@ -204,14 +204,14 @@ namespace ClosedXML.Tests.Excel.AutoFilters
 
             autoFilter.Column(1).AddFilter("Carlos");
 
-            Assert.AreEqual(3, autoFilter.HiddenRows.Count());
+            Assert.That(autoFilter.HiddenRows.Count(), Is.EqualTo(3));
 
             // Unhide the rows so that the table is out of sync with the filter
             autoFilter.HiddenRows.ForEach(r => r.WorksheetRow().Unhide());
-            Assert.False(autoFilter.HiddenRows.Any());
+            Assert.That(autoFilter.HiddenRows.Any(), Is.False);
 
             autoFilter.Reapply();
-            Assert.AreEqual(3, autoFilter.HiddenRows.Count());
+            Assert.That(autoFilter.HiddenRows.Count(), Is.EqualTo(3));
         }
 
         [Test]
@@ -233,11 +233,11 @@ namespace ClosedXML.Tests.Excel.AutoFilters
                 using (var wb = new XLWorkbook(stream))
                 {
                     var ws = wb.Worksheets.First();
-                    Assert.AreEqual(10000, (ws.AutoFilter as XLAutoFilter).Filters.First().Value.FirstOrDefault().Value);
-                    Assert.AreEqual(2, ws.AutoFilter.VisibleRows.Count());
+                    Assert.That((ws.AutoFilter as XLAutoFilter).Filters.First().Value.FirstOrDefault().Value, Is.EqualTo(10000));
+                    Assert.That(ws.AutoFilter.VisibleRows.Count(), Is.EqualTo(2));
 
                     ws.AutoFilter.Reapply();
-                    Assert.AreEqual(2, ws.AutoFilter.VisibleRows.Count());
+                    Assert.That(ws.AutoFilter.VisibleRows.Count(), Is.EqualTo(2));
                 }
 
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
@@ -246,13 +246,13 @@ namespace ClosedXML.Tests.Excel.AutoFilters
                 using (var wb = new XLWorkbook(stream))
                 {
                     var ws = wb.Worksheets.First();
-                    Assert.AreEqual("10 000.00", (ws.AutoFilter as XLAutoFilter).Filters.First().Value.FirstOrDefault().Value);
+                    Assert.That((ws.AutoFilter as XLAutoFilter).Filters.First().Value.FirstOrDefault().Value, Is.EqualTo("10 000.00"));
 
                     _ = ws.AutoFilter.VisibleRows.Select(r => r.FirstCell().Value).ToList();
-                    Assert.AreEqual(2, ws.AutoFilter.VisibleRows.Count());
+                    Assert.That(ws.AutoFilter.VisibleRows.Count(), Is.EqualTo(2));
 
                     ws.AutoFilter.Reapply();
-                    Assert.AreEqual(1, ws.AutoFilter.VisibleRows.Count());
+                    Assert.That(ws.AutoFilter.VisibleRows.Count(), Is.EqualTo(1));
                 }
             }
             finally

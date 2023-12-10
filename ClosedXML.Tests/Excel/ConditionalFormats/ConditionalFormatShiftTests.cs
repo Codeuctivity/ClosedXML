@@ -22,12 +22,12 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
             ws.Column(2).InsertColumnsAfter(2);
             var cf = ws.ConditionalFormats.ToArray();
 
-            Assert.AreEqual(5, cf.Length);
-            Assert.AreEqual("A1:A1", cf[0].Range.RangeAddress.ToString());
-            Assert.AreEqual("A2:D2", cf[1].Range.RangeAddress.ToString());
-            Assert.AreEqual("A3:E3", cf[2].Range.RangeAddress.ToString());
-            Assert.AreEqual("B4:D6", cf[3].Range.RangeAddress.ToString());
-            Assert.AreEqual("E7:F7", cf[4].Range.RangeAddress.ToString());
+            Assert.That(cf.Length, Is.EqualTo(5));
+            Assert.That(cf[0].Range.RangeAddress.ToString(), Is.EqualTo("A1:A1"));
+            Assert.That(cf[1].Range.RangeAddress.ToString(), Is.EqualTo("A2:D2"));
+            Assert.That(cf[2].Range.RangeAddress.ToString(), Is.EqualTo("A3:E3"));
+            Assert.That(cf[3].Range.RangeAddress.ToString(), Is.EqualTo("B4:D6"));
+            Assert.That(cf[4].Range.RangeAddress.ToString(), Is.EqualTo("E7:F7"));
         }
 
         [Test]
@@ -45,12 +45,12 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
             ws.Row(2).InsertRowsBelow(2);
             var cf = ws.ConditionalFormats.ToArray();
 
-            Assert.AreEqual(5, cf.Length);
-            Assert.AreEqual("A1:A1", cf[0].Range.RangeAddress.ToString());
-            Assert.AreEqual("B1:B4", cf[1].Range.RangeAddress.ToString());
-            Assert.AreEqual("C1:C5", cf[2].Range.RangeAddress.ToString());
-            Assert.AreEqual("D2:F4", cf[3].Range.RangeAddress.ToString());
-            Assert.AreEqual("G6:G7", cf[4].Range.RangeAddress.ToString());
+            Assert.That(cf.Length, Is.EqualTo(5));
+            Assert.That(cf[0].Range.RangeAddress.ToString(), Is.EqualTo("A1:A1"));
+            Assert.That(cf[1].Range.RangeAddress.ToString(), Is.EqualTo("B1:B4"));
+            Assert.That(cf[2].Range.RangeAddress.ToString(), Is.EqualTo("C1:C5"));
+            Assert.That(cf[3].Range.RangeAddress.ToString(), Is.EqualTo("D2:F4"));
+            Assert.That(cf[4].Range.RangeAddress.ToString(), Is.EqualTo("G6:G7"));
         }
 
         [Test]
@@ -68,11 +68,11 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
             ws.Column(2).Delete();
             var cf = ws.ConditionalFormats.ToArray();
 
-            Assert.AreEqual(4, cf.Length);
-            Assert.AreEqual("A1:A1", cf[0].Range.RangeAddress.ToString());
-            Assert.AreEqual("A2:A2", cf[1].Range.RangeAddress.ToString());
-            Assert.AreEqual("A3:B3", cf[2].Range.RangeAddress.ToString());
-            Assert.AreEqual("B7:C7", cf[3].Range.RangeAddress.ToString());
+            Assert.That(cf.Length, Is.EqualTo(4));
+            Assert.That(cf[0].Range.RangeAddress.ToString(), Is.EqualTo("A1:A1"));
+            Assert.That(cf[1].Range.RangeAddress.ToString(), Is.EqualTo("A2:A2"));
+            Assert.That(cf[2].Range.RangeAddress.ToString(), Is.EqualTo("A3:B3"));
+            Assert.That(cf[3].Range.RangeAddress.ToString(), Is.EqualTo("B7:C7"));
         }
 
         [Test]
@@ -90,11 +90,11 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
             ws.Row(2).Delete();
             var cf = ws.ConditionalFormats.ToArray();
 
-            Assert.AreEqual(4, cf.Length);
-            Assert.AreEqual("A1:A1", cf[0].Range.RangeAddress.ToString());
-            Assert.AreEqual("B1:B1", cf[1].Range.RangeAddress.ToString());
-            Assert.AreEqual("C1:C2", cf[2].Range.RangeAddress.ToString());
-            Assert.AreEqual("G3:G4", cf[3].Range.RangeAddress.ToString());
+            Assert.That(cf.Length, Is.EqualTo(4));
+            Assert.That(cf[0].Range.RangeAddress.ToString(), Is.EqualTo("A1:A1"));
+            Assert.That(cf[1].Range.RangeAddress.ToString(), Is.EqualTo("B1:B1"));
+            Assert.That(cf[2].Range.RangeAddress.ToString(), Is.EqualTo("C1:C2"));
+            Assert.That(cf[3].Range.RangeAddress.ToString(), Is.EqualTo("G3:G4"));
         }
 
         [Test]
@@ -106,12 +106,12 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
             var cf = ws.ConditionalFormats.Single();
 
             ws.Row(2).InsertRowsAbove(1);
-            Assert.IsTrue(cf.Range.RangeAddress.IsValid);
-            Assert.AreEqual($"1:{XLHelper.MaxRowNumber}", cf.Range.RangeAddress.ToString());
+            Assert.That(cf.Range.RangeAddress.IsValid, Is.True);
+            Assert.That(cf.Range.RangeAddress.ToString(), Is.EqualTo($"1:{XLHelper.MaxRowNumber}"));
 
             ws.Column(2).InsertColumnsAfter(1);
-            Assert.IsTrue(cf.Range.RangeAddress.IsValid);
-            Assert.AreEqual($"1:{XLHelper.MaxRowNumber}", cf.Range.RangeAddress.ToString());
+            Assert.That(cf.Range.RangeAddress.IsValid, Is.True);
+            Assert.That(cf.Range.RangeAddress.ToString(), Is.EqualTo($"1:{XLHelper.MaxRowNumber}"));
         }
     }
 }

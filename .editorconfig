@@ -1076,3 +1076,6 @@ dotnet_diagnostic.IDE0046.severity = suggestion
 
 # IDE0045: Convert to conditional expression
 dotnet_diagnostic.IDE0045.severity = suggestion
+
+# Silence https://github.com/nunit/nunit.analyzers/tree/master/documentation/NUnit2046.md
+dotnet_diagnostic.NUnit2045.severity = suggestion

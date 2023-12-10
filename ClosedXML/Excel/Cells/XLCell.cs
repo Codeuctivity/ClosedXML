@@ -277,7 +277,7 @@ namespace ClosedXML.Excel
                 {
                     parsedValue = value.ToString();
                     _dataType = XLDataType.Text;
-                    parsed = parsedValue.Length != 0;
+                    _ = parsedValue.Length != 0;
                 }
                 else
                 {
@@ -613,7 +613,7 @@ namespace ClosedXML.Excel
 
         private object ParseCellValueFromString()
         {
-            return ParseCellValueFromString(_cellValue, _dataType, out var error);
+            return ParseCellValueFromString(_cellValue, _dataType, out _);
         }
 
         private object ParseCellValueFromString(string cellValue, XLDataType dataType, out string error)
@@ -1116,7 +1116,7 @@ namespace ClosedXML.Excel
 
                                 break;
 
-                            case TimeSpan ts:
+                            case TimeSpan:
                                 if (style.NumberFormat.Format.Length == 0 && style.NumberFormat.NumberFormatId == 0)
                                 {
                                     Style.NumberFormat.NumberFormatId = 46;

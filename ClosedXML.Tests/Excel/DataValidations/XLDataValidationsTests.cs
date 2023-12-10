@@ -25,13 +25,13 @@ namespace ClosedXML.Tests.Excel.DataValidations
 
             var dv2 = ws2.DataValidations.Add(dv1);
 
-            Assert.AreEqual(1, ws1.DataValidations.Count());
-            Assert.AreEqual(1, ws2.DataValidations.Count());
+            Assert.That(ws1.DataValidations.Count(), Is.EqualTo(1));
+            Assert.That(ws2.DataValidations.Count(), Is.EqualTo(1));
 
-            Assert.AreNotSame(dv1, dv2);
+            Assert.That(dv2, Is.Not.SameAs(dv1));
 
-            Assert.AreSame(ws1, dv1.Ranges.Single().Worksheet);
-            Assert.AreSame(ws2, dv2.Ranges.Single().Worksheet);
+            Assert.That(dv1.Ranges.Single().Worksheet, Is.SameAs(ws1));
+            Assert.That(dv2.Ranges.Single().Worksheet, Is.SameAs(ws2));
         }
 
         [TestCase("A1:A1", true)]
@@ -51,14 +51,14 @@ namespace ClosedXML.Tests.Excel.DataValidations
             var address = new XLRangeAddress(ws as XLWorksheet, searchAddress);
 
             var actualResult = ws.DataValidations.TryGet(address, out var foundDv);
-            Assert.AreEqual(expectedResult, actualResult);
+            Assert.That(actualResult, Is.EqualTo(expectedResult));
             if (expectedResult)
             {
-                Assert.AreSame(dv, foundDv);
+                Assert.That(foundDv, Is.SameAs(dv));
             }
             else
             {
-                Assert.IsNull(foundDv);
+                Assert.That(foundDv, Is.Null);
             }
         }
 
@@ -84,7 +84,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
 
             var actualResult = ws.DataValidations.GetAllInRange(address);
 
-            Assert.AreEqual(expectedCount, actualResult.Count());
+            Assert.That(actualResult.Count(), Is.EqualTo(expectedCount));
         }
 
         [Test]
@@ -98,9 +98,8 @@ namespace ClosedXML.Tests.Excel.DataValidations
             var dv2 = ws.Range("E4:G6").CreateDataValidation();
             dv2.MinValue = "100";
 
-            Assert.AreEqual(4, dv1.Ranges.Count());
-            Assert.AreEqual("B2:G3,B4:D6,B7:G7,C11:C13",
-                string.Join(",", dv1.Ranges.Select(r => r.RangeAddress.ToString())));
+            Assert.That(dv1.Ranges.Count(), Is.EqualTo(4));
+            Assert.That(string.Join(",", dv1.Ranges.Select(r => r.RangeAddress.ToString())), Is.EqualTo("B2:G3,B4:D6,B7:G7,C11:C13"));
         }
 
         [Test]
@@ -116,8 +115,8 @@ namespace ClosedXML.Tests.Excel.DataValidations
             dv.RemoveRange(range);
 
             var actualResult = ws.DataValidations.TryGet(range.RangeAddress, out var foundDv);
-            Assert.IsFalse(actualResult);
-            Assert.IsNull(foundDv);
+            Assert.That(actualResult, Is.False);
+            Assert.That(foundDv, Is.Null);
         }
 
         [Test]
@@ -135,9 +134,9 @@ namespace ClosedXML.Tests.Excel.DataValidations
             dv2.AddRange(ws.Range("D1:D3"));
 
             var consolidatedDv = ws.DataValidations.Single();
-            Assert.AreSame(dv1, consolidatedDv);
-            Assert.True(ws.Cell("C1").HasDataValidation);
-            Assert.False(ws.Cell("D1").HasDataValidation);
+            Assert.That(consolidatedDv, Is.SameAs(dv1));
+            Assert.That(ws.Cell("C1").HasDataValidation, Is.True);
+            Assert.That(ws.Cell("D1").HasDataValidation, Is.False);
         }
     }
 }

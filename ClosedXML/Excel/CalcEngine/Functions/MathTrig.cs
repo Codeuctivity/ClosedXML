@@ -758,7 +758,7 @@ namespace ClosedXML.Excel.CalcEngine.Functions
             var rawK = p[1].Evaluate();
             if (rawN is long || rawN is int || rawN is byte || rawN is double || rawN is float)
             {
-                n = (int)Math.Floor((double)rawN);
+                _ = (int)Math.Floor((double)rawN);
             }
             else
             {
@@ -767,7 +767,7 @@ namespace ClosedXML.Excel.CalcEngine.Functions
 
             if (rawK is long || rawK is int || rawK is byte || rawK is double || rawK is float)
             {
-                k = (int)Math.Floor((double)rawK);
+                _ = (int)Math.Floor((double)rawK);
             }
             else
             {

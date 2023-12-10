@@ -17,14 +17,14 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Abs_ReturnsItselfOnPositiveNumbers([Range(0, 10, 0.1)] double input)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ABS({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(input, actual, tolerance * 10);
+            Assert.That(actual, Is.EqualTo(input).Within(tolerance * 10));
         }
 
         [Theory]
         public void Abs_ReturnsTheCorrectValueOnNegativeInput([Range(-10, -0.1, 0.1)] double input)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ABS({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(-input, actual, tolerance * 10);
+            Assert.That(actual, Is.EqualTo(-input).Within(tolerance * 10));
         }
 
         [TestCase(-1, 3.141592654)]
@@ -51,7 +51,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Acos_ReturnsCorrectValue(double input, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ACOS({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual, tolerance * 10);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance * 10));
         }
 
         [Theory]
@@ -89,7 +89,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Acosh_ReturnsCorrectValue(double input, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ACOSH({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual, tolerance * 10);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance * 10));
         }
 
         [TestCase(-10, 3.041924001)]
@@ -116,7 +116,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Acot_ReturnsCorrectValue(double input, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ACOT({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual, tolerance * 10);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance * 10));
         }
 
         [Theory]
@@ -146,7 +146,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Acoth_ReturnsCorrectValue(double input, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ACOTH({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual, tolerance * 10);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance * 10));
         }
 
         [TestCase("LVII", 57)]
@@ -158,7 +158,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Arabic_ReturnsCorrectNumber(string roman, int arabic)
         {
             var actual = (int)XLWorkbook.EvaluateExpr(string.Format($"ARABIC(\"{roman}\")"));
-            Assert.AreEqual(arabic, actual);
+            Assert.That(actual, Is.EqualTo(arabic));
         }
 
         [Test]
@@ -198,7 +198,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Asin_ReturnsCorrectResult(double input, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ASIN({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual, tolerance * 10);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance * 10));
         }
 
         [Theory]
@@ -226,9 +226,9 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Asinh_ReturnsCorrectResult(double input, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ASINH({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance));
             var minusActual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ASINH({0})", (-input).ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(-expectedResult, minusActual, tolerance);
+            Assert.That(minusActual, Is.EqualTo(-expectedResult).Within(tolerance));
         }
 
         [TestCase(0, 0)]
@@ -249,16 +249,16 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Atan_ReturnsCorrectResult(double input, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ATAN({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance));
             var minusActual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ATAN({0})", (-input).ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(-expectedResult, minusActual, tolerance);
+            Assert.That(minusActual, Is.EqualTo(-expectedResult).Within(tolerance));
         }
 
         [Test]
         public void Atan2_Returns0OnSecond0AndFirstGreater0([Range(0.1, 5, 0.4)] double input)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ATAN2({0}, 0)", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(0, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(0).Within(tolerance));
         }
 
         [TestCase(1, 2, 1.10714871779409)]
@@ -288,7 +288,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
                     (x * i).ToString(CultureInfo.InvariantCulture),
                     (y * i).ToString(CultureInfo.InvariantCulture)));
 
-                Assert.AreEqual(expectedResult, actual, tolerance);
+                Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance));
             }
         }
 
@@ -296,35 +296,35 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Atan2_ReturnsHalfPiOn0AsFirstInputWhenSecondGreater0([Range(0.1, 5, 0.4)] double input)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ATAN2(0, {0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(0.5 * Math.PI, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(0.5 * Math.PI).Within(tolerance));
         }
 
         [Test]
         public void Atan2_ReturnsMinus3QuartersOfPiWhenFirstSmaller0AndSecondItsNegative([Range(-5, -0.1, 0.3)] double input)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ATAN2({0}, {0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(-0.75 * Math.PI, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(-0.75 * Math.PI).Within(tolerance));
         }
 
         [Test]
         public void Atan2_ReturnsMinusHalfPiOn0AsFirstInputWhenSecondSmaller0([Range(-5, -0.1, 0.4)] double input)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ATAN2(0, {0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(-0.5 * Math.PI, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(-0.5 * Math.PI).Within(tolerance));
         }
 
         [Test]
         public void Atan2_ReturnsPiOn0AsSecondInputWhenFirstSmaller0([Range(-5, -0.1, 0.4)] double input)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ATAN2({0}, 0)", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(Math.PI, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(Math.PI).Within(tolerance));
         }
 
         [Test]
         public void Atan2_ReturnsQuarterOfPiWhenInputsAreEqualAndGreater0([Range(0.1, 5, 0.3)] double input)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"ATAN2({0}, {0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(0.25 * Math.PI, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(0.25 * Math.PI).Within(tolerance));
         }
 
         [Test]
@@ -354,7 +354,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
                     @"ATANH({0})",
                     input.ToString(CultureInfo.InvariantCulture)));
 
-            Assert.AreEqual(expectedResult, actual, tolerance * 10);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance * 10));
         }
 
         [Theory]
@@ -406,7 +406,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Base_ReturnsCorrectResultOnInput(int input, int theBase, string expectedResult)
         {
             var actual = (string)XLWorkbook.EvaluateExpr(string.Format(@"BASE({0}, {1})", input, theBase));
-            Assert.AreEqual(expectedResult, actual);
+            Assert.That(actual, Is.EqualTo(expectedResult));
         }
 
         [TestCase(255, 2, 3, "11111111")]
@@ -416,7 +416,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Base_ReturnsCorrectResultOnInputWithMinimalLength(int input, int theBase, int minLength, string expectedResult)
         {
             var actual = (string)XLWorkbook.EvaluateExpr(string.Format(@"BASE({0}, {1}, {2})", input, theBase, minLength));
-            Assert.AreEqual(expectedResult, actual);
+            Assert.That(actual, Is.EqualTo(expectedResult));
         }
 
         [TestCase(@"""x""", "2", "2")]
@@ -456,7 +456,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Ceiling(double input, double significance, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr($"CEILING({input.ToInvariantString()}, {significance.ToInvariantString()})");
-            Assert.AreEqual(expectedResult, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance));
         }
 
         [TestCase(6.7, -1)]
@@ -499,17 +499,17 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             }
 
             var actual = (double)XLWorkbook.EvaluateExpr($"CEILING.MATH({parameters})");
-            Assert.AreEqual(expectedResult, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance));
         }
 
         [Theory]
         public void Combin_Returns1ForKis0OrKEqualsN([Range(0, 10)] int n)
         {
             var actual = XLWorkbook.EvaluateExpr(string.Format(@"COMBIN({0}, 0)", n));
-            Assert.AreEqual(1, actual);
+            Assert.That(actual, Is.EqualTo(1));
 
             var actual2 = XLWorkbook.EvaluateExpr(string.Format(@"COMBIN({0}, {0})", n));
-            Assert.AreEqual(1, actual2);
+            Assert.That(actual2, Is.EqualTo(1));
         }
 
         [TestCase(4, 2, 6)]
@@ -521,20 +521,20 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Combin_ReturnsCorrectResults(int n, int k, int expectedResult)
         {
             var actual = XLWorkbook.EvaluateExpr(string.Format(@"COMBIN({0}, {1})", n, k));
-            Assert.AreEqual(expectedResult, actual);
+            Assert.That(actual, Is.EqualTo(expectedResult));
 
             var actual2 = XLWorkbook.EvaluateExpr(string.Format(@"COMBIN({0}, {1})", n, n - k));
-            Assert.AreEqual(expectedResult, actual2);
+            Assert.That(actual2, Is.EqualTo(expectedResult));
         }
 
         [Theory]
         public void Combin_ReturnsNforKis1OrKisNminus1([Range(1, 10)] int n)
         {
             var actual = XLWorkbook.EvaluateExpr(string.Format(@"COMBIN({0}, 1)", n));
-            Assert.AreEqual(n, actual);
+            Assert.That(actual, Is.EqualTo(n));
 
             var actual2 = XLWorkbook.EvaluateExpr(string.Format(@"COMBIN({0}, {1})", n, n - 1));
-            Assert.AreEqual(n, actual2);
+            Assert.That(actual2, Is.EqualTo(n));
         }
 
         [Theory]
@@ -574,7 +574,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Combina_CalculatesCorrectValues(int number, int chosen, int expectedResult)
         {
             var actualResult = XLWorkbook.EvaluateExpr($"COMBINA({number}, {chosen})");
-            Assert.AreEqual(expectedResult, (long)actualResult);
+            Assert.That((long)actualResult, Is.EqualTo(expectedResult));
         }
 
         [Theory]
@@ -605,7 +605,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
                 number.ToString(CultureInfo.InvariantCulture),
                 chosen.ToString(CultureInfo.InvariantCulture)));
 
-            Assert.AreEqual(expectedResult, (long)actualResult);
+            Assert.That((long)actualResult, Is.EqualTo(expectedResult));
         }
 
         [TestCase(0, 1)]
@@ -633,7 +633,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Cos_ReturnsCorrectResult(double input, double expectedResult)
         {
             var actualResult = (double)XLWorkbook.EvaluateExpr(string.Format("COS({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actualResult, tolerance);
+            Assert.That(actualResult, Is.EqualTo(expectedResult).Within(tolerance));
         }
 
         [TestCase(0, 1)]
@@ -661,9 +661,9 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Cosh_ReturnsCorrectResult(double input, double expectedResult)
         {
             var actualResult = (double)XLWorkbook.EvaluateExpr(string.Format("COSH({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actualResult, tolerance);
+            Assert.That(actualResult, Is.EqualTo(expectedResult).Within(tolerance));
             var actualResult2 = (double)XLWorkbook.EvaluateExpr(string.Format("COSH({0})", (-input).ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actualResult2, tolerance);
+            Assert.That(actualResult2, Is.EqualTo(expectedResult).Within(tolerance));
         }
 
         [TestCase(1, 0.642092616)]
@@ -684,7 +684,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Cot(double input, double expected)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"COT({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expected, actual, tolerance * 10.0);
+            Assert.That(actual, Is.EqualTo(expected).Within(tolerance * 10.0));
         }
 
         [Test]
@@ -722,7 +722,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Coth_Examples(double input, double expected)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"COTH({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expected, actual, tolerance * 10.0);
+            Assert.That(actual, Is.EqualTo(expected).Within(tolerance * 10.0));
         }
 
         [Test]
@@ -754,7 +754,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Csc_ReturnsCorrectValues(double input, double expected)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"CSC({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expected, actual, tolerance * 10);
+            Assert.That(actual, Is.EqualTo(expected).Within(tolerance * 10));
         }
 
         [TestCase(1, 0.850918128)]
@@ -770,7 +770,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         [TestCase(11, 0.0000334034)]
         public void CSch_CalculatesCorrectValues(double input, double expectedOutput)
         {
-            Assert.AreEqual(expectedOutput, (double)XLWorkbook.EvaluateExpr($@"CSCH({input})"), 0.000000001);
+            Assert.That((double)XLWorkbook.EvaluateExpr($@"CSCH({input})"), Is.EqualTo(expectedOutput).Within(0.000000001));
         }
 
         [Test]
@@ -785,7 +785,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Decimal(string inputString, int radix, int expectedResult)
         {
             var actualResult = XLWorkbook.EvaluateExpr($"DECIMAL(\"{inputString}\", {radix})");
-            Assert.AreEqual(expectedResult, actualResult);
+            Assert.That(actualResult, Is.EqualTo(expectedResult));
         }
 
         [Theory]
@@ -803,7 +803,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         [Test]
         public void Decimal_ZeroIsZeroInAnyRadix([Range(2, 36)] int radix)
         {
-            Assert.AreEqual(0, XLWorkbook.EvaluateExpr($"DECIMAL(\"0\", {radix})"));
+            Assert.That(XLWorkbook.EvaluateExpr($"DECIMAL(\"0\", {radix})"), Is.EqualTo(0));
         }
 
         [TestCase(0, 0)]
@@ -826,7 +826,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Degrees_ReturnsCorrectResult(double input, double expected)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"DEGREES({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expected, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(expected).Within(tolerance));
         }
 
         [TestCase(1.5, 2)]
@@ -838,7 +838,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Even_ReturnsCorrectResults(double input, int expectedResult)
         {
             var actual = (int)XLWorkbook.EvaluateExpr(string.Format(@"EVEN({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual);
+            Assert.That(actual, Is.EqualTo(expectedResult));
         }
 
         [TestCase(0, 1)]
@@ -857,7 +857,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Exp_ReturnsCorrectResults(double input, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"EXP({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance));
         }
 
         [TestCase(0, 1L)]
@@ -883,7 +883,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Fact_ReturnsCorrectResult(double input, long expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"FACT({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual);
+            Assert.That(actual, Is.EqualTo(expectedResult));
         }
 
         [Theory]
@@ -924,7 +924,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void FactDouble_ReturnsCorrectResult(double input, long expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"FACTDOUBLE({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedResult, actual);
+            Assert.That(actual, Is.EqualTo(expectedResult));
         }
 
         [Theory]
@@ -948,7 +948,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Floor(double input, double significance, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr($"FLOOR({input.ToInvariantString()}, {significance.ToInvariantString()})");
-            Assert.AreEqual(expectedResult, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance));
         }
 
         [TestCase(6.7, 0)]
@@ -1000,7 +1000,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             }
 
             var actual = (double)XLWorkbook.EvaluateExpr(string.Format(@"FLOOR.MATH({0})", parameters));
-            Assert.AreEqual(expectedResult, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(expectedResult).Within(tolerance));
         }
 
         [TestCase(8.9, 8)]
@@ -1008,7 +1008,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Int(double input, double expected)
         {
             var actual = XLWorkbook.EvaluateExpr(string.Format(@"INT({0})", input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expected, actual);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -1017,33 +1017,33 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             double actual;
 
             actual = (double)XLWorkbook.EvaluateExpr(@"MOD(1.5, 1)");
-            Assert.AreEqual(0.5, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(0.5).Within(tolerance));
 
             actual = (double)XLWorkbook.EvaluateExpr(@"MOD(3, 2)");
-            Assert.AreEqual(1, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(1).Within(tolerance));
 
             actual = (double)XLWorkbook.EvaluateExpr(@"MOD(-3, 2)");
-            Assert.AreEqual(1, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(1).Within(tolerance));
 
             actual = (double)XLWorkbook.EvaluateExpr(@"MOD(3, -2)");
-            Assert.AreEqual(-1, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(-1).Within(tolerance));
 
             actual = (double)XLWorkbook.EvaluateExpr(@"MOD(-3, -2)");
-            Assert.AreEqual(-1, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(-1).Within(tolerance));
 
             //////
 
             actual = (double)XLWorkbook.EvaluateExpr(@"MOD(-4.3, -0.5)");
-            Assert.AreEqual(-0.3, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(-0.3).Within(tolerance));
 
             actual = (double)XLWorkbook.EvaluateExpr(@"MOD(6.9, -0.2)");
-            Assert.AreEqual(-0.1, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(-0.1).Within(tolerance));
 
             actual = (double)XLWorkbook.EvaluateExpr(@"MOD(0.7, 0.6)");
-            Assert.AreEqual(0.1, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(0.1).Within(tolerance));
 
             actual = (double)XLWorkbook.EvaluateExpr(@"MOD(6.2, 1.1)");
-            Assert.AreEqual(0.7, actual, tolerance);
+            Assert.That(actual, Is.EqualTo(0.7).Within(tolerance));
         }
 
         [TestCase(10, 3, ExpectedResult = 9.0)]
@@ -1125,14 +1125,14 @@ namespace ClosedXML.Tests.Excel.CalcEngine
                 string.Format(
                     @"SEC({0})",
                     input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedOutput, result, 0.00001);
+            Assert.That(result, Is.EqualTo(expectedOutput).Within(0.00001));
 
             // as the secant is symmetric for positive and negative numbers, let's assert twice:
             var resultForNegative = (double)XLWorkbook.EvaluateExpr(
                 string.Format(
                     @"SEC({0})",
                     (-input).ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedOutput, resultForNegative, 0.00001);
+            Assert.That(resultForNegative, Is.EqualTo(expectedOutput).Within(0.00001));
         }
 
         [Test]
@@ -1157,14 +1157,14 @@ namespace ClosedXML.Tests.Excel.CalcEngine
                 string.Format(
                     @"SECH({0})",
                     input.ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedOutput, result, 0.00001);
+            Assert.That(result, Is.EqualTo(expectedOutput).Within(0.00001));
 
             // as the secant is symmetric for positive and negative numbers, let's assert twice:
             var resultForNegative = (double)XLWorkbook.EvaluateExpr(
                 string.Format(
                     @"SECH({0})",
                     (-input).ToString(CultureInfo.InvariantCulture)));
-            Assert.AreEqual(expectedOutput, resultForNegative, 0.00001);
+            Assert.That(resultForNegative, Is.EqualTo(expectedOutput).Within(0.00001));
         }
 
         /// <summary>
@@ -1194,7 +1194,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
 
             ws.Cell(1, 3).Value = 300000;
 
-            Assert.AreEqual(expectedOutcome, (double)ws.Evaluate(formula));
+            Assert.That((double)ws.Evaluate(formula), Is.EqualTo(expectedOutcome));
         }
 
         /// <summary>
@@ -1236,7 +1236,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
 
             ws.Cell(1, 3).Value = 300000;
 
-            Assert.AreEqual(expectedOutcome, (double)ws.Evaluate(formula));
+            Assert.That((double)ws.Evaluate(formula), Is.EqualTo(expectedOutcome));
         }
 
         [Test]
@@ -1255,7 +1255,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A1").InsertTable(data);
             var formula = "=SUMIF(A:A,\"=A\",B:B)";
             var value = ws.Evaluate(formula);
-            Assert.AreEqual(3, value);
+            Assert.That(value, Is.EqualTo(3));
         }
 
         [Test]
@@ -1277,7 +1277,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var formula = "=SUMIF(A:A,\"=A\",B:B)";
             ws.Cell("B7").SetFormulaA1(formula);
             var value = ws.Cell("B7").Value;
-            Assert.AreEqual(3, value);
+            Assert.That(value, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -1321,7 +1321,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell(1, 3).Value = 300000;
 
             var actualResult = ws.Evaluate(formula).CastTo<double>();
-            Assert.AreEqual(expectedResult, actualResult);
+            Assert.That(actualResult, Is.EqualTo(expectedResult));
         }
 
         /// <summary>
@@ -1351,7 +1351,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
 
             ws.Cell(1, 3).Value = 300000;
 
-            Assert.AreEqual(expectedOutcome, (double)ws.Evaluate(formula));
+            Assert.That((double)ws.Evaluate(formula), Is.EqualTo(expectedOutcome));
         }
 
         /// <summary>
@@ -1411,7 +1411,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
 
             var actualResult = ws.Evaluate(formula).CastTo<double>();
 
-            Assert.AreEqual(expectedResult, actualResult, tolerance);
+            Assert.That(actualResult, Is.EqualTo(expectedResult).Within(tolerance));
         }
 
         [Test]
@@ -1423,18 +1423,18 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.FirstCell().Value = Enumerable.Range(1, 10);
             ws.FirstCell().CellRight().Value = Enumerable.Range(1, 10).Reverse();
 
-            Assert.AreEqual(2, ws.Evaluate("SUMPRODUCT(A2)"));
-            Assert.AreEqual(55, ws.Evaluate("SUMPRODUCT(A1:A10)"));
-            Assert.AreEqual(220, ws.Evaluate("SUMPRODUCT(A1:A10, B1:B10)"));
+            Assert.That(ws.Evaluate("SUMPRODUCT(A2)"), Is.EqualTo(2));
+            Assert.That(ws.Evaluate("SUMPRODUCT(A1:A10)"), Is.EqualTo(55));
+            Assert.That(ws.Evaluate("SUMPRODUCT(A1:A10, B1:B10)"), Is.EqualTo(220));
 
             Assert.Throws<NoValueAvailableException>(() => ws.Evaluate("SUMPRODUCT(A1:A10, B1:B5)"));
 
             // Blank cells and cells with text should be treated as zeros
             ws.Range("A1:A5").Clear();
-            Assert.AreEqual(110, ws.Evaluate("SUMPRODUCT(A1:A10, B1:B10)"));
+            Assert.That(ws.Evaluate("SUMPRODUCT(A1:A10, B1:B10)"), Is.EqualTo(110));
 
             ws.Range("A1:A5").SetValue("asdf");
-            Assert.AreEqual(110, ws.Evaluate("SUMPRODUCT(A1:A10, B1:B10)"));
+            Assert.That(ws.Evaluate("SUMPRODUCT(A1:A10, B1:B10)"), Is.EqualTo(110));
         }
 
         [Test]
@@ -1443,7 +1443,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var input = 27.64799257;
             var expectedResult = 27;
             var actual = (double)XLWorkbook.EvaluateExpr($"TRUNC({input.ToString(CultureInfo.InvariantCulture)})");
-            Assert.AreEqual(expectedResult, actual);
+            Assert.That(actual, Is.EqualTo(expectedResult));
         }
 
         [TestCase(27.64799257, -1, 20)]
@@ -1453,7 +1453,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         public void Trunc_Specify_Digits(double input, int digits, double expectedResult)
         {
             var actual = (double)XLWorkbook.EvaluateExpr($"TRUNC({input.ToString(CultureInfo.InvariantCulture)}, {digits})");
-            Assert.AreEqual(expectedResult, actual);
+            Assert.That(actual, Is.EqualTo(expectedResult));
         }
     }
 }

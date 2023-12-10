@@ -17,8 +17,8 @@ namespace ClosedXML.Tests.Excel.Ranges
             var first = ws.FirstCellUsed(XLCellsUsedOptions.All).Address.ToStringRelative();
             var last = ws.LastCellUsed(XLCellsUsedOptions.All).Address.ToStringRelative();
 
-            Assert.AreEqual("B2", first);
-            Assert.AreEqual("D4", last);
+            Assert.That(first, Is.EqualTo("B2"));
+            Assert.That(last, Is.EqualTo("D4"));
         }
 
         [TestCase("A1:A2", "A1:A2")]
@@ -35,9 +35,9 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Column(2).InsertColumnsAfter(2);
 
             var mr = ws.MergedRanges.ToArray();
-            Assert.AreEqual(1, mr.Length);
-            Assert.AreSame(range, mr.Single());
-            Assert.AreEqual(expectedRange, range.RangeAddress.ToString());
+            Assert.That(mr.Length, Is.EqualTo(1));
+            Assert.That(mr.Single(), Is.SameAs(range));
+            Assert.That(range.RangeAddress.ToString(), Is.EqualTo(expectedRange));
         }
 
         [TestCase("A1:B1", "A1:B1")]
@@ -54,9 +54,9 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Row(2).InsertRowsBelow(2);
 
             var mr = ws.MergedRanges.ToArray();
-            Assert.AreEqual(1, mr.Length);
-            Assert.AreSame(range, mr.Single());
-            Assert.AreEqual(expectedRange, range.RangeAddress.ToString());
+            Assert.That(mr.Length, Is.EqualTo(1));
+            Assert.That(mr.Single(), Is.SameAs(range));
+            Assert.That(range.RangeAddress.ToString(), Is.EqualTo(expectedRange));
         }
 
         [TestCase("A1:A2", true, "A1:A2")]
@@ -75,14 +75,14 @@ namespace ClosedXML.Tests.Excel.Ranges
             var mr = ws.MergedRanges.ToArray();
             if (expectedExist)
             {
-                Assert.AreEqual(1, mr.Length);
-                Assert.AreSame(range, mr.Single());
-                Assert.AreEqual(expectedRange, range.RangeAddress.ToString());
+                Assert.That(mr.Length, Is.EqualTo(1));
+                Assert.That(mr.Single(), Is.SameAs(range));
+                Assert.That(range.RangeAddress.ToString(), Is.EqualTo(expectedRange));
             }
             else
             {
-                Assert.AreEqual(0, mr.Length);
-                Assert.IsFalse(range.RangeAddress.IsValid);
+                Assert.That(mr.Length, Is.EqualTo(0));
+                Assert.That(range.RangeAddress.IsValid, Is.False);
             }
         }
 
@@ -102,14 +102,14 @@ namespace ClosedXML.Tests.Excel.Ranges
             var mr = ws.MergedRanges.ToArray();
             if (expectedExist)
             {
-                Assert.AreEqual(1, mr.Length);
-                Assert.AreSame(range, mr.Single());
-                Assert.AreEqual(expectedRange, range.RangeAddress.ToString());
+                Assert.That(mr.Length, Is.EqualTo(1));
+                Assert.That(mr.Single(), Is.SameAs(range));
+                Assert.That(range.RangeAddress.ToString(), Is.EqualTo(expectedRange));
             }
             else
             {
-                Assert.AreEqual(0, mr.Length);
-                Assert.IsFalse(range.RangeAddress.IsValid);
+                Assert.That(mr.Length, Is.EqualTo(0));
+                Assert.That(range.RangeAddress.IsValid, Is.False);
             }
         }
 
@@ -128,11 +128,11 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("D3:E4").InsertColumnsAfter(2);
 
             var mr = ws.MergedRanges.ToArray();
-            Assert.AreEqual(4, mr.Length);
-            Assert.AreEqual("H1:I2", mr[0].RangeAddress.ToString());
-            Assert.AreEqual("B2:C3", mr[1].RangeAddress.ToString());
-            Assert.AreEqual("B4:C5", mr[2].RangeAddress.ToString());
-            Assert.AreEqual("H5:I6", mr[3].RangeAddress.ToString());
+            Assert.That(mr.Length, Is.EqualTo(4));
+            Assert.That(mr[0].RangeAddress.ToString(), Is.EqualTo("H1:I2"));
+            Assert.That(mr[1].RangeAddress.ToString(), Is.EqualTo("B2:C3"));
+            Assert.That(mr[2].RangeAddress.ToString(), Is.EqualTo("B4:C5"));
+            Assert.That(mr[3].RangeAddress.ToString(), Is.EqualTo("H5:I6"));
         }
 
         [Test]
@@ -150,11 +150,11 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("D3:E4").Delete(XLShiftDeletedCells.ShiftCellsLeft);
 
             var mr = ws.MergedRanges.ToArray();
-            Assert.AreEqual(4, mr.Length);
-            Assert.AreEqual("H1:I2", mr[0].RangeAddress.ToString());
-            Assert.AreEqual("B2:C3", mr[1].RangeAddress.ToString());
-            Assert.AreEqual("B4:C5", mr[2].RangeAddress.ToString());
-            Assert.AreEqual("H5:I6", mr[3].RangeAddress.ToString());
+            Assert.That(mr.Length, Is.EqualTo(4));
+            Assert.That(mr[0].RangeAddress.ToString(), Is.EqualTo("H1:I2"));
+            Assert.That(mr[1].RangeAddress.ToString(), Is.EqualTo("B2:C3"));
+            Assert.That(mr[2].RangeAddress.ToString(), Is.EqualTo("B4:C5"));
+            Assert.That(mr[3].RangeAddress.ToString(), Is.EqualTo("H5:I6"));
         }
 
         [Test]
@@ -172,11 +172,11 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("C4:D5").InsertRowsBelow(2);
 
             var mr = ws.MergedRanges.ToArray();
-            Assert.AreEqual(4, mr.Length);
-            Assert.AreEqual("B2:C3", mr[0].RangeAddress.ToString());
-            Assert.AreEqual("D2:E3", mr[1].RangeAddress.ToString());
-            Assert.AreEqual("A8:B9", mr[2].RangeAddress.ToString());
-            Assert.AreEqual("E8:F9", mr[3].RangeAddress.ToString());
+            Assert.That(mr.Length, Is.EqualTo(4));
+            Assert.That(mr[0].RangeAddress.ToString(), Is.EqualTo("B2:C3"));
+            Assert.That(mr[1].RangeAddress.ToString(), Is.EqualTo("D2:E3"));
+            Assert.That(mr[2].RangeAddress.ToString(), Is.EqualTo("A8:B9"));
+            Assert.That(mr[3].RangeAddress.ToString(), Is.EqualTo("E8:F9"));
         }
 
         [Test]
@@ -194,11 +194,11 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("C4:D5").Delete(XLShiftDeletedCells.ShiftCellsUp);
 
             var mr = ws.MergedRanges.ToArray();
-            Assert.AreEqual(4, mr.Length);
-            Assert.AreEqual("B2:C3", mr[0].RangeAddress.ToString());
-            Assert.AreEqual("D2:E3", mr[1].RangeAddress.ToString());
-            Assert.AreEqual("A8:B9", mr[2].RangeAddress.ToString());
-            Assert.AreEqual("E8:F9", mr[3].RangeAddress.ToString());
+            Assert.That(mr.Length, Is.EqualTo(4));
+            Assert.That(mr[0].RangeAddress.ToString(), Is.EqualTo("B2:C3"));
+            Assert.That(mr[1].RangeAddress.ToString(), Is.EqualTo("D2:E3"));
+            Assert.That(mr[2].RangeAddress.ToString(), Is.EqualTo("A8:B9"));
+            Assert.That(mr[3].RangeAddress.ToString(), Is.EqualTo("E8:F9"));
         }
 
         [Test]
@@ -211,9 +211,9 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Cell("A3").Style.Fill.BackgroundColor = XLColor.Green;
             ws.Range("A1:A3").Merge();
 
-            Assert.AreEqual(XLColor.Red, ws.Cell("A1").Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.Red, ws.Cell("A2").Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.Red, ws.Cell("A3").Style.Fill.BackgroundColor);
+            Assert.That(ws.Cell("A1").Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Red));
+            Assert.That(ws.Cell("A2").Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Red));
+            Assert.That(ws.Cell("A3").Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Red));
         }
 
         [Test]
@@ -224,9 +224,9 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Range("A1:A3").SetValue(100);
             ws.Range("A1:A3").Merge();
 
-            Assert.AreEqual(100, ws.Cell("A1").Value);
-            Assert.AreEqual("", ws.Cell("A2").Value);
-            Assert.AreEqual("", ws.Cell("A3").Value);
+            Assert.That(ws.Cell("A1").Value, Is.EqualTo(100));
+            Assert.That(ws.Cell("A2").Value, Is.EqualTo(""));
+            Assert.That(ws.Cell("A3").Value, Is.EqualTo(""));
         }
 
         [Test]
@@ -239,8 +239,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             ws.Range("A1:A2").Merge();
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
-            Assert.AreEqual("A1:A1", ws.ConditionalFormats.Single().Ranges.Single().RangeAddress.ToString());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
+            Assert.That(ws.ConditionalFormats.Single().Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A1:A1"));
         }
 
         [Test]
@@ -253,10 +253,10 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             ws.Range("A1:A2").Merge();
 
-            Assert.IsTrue(ws.Cell("A1").HasDataValidation);
-            Assert.AreEqual("1", ws.Cell("A1").GetDataValidation().MinValue);
-            Assert.AreEqual("2", ws.Cell("A1").GetDataValidation().MaxValue);
-            Assert.IsFalse(ws.Cell("A2").HasDataValidation);
+            Assert.That(ws.Cell("A1").HasDataValidation, Is.True);
+            Assert.That(ws.Cell("A1").GetDataValidation().MinValue, Is.EqualTo("1"));
+            Assert.That(ws.Cell("A1").GetDataValidation().MaxValue, Is.EqualTo("2"));
+            Assert.That(ws.Cell("A2").HasDataValidation, Is.False);
         }
 
         [Test]
@@ -280,54 +280,54 @@ namespace ClosedXML.Tests.Excel.Ranges
             range.Merge();
             range.Unmerge();
 
-            Assert.IsTrue(range.Cells().All(c => c.Style.Fill.BackgroundColor == XLColor.Red));
-            Assert.IsTrue(range.Cells().Where(c => c != firstCell).All(c => c.GetString().Length == 0));
-            Assert.AreEqual("B2", firstCell.Value);
+            Assert.That(range.Cells().All(c => c.Style.Fill.BackgroundColor == XLColor.Red), Is.True);
+            Assert.That(range.Cells().Where(c => c != firstCell).All(c => c.GetString().Length == 0), Is.True);
+            Assert.That(firstCell.Value, Is.EqualTo("B2"));
 
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("B2").Style.Border.TopBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("B2").Style.Border.RightBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("B2").Style.Border.BottomBorder);
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("B2").Style.Border.LeftBorder);
+            Assert.That(ws.Cell("B2").Style.Border.TopBorder, Is.EqualTo(XLBorderStyleValues.Thick));
+            Assert.That(ws.Cell("B2").Style.Border.RightBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("B2").Style.Border.BottomBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("B2").Style.Border.LeftBorder, Is.EqualTo(XLBorderStyleValues.Thick));
 
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("C2").Style.Border.TopBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("C2").Style.Border.RightBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("C2").Style.Border.BottomBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("C2").Style.Border.LeftBorder);
+            Assert.That(ws.Cell("C2").Style.Border.TopBorder, Is.EqualTo(XLBorderStyleValues.Thick));
+            Assert.That(ws.Cell("C2").Style.Border.RightBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("C2").Style.Border.BottomBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("C2").Style.Border.LeftBorder, Is.EqualTo(XLBorderStyleValues.None));
 
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("D2").Style.Border.TopBorder);
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("D2").Style.Border.RightBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("D2").Style.Border.BottomBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("D2").Style.Border.LeftBorder);
+            Assert.That(ws.Cell("D2").Style.Border.TopBorder, Is.EqualTo(XLBorderStyleValues.Thick));
+            Assert.That(ws.Cell("D2").Style.Border.RightBorder, Is.EqualTo(XLBorderStyleValues.Thick));
+            Assert.That(ws.Cell("D2").Style.Border.BottomBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("D2").Style.Border.LeftBorder, Is.EqualTo(XLBorderStyleValues.None));
 
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("B3").Style.Border.TopBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("B3").Style.Border.RightBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("B3").Style.Border.BottomBorder);
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("B3").Style.Border.LeftBorder);
+            Assert.That(ws.Cell("B3").Style.Border.TopBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("B3").Style.Border.RightBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("B3").Style.Border.BottomBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("B3").Style.Border.LeftBorder, Is.EqualTo(XLBorderStyleValues.Thick));
 
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("C3").Style.Border.TopBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("C3").Style.Border.RightBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("C3").Style.Border.BottomBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("C3").Style.Border.LeftBorder);
+            Assert.That(ws.Cell("C3").Style.Border.TopBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("C3").Style.Border.RightBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("C3").Style.Border.BottomBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("C3").Style.Border.LeftBorder, Is.EqualTo(XLBorderStyleValues.None));
 
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("D3").Style.Border.TopBorder);
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("D3").Style.Border.RightBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("D3").Style.Border.BottomBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("D3").Style.Border.LeftBorder);
+            Assert.That(ws.Cell("D3").Style.Border.TopBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("D3").Style.Border.RightBorder, Is.EqualTo(XLBorderStyleValues.Thick));
+            Assert.That(ws.Cell("D3").Style.Border.BottomBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("D3").Style.Border.LeftBorder, Is.EqualTo(XLBorderStyleValues.None));
 
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("B4").Style.Border.TopBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("B4").Style.Border.RightBorder);
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("B4").Style.Border.BottomBorder);
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("B4").Style.Border.LeftBorder);
+            Assert.That(ws.Cell("B4").Style.Border.TopBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("B4").Style.Border.RightBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("B4").Style.Border.BottomBorder, Is.EqualTo(XLBorderStyleValues.Thick));
+            Assert.That(ws.Cell("B4").Style.Border.LeftBorder, Is.EqualTo(XLBorderStyleValues.Thick));
 
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("C4").Style.Border.TopBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("C4").Style.Border.RightBorder);
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("C4").Style.Border.BottomBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("C4").Style.Border.LeftBorder);
+            Assert.That(ws.Cell("C4").Style.Border.TopBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("C4").Style.Border.RightBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("C4").Style.Border.BottomBorder, Is.EqualTo(XLBorderStyleValues.Thick));
+            Assert.That(ws.Cell("C4").Style.Border.LeftBorder, Is.EqualTo(XLBorderStyleValues.None));
 
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("D4").Style.Border.TopBorder);
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("D4").Style.Border.RightBorder);
-            Assert.AreEqual(XLBorderStyleValues.Thick, ws.Cell("D4").Style.Border.BottomBorder);
-            Assert.AreEqual(XLBorderStyleValues.None, ws.Cell("D4").Style.Border.LeftBorder);
+            Assert.That(ws.Cell("D4").Style.Border.TopBorder, Is.EqualTo(XLBorderStyleValues.None));
+            Assert.That(ws.Cell("D4").Style.Border.RightBorder, Is.EqualTo(XLBorderStyleValues.Thick));
+            Assert.That(ws.Cell("D4").Style.Border.BottomBorder, Is.EqualTo(XLBorderStyleValues.Thick));
+            Assert.That(ws.Cell("D4").Style.Border.LeftBorder, Is.EqualTo(XLBorderStyleValues.None));
         }
 
         [Test]
@@ -341,7 +341,7 @@ namespace ClosedXML.Tests.Excel.Ranges
                 ws.Cell("A3").Value = "1";
                 ws.Cell("A4").Value = "1";
                 ws.Cell("B1").FormulaA1 = "SUM(A:A)";
-                Assert.AreEqual(1, ws.Cell("B1").Value);
+                Assert.That(ws.Cell("B1").Value, Is.EqualTo(1));
             }
 
             using (var workbook = new XLWorkbook())
@@ -349,7 +349,7 @@ namespace ClosedXML.Tests.Excel.Ranges
                 var ws = workbook.AddWorksheet();
                 ws.Range("A2:A4").Merge().SetValue(1);
                 ws.Cell("B1").FormulaA1 = "SUM(A:A)";
-                Assert.AreEqual(1, ws.Cell("B1").Value);
+                Assert.That(ws.Cell("B1").Value, Is.EqualTo(1));
             }
         }
 
@@ -364,7 +364,7 @@ namespace ClosedXML.Tests.Excel.Ranges
                 ws.Cell("A3").FormulaA1 = "=1";
                 ws.Cell("A4").FormulaA1 = "=1";
                 ws.Cell("B1").FormulaA1 = "SUM(A:A)";
-                Assert.AreEqual(1, ws.Cell("B1").Value);
+                Assert.That(ws.Cell("B1").Value, Is.EqualTo(1));
             }
 
             using (var workbook = new XLWorkbook())
@@ -375,7 +375,7 @@ namespace ClosedXML.Tests.Excel.Ranges
                 ws.Cell("A3").SetFormulaA1("=1");
                 ws.Cell("A4").SetFormulaA1("=1");
                 ws.Cell("B1").SetFormulaA1("SUM(A:A)");
-                Assert.AreEqual(1, ws.Cell("B1").Value);
+                Assert.That(ws.Cell("B1").Value, Is.EqualTo(1));
             }
 
             using (var workbook = new XLWorkbook())
@@ -386,7 +386,7 @@ namespace ClosedXML.Tests.Excel.Ranges
                 ws.Cell("A3").FormulaR1C1 = "=1";
                 ws.Cell("A4").FormulaR1C1 = "=1";
                 ws.Cell("B1").FormulaR1C1 = "SUM(A:A)";
-                Assert.AreEqual(1, ws.Cell("B1").Value);
+                Assert.That(ws.Cell("B1").Value, Is.EqualTo(1));
             }
 
             using (var workbook = new XLWorkbook())
@@ -397,7 +397,7 @@ namespace ClosedXML.Tests.Excel.Ranges
                 ws.Cell("A3").SetFormulaR1C1("=1");
                 ws.Cell("A4").SetFormulaR1C1("=1");
                 ws.Cell("B1").SetFormulaR1C1("SUM(A:A)");
-                Assert.AreEqual(1, ws.Cell("B1").Value);
+                Assert.That(ws.Cell("B1").Value, Is.EqualTo(1));
             }
         }
 
@@ -410,8 +410,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             range.Merge();
 
-            Assert.IsFalse(range.IsMerged());
-            Assert.AreEqual(0, ws.MergedRanges.Count);
+            Assert.That(range.IsMerged(), Is.False);
+            Assert.That(ws.MergedRanges.Count, Is.EqualTo(0));
         }
     }
 }
