@@ -28,10 +28,7 @@ namespace ClosedXML.Excel.Ranges.Index
 
         public bool Add(IXLAddressable range)
         {
-            if (range == null)
-            {
-                throw new ArgumentNullException(nameof(range));
-            }
+            ArgumentNullException.ThrowIfNull(range);
 
             if (!range.RangeAddress.IsValid)
             {
@@ -122,10 +119,7 @@ namespace ClosedXML.Excel.Ranges.Index
 
         public bool Remove(IXLRangeAddress rangeAddress)
         {
-            if (rangeAddress == null)
-            {
-                throw new ArgumentNullException(nameof(rangeAddress));
-            }
+            ArgumentNullException.ThrowIfNull(rangeAddress);
 
             CheckWorksheet(rangeAddress.Worksheet);
 

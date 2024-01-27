@@ -25,11 +25,11 @@ namespace ClosedXML.Tests.Excel.Styles
 
             ws.Column(1).Style.NumberFormat.Format = "yy-MM-dd";
             ws.Cell("A1").InsertData(table);
-            Assert.AreEqual("yy-MM-dd", ws.Cell("A5").Style.DateFormat.Format);
+            Assert.That(ws.Cell("A5").Style.DateFormat.Format, Is.EqualTo("yy-MM-dd"));
 
             ws.Row(1).Style.NumberFormat.Format = "yy-MM-dd";
             ws.Cell("A1").InsertData(table.Rows, true);
-            Assert.AreEqual("yy-MM-dd", ws.Cell("E1").Style.DateFormat.Format);
+            Assert.That(ws.Cell("E1").Style.DateFormat.Format, Is.EqualTo("yy-MM-dd"));
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace ClosedXML.Tests.Excel.Styles
 
             c.Style.NumberFormat.SetFormat("m/d/yy\\ h:mm;@");
 
-            Assert.AreEqual("10/26/13 21:00", c.GetFormattedString());
+            Assert.That(c.GetFormattedString(), Is.EqualTo("10/26/13 21:00"));
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace ClosedXML.Tests.Excel.Styles
             using (var wb = new XLWorkbook(memoryStream))
             {
                 var column = wb.Worksheets.Single().Column(1);
-                Assert.AreEqual("0.000", column.Style.NumberFormat.Format);
+                Assert.That(column.Style.NumberFormat.Format, Is.EqualTo("0.000"));
             }
         }
 
@@ -73,7 +73,7 @@ namespace ClosedXML.Tests.Excel.Styles
             var numberFormatKey1 = new XLNumberFormatKey { Format = "MM" };
             var numberFormatKey2 = new XLNumberFormatKey { Format = "mm" };
 
-            Assert.AreNotEqual(numberFormatKey1.GetHashCode(), numberFormatKey2.GetHashCode());
+            Assert.That(numberFormatKey2.GetHashCode(), Is.Not.EqualTo(numberFormatKey1.GetHashCode()));
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace ClosedXML.Tests.Excel.Styles
             var numberFormatKey1 = new XLNumberFormatKey { Format = "MM" };
             var numberFormatKey2 = new XLNumberFormatKey { Format = "mm" };
 
-            Assert.IsFalse(numberFormatKey1.Equals(numberFormatKey2));
+            Assert.That(numberFormatKey1.Equals(numberFormatKey2), Is.False);
         }
     }
 }

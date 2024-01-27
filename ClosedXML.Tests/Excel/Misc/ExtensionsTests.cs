@@ -11,24 +11,24 @@ namespace ClosedXML.Tests.Excel.Misc
         [Test]
         public void FixNewLines()
         {
-            Assert.AreEqual("\n".FixNewLines(), XLConstants.NewLine);
-            Assert.AreEqual("\r\n".FixNewLines(), XLConstants.NewLine);
-            Assert.AreEqual("\rS\n".FixNewLines(), "\rS" + XLConstants.NewLine);
-            Assert.AreEqual("\r\n\n".FixNewLines(), XLConstants.NewLine + XLConstants.NewLine);
+            Assert.That(XLConstants.NewLine, Is.EqualTo("\n".FixNewLines()));
+            Assert.That(XLConstants.NewLine, Is.EqualTo("\r\n".FixNewLines()));
+            Assert.That("\rS" + XLConstants.NewLine, Is.EqualTo("\rS\n".FixNewLines()));
+            Assert.That(XLConstants.NewLine + XLConstants.NewLine, Is.EqualTo("\r\n\n".FixNewLines()));
         }
 
         [Test]
         public void DoubleSaveRound()
         {
             var value = 1234.1234567;
-            Assert.AreEqual(value.SaveRound(), Math.Round(value, 6));
+            Assert.That(Math.Round(value, 6), Is.EqualTo(value.SaveRound()));
         }
 
         [Test]
         public void DoubleValueSaveRound()
         {
             var value = 1234.1234567;
-            Assert.AreEqual(new DoubleValue(value).SaveRound().Value, Math.Round(value, 6));
+            Assert.That(Math.Round(value, 6), Is.EqualTo(new DoubleValue(value).SaveRound().Value));
         }
 
         [TestCase("NoEscaping", ExpectedResult = "NoEscaping")]

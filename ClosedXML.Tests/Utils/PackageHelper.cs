@@ -70,18 +70,9 @@ namespace ClosedXML.Tests.Utils
         {
             #region Check
 
-            if (uri is null)
-            {
-                throw new ArgumentNullException("uri");
-            }
-            if (source is null)
-            {
-                throw new ArgumentNullException("source");
-            }
-            if (dest is null)
-            {
-                throw new ArgumentNullException("dest");
-            }
+            ArgumentNullException.ThrowIfNull(uri);
+            ArgumentNullException.ThrowIfNull(source);
+            ArgumentNullException.ThrowIfNull(dest);
 
             #endregion Check
 
@@ -107,18 +98,9 @@ namespace ClosedXML.Tests.Utils
         {
             #region Check
 
-            if (package is null)
-            {
-                throw new ArgumentNullException("package");
-            }
-            if (descriptor is null)
-            {
-                throw new ArgumentNullException("descriptor");
-            }
-            if (serializeAction is null)
-            {
-                throw new ArgumentNullException("serializeAction");
-            }
+            ArgumentNullException.ThrowIfNull(package);
+            ArgumentNullException.ThrowIfNull(descriptor);
+            ArgumentNullException.ThrowIfNull(serializeAction);
 
             #endregion Check
 
@@ -135,18 +117,9 @@ namespace ClosedXML.Tests.Utils
         {
             #region Check
 
-            if (package is null)
-            {
-                throw new ArgumentNullException("package");
-            }
-            if (descriptor is null)
-            {
-                throw new ArgumentNullException("descriptor");
-            }
-            if (serializeAction is null)
-            {
-                throw new ArgumentNullException("serializeAction");
-            }
+            ArgumentNullException.ThrowIfNull(package);
+            ArgumentNullException.ThrowIfNull(descriptor);
+            ArgumentNullException.ThrowIfNull(serializeAction);
 
             #endregion Check
 
@@ -163,18 +136,9 @@ namespace ClosedXML.Tests.Utils
         {
             #region Check
 
-            if (package is null)
-            {
-                throw new ArgumentNullException("package");
-            }
-            if (uri is null)
-            {
-                throw new ArgumentNullException("uri");
-            }
-            if (deserializeFunc is null)
-            {
-                throw new ArgumentNullException("deserializeFunc");
-            }
+            ArgumentNullException.ThrowIfNull(package);
+            ArgumentNullException.ThrowIfNull(uri);
+            ArgumentNullException.ThrowIfNull(deserializeFunc);
 
             #endregion Check
 
@@ -191,18 +155,9 @@ namespace ClosedXML.Tests.Utils
         {
             #region Check
 
-            if (package is null)
-            {
-                throw new ArgumentNullException("package");
-            }
-            if (uri is null)
-            {
-                throw new ArgumentNullException("uri");
-            }
-            if (deserializeAction is null)
-            {
-                throw new ArgumentNullException("deserializeAction");
-            }
+            ArgumentNullException.ThrowIfNull(package);
+            ArgumentNullException.ThrowIfNull(uri);
+            ArgumentNullException.ThrowIfNull(deserializeAction);
 
             #endregion Check
 
@@ -219,18 +174,9 @@ namespace ClosedXML.Tests.Utils
         {
             #region Check
 
-            if (package is null)
-            {
-                throw new ArgumentNullException("package");
-            }
-            if (uri is null)
-            {
-                throw new ArgumentNullException("uri");
-            }
-            if (deserializeAction is null)
-            {
-                throw new ArgumentNullException("deserializeAction");
-            }
+            ArgumentNullException.ThrowIfNull(package);
+            ArgumentNullException.ThrowIfNull(uri);
+            ArgumentNullException.ThrowIfNull(deserializeAction);
 
             #endregion Check
 
@@ -274,14 +220,8 @@ namespace ClosedXML.Tests.Utils
         {
             #region Check
 
-            if (left == null)
-            {
-                throw new ArgumentNullException("left");
-            }
-            if (right == null)
-            {
-                throw new ArgumentNullException("right");
-            }
+            ArgumentNullException.ThrowIfNull(left);
+            ArgumentNullException.ThrowIfNull(right);
 
             #endregion Check
 
@@ -407,10 +347,7 @@ namespace ClosedXML.Tests.Utils
             /// <param name="compressOption"></param>
             public PackagePartDescriptor(Uri uri, string contentType, CompressionOption compressOption)
             {
-                if (uri is null)
-                {
-                    throw new ArgumentNullException("uri");
-                }
+                ArgumentNullException.ThrowIfNull(uri);
                 if (string.IsNullOrEmpty(contentType))
                 {
                     throw new ArgumentNullException("contentType");

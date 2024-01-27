@@ -163,7 +163,7 @@ namespace ClosedXML.Excel.CalcEngine.Functions
                 return false;
             }
 
-            return oe.Value is CellRangeReference crr;
+            return oe.Value is CellRangeReference;
         }
 
         static object IsText(List<Expression> p)

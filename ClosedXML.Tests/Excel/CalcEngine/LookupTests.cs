@@ -86,7 +86,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         {
             // Range lookup false
             var value = workbook.Evaluate(@"=HLOOKUP(""Total"",Data!$B$2:$I$71,4,FALSE)");
-            Assert.AreEqual(179.64, value);
+            Assert.That(value, Is.EqualTo(179.64));
         }
 
         [Test]
@@ -94,34 +94,34 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         {
             XLHyperlink hl;
             hl = XLWorkbook.EvaluateExpr("HYPERLINK(\"http://github.com/ClosedXML/ClosedXML\")") as XLHyperlink;
-            Assert.IsNotNull(hl);
-            Assert.AreEqual("http://github.com/ClosedXML/ClosedXML", hl.ExternalAddress.ToString());
-            Assert.AreEqual(string.Empty, hl.Tooltip);
+            Assert.That(hl, Is.Not.Null);
+            Assert.That(hl.ExternalAddress.ToString(), Is.EqualTo("http://github.com/ClosedXML/ClosedXML"));
+            Assert.That(hl.Tooltip, Is.EqualTo(string.Empty));
 
             hl = XLWorkbook.EvaluateExpr("HYPERLINK(\"mailto:jsmith@github.com\", \"jsmith@github.com\")") as XLHyperlink;
-            Assert.IsNotNull(hl);
-            Assert.AreEqual("mailto:jsmith@github.com", hl.ExternalAddress.ToString());
-            Assert.AreEqual("jsmith@github.com", hl.Tooltip);
+            Assert.That(hl, Is.Not.Null);
+            Assert.That(hl.ExternalAddress.ToString(), Is.EqualTo("mailto:jsmith@github.com"));
+            Assert.That(hl.Tooltip, Is.EqualTo("jsmith@github.com"));
         }
 
         [Test]
         public void Index()
         {
             var ws = workbook.Worksheets.First();
-            Assert.AreEqual("Kivell", ws.Evaluate(@"=INDEX(B2:J12, 3, 4)"));
+            Assert.That(ws.Evaluate(@"=INDEX(B2:J12, 3, 4)"), Is.EqualTo("Kivell"));
 
             // We don't support optional parameter fully here yet.
             // Supposedly, if you omit e.g. the row number, then ROW() of the calling cell should be assumed
             // Assert.AreEqual("Gill", ws.Evaluate(@"=INDEX(B2:J12, , 4)"));
 
-            Assert.AreEqual("Rep", ws.Evaluate(@"=INDEX(B2:I2, 4)"));
+            Assert.That(ws.Evaluate(@"=INDEX(B2:I2, 4)"), Is.EqualTo("Rep"));
 
-            Assert.AreEqual(3, ws.Evaluate(@"=INDEX(B2:B20, 4)"));
-            Assert.AreEqual(3, ws.Evaluate(@"=INDEX(B2:B20, 4, 1)"));
-            Assert.AreEqual(3, ws.Evaluate(@"=INDEX(B2:B20, 4, )"));
+            Assert.That(ws.Evaluate(@"=INDEX(B2:B20, 4)"), Is.EqualTo(3));
+            Assert.That(ws.Evaluate(@"=INDEX(B2:B20, 4, 1)"), Is.EqualTo(3));
+            Assert.That(ws.Evaluate(@"=INDEX(B2:B20, 4, )"), Is.EqualTo(3));
 
-            Assert.AreEqual("Rep", ws.Evaluate(@"=INDEX(B2:J2, 1, 4)"));
-            Assert.AreEqual("Rep", ws.Evaluate(@"=INDEX(B2:J2, , 4)"));
+            Assert.That(ws.Evaluate(@"=INDEX(B2:J2, 1, 4)"), Is.EqualTo("Rep"));
+            Assert.That(ws.Evaluate(@"=INDEX(B2:J2, , 4)"), Is.EqualTo("Rep"));
         }
 
         [Test]
@@ -145,46 +145,46 @@ namespace ClosedXML.Tests.Excel.CalcEngine
 
             object value;
             value = ws.Evaluate(@"=MATCH(""Rep"", B2:I2, 0)");
-            Assert.AreEqual(4, value);
+            Assert.That(value, Is.EqualTo(4));
 
             value = ws.Evaluate(@"=MATCH(""Rep"", A2:Z2, 0)");
-            Assert.AreEqual(5, value);
+            Assert.That(value, Is.EqualTo(5));
 
             value = ws.Evaluate(@"=MATCH(""REP"", B2:I2, 0)");
-            Assert.AreEqual(4, value);
+            Assert.That(value, Is.EqualTo(4));
 
             value = ws.Evaluate(@"=MATCH(95, B3:I3, 0)");
-            Assert.AreEqual(6, value);
+            Assert.That(value, Is.EqualTo(6));
 
             value = ws.Evaluate(@"=MATCH(DATE(2015,1,6), B3:I3, 0)");
-            Assert.AreEqual(2, value);
+            Assert.That(value, Is.EqualTo(2));
 
             value = ws.Evaluate(@"=MATCH(1.99, 3:3, 0)");
-            Assert.AreEqual(8, value);
+            Assert.That(value, Is.EqualTo(8));
 
             value = ws.Evaluate(@"=MATCH(43, B:B, 0)");
-            Assert.AreEqual(45, value);
+            Assert.That(value, Is.EqualTo(45));
 
             value = ws.Evaluate(@"=MATCH(""cENtraL"", D3:D45, 0)");
-            Assert.AreEqual(2, value);
+            Assert.That(value, Is.EqualTo(2));
 
             value = ws.Evaluate(@"=MATCH(4.99, H:H, 0)");
-            Assert.AreEqual(5, value);
+            Assert.That(value, Is.EqualTo(5));
 
             value = ws.Evaluate(@"=MATCH(""Rapture"", B2:I2, 1)");
-            Assert.AreEqual(2, value);
+            Assert.That(value, Is.EqualTo(2));
 
             value = ws.Evaluate(@"=MATCH(22.5, B3:B45, 1)");
-            Assert.AreEqual(22, value);
+            Assert.That(value, Is.EqualTo(22));
 
             value = ws.Evaluate(@"=MATCH(""Rep"", B2:I2)");
-            Assert.AreEqual(4, value);
+            Assert.That(value, Is.EqualTo(4));
 
             value = ws.Evaluate(@"=MATCH(""Rep"", B2:I2, 1)");
-            Assert.AreEqual(4, value);
+            Assert.That(value, Is.EqualTo(4));
 
             value = ws.Evaluate(@"=MATCH(40, G3:G6, -1)");
-            Assert.AreEqual(2, value);
+            Assert.That(value, Is.EqualTo(2));
         }
 
         [Test]
@@ -201,33 +201,33 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         {
             // Range lookup false
             var value = workbook.Evaluate("=VLOOKUP(3,Data!$B$2:$I$71,3,FALSE)");
-            Assert.AreEqual("Central", value);
+            Assert.That(value, Is.EqualTo("Central"));
 
             value = workbook.Evaluate("=VLOOKUP(DATE(2015,5,22),Data!C:I,7,FALSE)");
-            Assert.AreEqual(63.68, value);
+            Assert.That(value, Is.EqualTo(63.68));
 
             value = workbook.Evaluate(@"=VLOOKUP(""Central"",Data!D:E,2,FALSE)");
-            Assert.AreEqual("Kivell", value);
+            Assert.That(value, Is.EqualTo("Kivell"));
 
             // Case insensitive lookup
             value = workbook.Evaluate(@"=VLOOKUP(""central"",Data!D:E,2,FALSE)");
-            Assert.AreEqual("Kivell", value);
+            Assert.That(value, Is.EqualTo("Kivell"));
 
             // Range lookup true
             value = workbook.Evaluate("=VLOOKUP(3,Data!$B$2:$I$71,8,TRUE)");
-            Assert.AreEqual(179.64, value);
+            Assert.That(value, Is.EqualTo(179.64));
 
             value = workbook.Evaluate("=VLOOKUP(3,Data!$B$2:$I$71,8)");
-            Assert.AreEqual(179.64, value);
+            Assert.That(value, Is.EqualTo(179.64));
 
             value = workbook.Evaluate("=VLOOKUP(3,Data!$B$2:$I$71,8,)");
-            Assert.AreEqual(179.64, value);
+            Assert.That(value, Is.EqualTo(179.64));
 
             value = workbook.Evaluate("=VLOOKUP(14.5,Data!$B$2:$I$71,8,TRUE)");
-            Assert.AreEqual(174.65, value);
+            Assert.That(value, Is.EqualTo(174.65));
 
             value = workbook.Evaluate("=VLOOKUP(50,Data!$B$2:$I$71,8,TRUE)");
-            Assert.AreEqual(139.72, value);
+            Assert.That(value, Is.EqualTo(139.72));
         }
 
         [Test]

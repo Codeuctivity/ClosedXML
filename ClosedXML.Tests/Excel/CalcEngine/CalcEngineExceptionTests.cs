@@ -51,7 +51,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A1").SetFormulaA1("=XXX");
             ws.Cell("A2").SetFormulaA1(@"=IFERROR(A1, ""Success"")");
 
-            Assert.AreEqual("Success", ws.Cell("A2").Value);
+            Assert.That(ws.Cell("A2").Value, Is.EqualTo("Success"));
         }
     }
 }

@@ -79,7 +79,7 @@ namespace ClosedXML.Tests.Excel.Saving
             using (var wb = new XLWorkbook(ms))
             {
                 var ws = wb.Worksheets.First();
-                Assert.AreEqual("Reserve_TT_A_BLOCAGE_CAG_x6904_2", ws.FirstCell().Value);
+                Assert.That(ws.FirstCell().Value, Is.EqualTo("Reserve_TT_A_BLOCAGE_CAG_x6904_2"));
             }
         }
 
@@ -100,7 +100,7 @@ namespace ClosedXML.Tests.Excel.Saving
 
             using var book2 = new XLWorkbook(ms);
             var ws = book2.Worksheet(1);
-            Assert.AreEqual("sheet1", ws.Name);
+            Assert.That(ws.Name, Is.EqualTo("sheet1"));
             ws.Delete();
             book2.Save();
             book2.Save();
@@ -142,7 +142,7 @@ namespace ClosedXML.Tests.Excel.Saving
             using var book2 = new XLWorkbook(ms);
             var ws = book2.Worksheet(1);
 
-            Assert.IsNull(ws.Cell("A2").CachedValue);
+            Assert.That(ws.Cell("A2").CachedValue, Is.Null);
         }
 
         [Test]
@@ -164,9 +164,9 @@ namespace ClosedXML.Tests.Excel.Saving
             using var book2 = new XLWorkbook(ms);
             var ws = book2.Worksheet(1);
 
-            Assert.AreEqual(1230, ws.Cell("A2").CachedValue);
+            Assert.That(ws.Cell("A2").CachedValue, Is.EqualTo(1230));
 
-            Assert.AreEqual("1 230", ws.Cell("A3").CachedValue);
+            Assert.That(ws.Cell("A3").CachedValue, Is.EqualTo("1 230"));
         }
 
         [Test]
@@ -191,8 +191,8 @@ namespace ClosedXML.Tests.Excel.Saving
                 }
 
                 // Assert
-                Assert.IsTrue(File.Exists(copy.Path));
-                Assert.IsFalse(File.GetAttributes(copy.Path).HasFlag(FileAttributes.ReadOnly));
+                Assert.That(File.Exists(copy.Path), Is.True);
+                Assert.That(File.GetAttributes(copy.Path).HasFlag(FileAttributes.ReadOnly), Is.False);
             }
             finally
             {
@@ -216,8 +216,8 @@ namespace ClosedXML.Tests.Excel.Saving
             }
 
             // Assert
-            Assert.IsTrue(File.Exists(existing.Path));
-            Assert.Greater(new FileInfo(existing.Path).Length, 0);
+            Assert.That(File.Exists(existing.Path), Is.True);
+            Assert.That(new FileInfo(existing.Path).Length, Is.GreaterThan(0));
         }
 
         [Test]
@@ -270,8 +270,8 @@ namespace ClosedXML.Tests.Excel.Saving
             {
                 var ws = wb2.Worksheets.First();
 
-                Assert.AreEqual(1, ws.PageSetup.ColumnBreaks.Count);
-                Assert.AreEqual(1, ws.PageSetup.RowBreaks.Count);
+                Assert.That(ws.PageSetup.ColumnBreaks.Count, Is.EqualTo(1));
+                Assert.That(ws.PageSetup.RowBreaks.Count, Is.EqualTo(1));
             }
         }
 
@@ -343,7 +343,7 @@ namespace ClosedXML.Tests.Excel.Saving
             }
 
             using var package = SpreadsheetDocument.Open(tf.Path, false);
-            Assert.AreEqual(expectedType, package.DocumentType);
+            Assert.That(package.DocumentType, Is.EqualTo(expectedType));
         }
 
         [Test]
@@ -362,7 +362,7 @@ namespace ClosedXML.Tests.Excel.Saving
                 wb.SaveAs(workbook.Path);
             }
             using var package = SpreadsheetDocument.Open(workbook.Path, false);
-            Assert.AreEqual(SpreadsheetDocumentType.Workbook, package.DocumentType);
+            Assert.That(package.DocumentType, Is.EqualTo(SpreadsheetDocumentType.Workbook));
         }
 
         [Test]
@@ -397,8 +397,8 @@ namespace ClosedXML.Tests.Excel.Saving
                 var ws = wb.AddWorksheet("Sheet1");
                 var cell = ws.FirstCell();
                 cell.SetValue(quotedFormulaValue);
-                Assert.IsFalse(cell.HasFormula);
-                Assert.AreEqual(quotedFormulaValue, cell.Value);
+                Assert.That(cell.HasFormula, Is.False);
+                Assert.That(cell.Value, Is.EqualTo(quotedFormulaValue));
 
                 wb.SaveAs(ms);
             }
@@ -409,8 +409,8 @@ namespace ClosedXML.Tests.Excel.Saving
             {
                 var ws = wb.Worksheets.First();
                 var cell = ws.FirstCell();
-                Assert.IsFalse(cell.HasFormula);
-                Assert.AreEqual(quotedFormulaValue, cell.Value);
+                Assert.That(cell.HasFormula, Is.False);
+                Assert.That(cell.Value, Is.EqualTo(quotedFormulaValue));
             }
         }
 
@@ -438,10 +438,10 @@ namespace ClosedXML.Tests.Excel.Saving
                 {
                     var ws = wb.Worksheet(sheetName);
 
-                    Assert.AreEqual(50, ws.Row(1).Height);
-                    Assert.AreEqual(0, ws.Row(2).Height);
-                    Assert.AreEqual(20, ws.Row(3).Height);
-                    Assert.AreEqual(100, ws.Row(4).Height);
+                    Assert.That(ws.Row(1).Height, Is.EqualTo(50));
+                    Assert.That(ws.Row(2).Height, Is.EqualTo(0));
+                    Assert.That(ws.Row(3).Height, Is.EqualTo(20));
+                    Assert.That(ws.Row(4).Height, Is.EqualTo(100));
                 }
             }
         }
@@ -469,10 +469,10 @@ namespace ClosedXML.Tests.Excel.Saving
                 {
                     var ws = wb.Worksheet(sheetName);
 
-                    Assert.AreEqual(ws.ColumnWidth, ws.Column(1).Width);
-                    Assert.AreEqual(0, ws.Column(2).Width);
-                    Assert.AreEqual(20, ws.Column(3).Width);
-                    Assert.AreEqual(100, ws.Column(4).Width);
+                    Assert.That(ws.Column(1).Width, Is.EqualTo(ws.ColumnWidth));
+                    Assert.That(ws.Column(2).Width, Is.EqualTo(0));
+                    Assert.That(ws.Column(3).Width, Is.EqualTo(20));
+                    Assert.That(ws.Column(4).Width, Is.EqualTo(100));
                 }
             }
         }
@@ -489,7 +489,7 @@ namespace ClosedXML.Tests.Excel.Saving
 
             using (var wb = new XLWorkbook(output))
             {
-                Assert.AreEqual(XLAlignmentHorizontalValues.Center, wb.Worksheets.First().Cell("B1").Style.Alignment.Horizontal);
+                Assert.That(wb.Worksheets.First().Cell("B1").Style.Alignment.Horizontal, Is.EqualTo(XLAlignmentHorizontalValues.Center));
             }
         }
 
@@ -515,17 +515,17 @@ namespace ClosedXML.Tests.Excel.Saving
                 var cf = sheet.ConditionalFormats
                     .OrderBy(x => x.Range.RangeAddress.FirstAddress.ColumnNumber)
                     .ToArray();
-                Assert.AreEqual(2, cf.Length);
-                Assert.AreEqual(XLConditionalFormatType.ColorScale, cf[0].ConditionalFormatType);
-                Assert.AreEqual(XLColor.Red, cf[0].Colors[1]);
-                Assert.AreEqual(XLCFContentType.Minimum, cf[0].ContentTypes[1]);
-                Assert.AreEqual(XLColor.Green, cf[0].Colors[2]);
-                Assert.AreEqual(XLCFContentType.Maximum, cf[0].ContentTypes[2]);
-                Assert.AreEqual(XLConditionalFormatType.ColorScale, cf[1].ConditionalFormatType);
-                Assert.AreEqual(XLColor.Alizarin, cf[1].Colors[1]);
-                Assert.AreEqual(XLCFContentType.Minimum, cf[1].ContentTypes[1]);
-                Assert.AreEqual(XLColor.Blue, cf[1].Colors[2]);
-                Assert.AreEqual(XLCFContentType.Maximum, cf[1].ContentTypes[2]);
+                Assert.That(cf.Length, Is.EqualTo(2));
+                Assert.That(cf[0].ConditionalFormatType, Is.EqualTo(XLConditionalFormatType.ColorScale));
+                Assert.That(cf[0].Colors[1], Is.EqualTo(XLColor.Red));
+                Assert.That(cf[0].ContentTypes[1], Is.EqualTo(XLCFContentType.Minimum));
+                Assert.That(cf[0].Colors[2], Is.EqualTo(XLColor.Green));
+                Assert.That(cf[0].ContentTypes[2], Is.EqualTo(XLCFContentType.Maximum));
+                Assert.That(cf[1].ConditionalFormatType, Is.EqualTo(XLConditionalFormatType.ColorScale));
+                Assert.That(cf[1].Colors[1], Is.EqualTo(XLColor.Alizarin));
+                Assert.That(cf[1].ContentTypes[1], Is.EqualTo(XLCFContentType.Minimum));
+                Assert.That(cf[1].Colors[2], Is.EqualTo(XLColor.Blue));
+                Assert.That(cf[1].ContentTypes[2], Is.EqualTo(XLCFContentType.Maximum));
             }
         }
 
@@ -629,7 +629,7 @@ namespace ClosedXML.Tests.Excel.Saving
 
             using (var wb = SpreadsheetDocument.Open(ms, false))
             {
-                Assert.IsTrue(wb.WorkbookPart.Workbook.WorkbookProperties.FilterPrivacy);
+                Assert.That((bool)wb.WorkbookPart.Workbook.WorkbookProperties.FilterPrivacy, Is.True);
             }
         }
 
@@ -648,7 +648,7 @@ namespace ClosedXML.Tests.Excel.Saving
 
             using (var wb = SpreadsheetDocument.Open(ms, false))
             {
-                Assert.IsNull(wb.WorkbookPart.Workbook.WorkbookProperties.FilterPrivacy);
+                Assert.That(wb.WorkbookPart.Workbook.WorkbookProperties.FilterPrivacy, Is.Null);
             }
         }
 
@@ -657,7 +657,7 @@ namespace ClosedXML.Tests.Excel.Saving
         {
             using var stream = TestHelper.GetStreamFromResource(TestHelper.GetResourcePath(@"TryToLoad\FilterPrivacyEnabledWorkbook.xlsx"));
             using var wb = SpreadsheetDocument.Open(stream, false);
-            Assert.IsTrue(wb.WorkbookPart.Workbook.WorkbookProperties.FilterPrivacy);
+            Assert.That((bool)wb.WorkbookPart.Workbook.WorkbookProperties.FilterPrivacy, Is.True);
         }
 
         [Test]
@@ -670,15 +670,15 @@ namespace ClosedXML.Tests.Excel.Saving
 
             ws.Row(1).InsertRowsAbove(1);
             var dv = ws.DataValidations.ToArray();
-            Assert.AreEqual(1, dv.Length);
-            Assert.AreEqual("B5:B5", dv[0].Ranges.Single().RangeAddress.ToString());
+            Assert.That(dv.Length, Is.EqualTo(1));
+            Assert.That(dv[0].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("B5:B5"));
 
             Assert.DoesNotThrow(() => wb.SaveAs(ms));
 
             ws.Column(1).InsertColumnsBefore(1);
             dv = ws.DataValidations.ToArray();
-            Assert.AreEqual(1, dv.Length);
-            Assert.AreEqual("C5:C5", dv[0].Ranges.Single().RangeAddress.ToString());
+            Assert.That(dv.Length, Is.EqualTo(1));
+            Assert.That(dv[0].Ranges.Single().RangeAddress.ToString(), Is.EqualTo("C5:C5"));
 
             Assert.DoesNotThrow(() => wb.SaveAs(ms));
         }

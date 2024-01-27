@@ -25,17 +25,17 @@ namespace ClosedXML.Tests.Excel.Ranges
             column1.InsertColumnsBefore(1);
             column2.InsertColumnsBefore(1);
 
-            Assert.AreEqual(ws.Style.Fill.BackgroundColor, ws.Column(1).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.FrenchLilac, ws.Column(2).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.FrenchLilac, ws.Column(3).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.FrenchLilac, ws.Column(4).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.Xanadu, ws.Column(5).Style.Fill.BackgroundColor);
+            Assert.That(ws.Column(1).Style.Fill.BackgroundColor, Is.EqualTo(ws.Style.Fill.BackgroundColor));
+            Assert.That(ws.Column(2).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.FrenchLilac));
+            Assert.That(ws.Column(3).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.FrenchLilac));
+            Assert.That(ws.Column(4).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.FrenchLilac));
+            Assert.That(ws.Column(5).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Xanadu));
 
-            Assert.AreEqual(ws.Style.Fill.BackgroundColor, ws.Cell(2, 1).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.Fulvous, ws.Cell(2, 2).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.Fulvous, ws.Cell(2, 3).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.Fulvous, ws.Cell(2, 4).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.MacaroniAndCheese, ws.Cell(2, 5).Style.Fill.BackgroundColor);
+            Assert.That(ws.Cell(2, 1).Style.Fill.BackgroundColor, Is.EqualTo(ws.Style.Fill.BackgroundColor));
+            Assert.That(ws.Cell(2, 2).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Fulvous));
+            Assert.That(ws.Cell(2, 3).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Fulvous));
+            Assert.That(ws.Cell(2, 4).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Fulvous));
+            Assert.That(ws.Cell(2, 5).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.MacaroniAndCheese));
         }
 
         [Test]
@@ -50,9 +50,9 @@ namespace ClosedXML.Tests.Excel.Ranges
             var r = ws.Range("B4").InsertRowsAbove(1).First();
             r.Cell(1).SetValue("A");
 
-            Assert.AreEqual("X", ws.Cell("B3").GetString());
-            Assert.AreEqual("A", ws.Cell("B4").GetString());
-            Assert.AreEqual("B", ws.Cell("B5").GetString());
+            Assert.That(ws.Cell("B3").GetString(), Is.EqualTo("X"));
+            Assert.That(ws.Cell("B4").GetString(), Is.EqualTo("A"));
+            Assert.That(ws.Cell("B5").GetString(), Is.EqualTo("B"));
         }
 
         [Test]
@@ -71,17 +71,17 @@ namespace ClosedXML.Tests.Excel.Ranges
             row1.InsertRowsAbove(1);
             row2.InsertRowsAbove(1);
 
-            Assert.AreEqual(ws.Style.Fill.BackgroundColor, ws.Row(1).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.FrenchLilac, ws.Row(2).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.FrenchLilac, ws.Row(3).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.FrenchLilac, ws.Row(4).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.Xanadu, ws.Row(5).Style.Fill.BackgroundColor);
+            Assert.That(ws.Row(1).Style.Fill.BackgroundColor, Is.EqualTo(ws.Style.Fill.BackgroundColor));
+            Assert.That(ws.Row(2).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.FrenchLilac));
+            Assert.That(ws.Row(3).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.FrenchLilac));
+            Assert.That(ws.Row(4).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.FrenchLilac));
+            Assert.That(ws.Row(5).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Xanadu));
 
-            Assert.AreEqual(ws.Style.Fill.BackgroundColor, ws.Cell(1, 2).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.Fulvous, ws.Cell(2, 2).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.Fulvous, ws.Cell(3, 2).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.Fulvous, ws.Cell(4, 2).Style.Fill.BackgroundColor);
-            Assert.AreEqual(XLColor.MacaroniAndCheese, ws.Cell(5, 2).Style.Fill.BackgroundColor);
+            Assert.That(ws.Cell(1, 2).Style.Fill.BackgroundColor, Is.EqualTo(ws.Style.Fill.BackgroundColor));
+            Assert.That(ws.Cell(2, 2).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Fulvous));
+            Assert.That(ws.Cell(3, 2).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Fulvous));
+            Assert.That(ws.Cell(4, 2).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.Fulvous));
+            Assert.That(ws.Cell(5, 2).Style.Fill.BackgroundColor, Is.EqualTo(XLColor.MacaroniAndCheese));
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Cell("A3").SetValue("Cell with comment").GetComment().AddText("Comment here");
 
             ws.Row(1).InsertRowsBelow(2);
-            Assert.AreEqual("Comment here", ws.Cell("A5").GetComment().Text);
+            Assert.That(ws.Cell("A5").GetComment().Text, Is.EqualTo("Comment here"));
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace ClosedXML.Tests.Excel.Ranges
             ws.Cell("C1").SetValue("Cell with comment").GetComment().AddText("Comment here");
 
             ws.Column(1).InsertColumnsAfter(2);
-            Assert.AreEqual("Comment here", ws.Cell("E1").GetComment().Text);
+            Assert.That(ws.Cell("E1").GetComment().Text, Is.EqualTo("Comment here"));
         }
 
         [Test]
@@ -139,8 +139,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             thisRange.WorksheetRangeShiftedColumns(shiftedRange, shiftedColumns);
 
-            Assert.IsTrue(thisRange.RangeAddress.IsValid);
-            Assert.AreEqual(expectedRange, thisRange.RangeAddress.ToString());
+            Assert.That(thisRange.RangeAddress.IsValid, Is.True);
+            Assert.That(thisRange.RangeAddress.ToString(), Is.EqualTo(expectedRange));
         }
 
         [Test]
@@ -154,7 +154,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             thisRange.WorksheetRangeShiftedColumns(shiftedRange, shiftedColumns);
 
-            Assert.IsFalse(thisRange.RangeAddress.IsValid);
+            Assert.That(thisRange.RangeAddress.IsValid, Is.False);
         }
 
         [Test]
@@ -185,8 +185,8 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             thisRange.WorksheetRangeShiftedRows(shiftedRange, shiftedRows);
 
-            Assert.IsTrue(thisRange.RangeAddress.IsValid);
-            Assert.AreEqual(expectedRange, thisRange.RangeAddress.ToString());
+            Assert.That(thisRange.RangeAddress.IsValid, Is.True);
+            Assert.That(thisRange.RangeAddress.ToString(), Is.EqualTo(expectedRange));
         }
 
         [Test]
@@ -200,7 +200,7 @@ namespace ClosedXML.Tests.Excel.Ranges
 
             thisRange.WorksheetRangeShiftedRows(shiftedRange, shiftedRows);
 
-            Assert.IsFalse(thisRange.RangeAddress.IsValid);
+            Assert.That(thisRange.RangeAddress.IsValid, Is.False);
         }
 
         [Test]
@@ -282,7 +282,7 @@ namespace ClosedXML.Tests.Excel.Ranges
                     .Select(y => new { Element = y.Key, Counter = y.Count() })
                     .ToList();
 
-                Assert.AreEqual(0, duplicates.Count);
+                Assert.That(duplicates.Count, Is.EqualTo(0));
             }
         }
     }

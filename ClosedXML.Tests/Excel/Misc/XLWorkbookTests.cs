@@ -14,7 +14,7 @@ namespace ClosedXML.Tests.Excel.Misc
         {
             using var wb = new XLWorkbook();
             var cell = wb.Cell("ABC");
-            Assert.IsNull(cell);
+            Assert.That(cell, Is.Null);
         }
 
         [Test]
@@ -24,8 +24,8 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().SetValue(1).AddToNamed("Result", XLScope.Worksheet);
             var cell = wb.Cell("Sheet1!Result");
-            Assert.IsNotNull(cell);
-            Assert.AreEqual(1, cell.GetValue<int>());
+            Assert.That(cell, Is.Not.Null);
+            Assert.That(cell.GetValue<int>(), Is.EqualTo(1));
         }
 
         [Test]
@@ -35,8 +35,8 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().SetValue(1).AddToNamed("Result");
             var cell = wb.Cell("Sheet1!Result");
-            Assert.IsNotNull(cell);
-            Assert.AreEqual(1, cell.GetValue<int>());
+            Assert.That(cell, Is.Not.Null);
+            Assert.That(cell.GetValue<int>(), Is.EqualTo(1));
         }
 
         [Test]
@@ -44,8 +44,8 @@ namespace ClosedXML.Tests.Excel.Misc
         {
             using var wb = new XLWorkbook();
             var cells = wb.Cells("ABC");
-            Assert.IsNotNull(cells);
-            Assert.AreEqual(0, cells.Count());
+            Assert.That(cells, Is.Not.Null);
+            Assert.That(cells.Count(), Is.EqualTo(0));
         }
 
         [Test]
@@ -55,9 +55,9 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().SetValue(1).AddToNamed("Result", XLScope.Worksheet);
             var cells = wb.Cells("Sheet1!Result, ABC");
-            Assert.IsNotNull(cells);
-            Assert.AreEqual(1, cells.Count());
-            Assert.AreEqual(1, cells.First().GetValue<int>());
+            Assert.That(cells, Is.Not.Null);
+            Assert.That(cells.Count(), Is.EqualTo(1));
+            Assert.That(cells.First().GetValue<int>(), Is.EqualTo(1));
         }
 
         [Test]
@@ -67,9 +67,9 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().SetValue(1).AddToNamed("Result");
             var cells = wb.Cells("Sheet1!Result, ABC");
-            Assert.IsNotNull(cells);
-            Assert.AreEqual(1, cells.Count());
-            Assert.AreEqual(1, cells.First().GetValue<int>());
+            Assert.That(cells, Is.Not.Null);
+            Assert.That(cells.Count(), Is.EqualTo(1));
+            Assert.That(cells.First().GetValue<int>(), Is.EqualTo(1));
         }
 
         [Test]
@@ -84,10 +84,10 @@ namespace ClosedXML.Tests.Excel.Misc
             var c1_full = wb.Cell("Sheet1!C123");
             var c2_full = wb.Cell("'O'Sheet 2'!B7");
 
-            Assert.AreSame(c1, c1_full);
-            Assert.AreSame(c2, c2_full);
-            Assert.NotNull(c1_full);
-            Assert.NotNull(c2_full);
+            Assert.That(c1_full, Is.SameAs(c1));
+            Assert.That(c2_full, Is.SameAs(c2));
+            Assert.That(c1_full, Is.Not.Null);
+            Assert.That(c2_full, Is.Not.Null);
         }
 
         [TestCase("Sheet1")]
@@ -103,7 +103,7 @@ namespace ClosedXML.Tests.Excel.Misc
 
             var c = wb.Cell(address);
 
-            Assert.IsNull(c);
+            Assert.That(c, Is.Null);
         }
 
         [Test]
@@ -115,8 +115,8 @@ namespace ClosedXML.Tests.Excel.Misc
 
             var r2 = wb.Range("Sheet1!C123:D125");
 
-            Assert.AreSame(r1, r2);
-            Assert.NotNull(r2);
+            Assert.That(r2, Is.SameAs(r1));
+            Assert.That(r2, Is.Not.Null);
         }
 
         [TestCase("Sheet2!C1:D2")]
@@ -128,7 +128,7 @@ namespace ClosedXML.Tests.Excel.Misc
 
             var r = wb.Range(rangeAddress);
 
-            Assert.IsNull(r);
+            Assert.That(r, Is.Null);
         }
 
         [Test]
@@ -140,9 +140,9 @@ namespace ClosedXML.Tests.Excel.Misc
 
             var r2 = wb.Ranges("Sheet1!A1:B2,Sheet1!C1:E3");
 
-            Assert.AreEqual(2, r2.Count);
-            Assert.AreSame(r1.First(), r2.First());
-            Assert.AreSame(r1.Last(), r2.Last());
+            Assert.That(r2.Count, Is.EqualTo(2));
+            Assert.That(r2.First(), Is.SameAs(r1.First()));
+            Assert.That(r2.Last(), Is.SameAs(r1.Last()));
         }
 
         [TestCase("Sheet2!C1:D2,Sheet2!F1:G4")]
@@ -154,8 +154,8 @@ namespace ClosedXML.Tests.Excel.Misc
 
             var r = wb.Ranges(rangesAddress);
 
-            Assert.NotNull(r);
-            Assert.False(r.Any());
+            Assert.That(r, Is.Not.Null);
+            Assert.That(r.Any(), Is.False);
         }
 
         [Test]
@@ -163,7 +163,7 @@ namespace ClosedXML.Tests.Excel.Misc
         {
             using var wb = new XLWorkbook();
             var range = wb.NamedRange("ABC");
-            Assert.IsNull(range);
+            Assert.That(range, Is.Null);
         }
 
         [Test]
@@ -173,10 +173,10 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().SetValue(1).AddToNamed("Result", XLScope.Worksheet);
             var range = wb.NamedRange("Sheet1!Result");
-            Assert.IsNotNull(range);
-            Assert.AreEqual(1, range.Ranges.Count);
-            Assert.AreEqual(1, range.Ranges.Cells().Count());
-            Assert.AreEqual(1, range.Ranges.First().FirstCell().GetValue<int>());
+            Assert.That(range, Is.Not.Null);
+            Assert.That(range.Ranges.Count, Is.EqualTo(1));
+            Assert.That(range.Ranges.Cells().Count(), Is.EqualTo(1));
+            Assert.That(range.Ranges.First().FirstCell().GetValue<int>(), Is.EqualTo(1));
         }
 
         [Test]
@@ -185,7 +185,7 @@ namespace ClosedXML.Tests.Excel.Misc
             using var wb = new XLWorkbook();
             wb.AddWorksheet("Sheet1");
             var range = wb.NamedRange("Sheet1!Result");
-            Assert.IsNull(range);
+            Assert.That(range, Is.Null);
         }
 
         [Test]
@@ -195,10 +195,10 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().SetValue(1).AddToNamed("Result");
             var range = wb.NamedRange("Sheet1!Result");
-            Assert.IsNotNull(range);
-            Assert.AreEqual(1, range.Ranges.Count);
-            Assert.AreEqual(1, range.Ranges.Cells().Count());
-            Assert.AreEqual(1, range.Ranges.First().FirstCell().GetValue<int>());
+            Assert.That(range, Is.Not.Null);
+            Assert.That(range.Ranges.Count, Is.EqualTo(1));
+            Assert.That(range.Ranges.Cells().Count(), Is.EqualTo(1));
+            Assert.That(range.Ranges.First().FirstCell().GetValue<int>(), Is.EqualTo(1));
         }
 
         [Test]
@@ -206,7 +206,7 @@ namespace ClosedXML.Tests.Excel.Misc
         {
             using var wb = new XLWorkbook();
             var range = wb.Range("ABC");
-            Assert.IsNull(range);
+            Assert.That(range, Is.Null);
         }
 
         [Test]
@@ -216,9 +216,9 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().SetValue(1).AddToNamed("Result", XLScope.Worksheet);
             var range = wb.Range("Sheet1!Result");
-            Assert.IsNotNull(range);
-            Assert.AreEqual(1, range.Cells().Count());
-            Assert.AreEqual(1, range.FirstCell().GetValue<int>());
+            Assert.That(range, Is.Not.Null);
+            Assert.That(range.Cells().Count(), Is.EqualTo(1));
+            Assert.That(range.FirstCell().GetValue<int>(), Is.EqualTo(1));
         }
 
         [Test]
@@ -228,9 +228,9 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().SetValue(1).AddToNamed("Result");
             var range = wb.Range("Sheet1!Result");
-            Assert.IsNotNull(range);
-            Assert.AreEqual(1, range.Cells().Count());
-            Assert.AreEqual(1, range.FirstCell().GetValue<int>());
+            Assert.That(range, Is.Not.Null);
+            Assert.That(range.Cells().Count(), Is.EqualTo(1));
+            Assert.That(range.FirstCell().GetValue<int>(), Is.EqualTo(1));
         }
 
         [Test]
@@ -238,8 +238,8 @@ namespace ClosedXML.Tests.Excel.Misc
         {
             using var wb = new XLWorkbook();
             var ranges = wb.Ranges("ABC");
-            Assert.IsNotNull(ranges);
-            Assert.AreEqual(0, ranges.Count);
+            Assert.That(ranges, Is.Not.Null);
+            Assert.That(ranges.Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -249,9 +249,9 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().SetValue(1).AddToNamed("Result", XLScope.Worksheet);
             var ranges = wb.Ranges("Sheet1!Result, ABC");
-            Assert.IsNotNull(ranges);
-            Assert.AreEqual(1, ranges.Cells().Count());
-            Assert.AreEqual(1, ranges.First().FirstCell().GetValue<int>());
+            Assert.That(ranges, Is.Not.Null);
+            Assert.That(ranges.Cells().Count(), Is.EqualTo(1));
+            Assert.That(ranges.First().FirstCell().GetValue<int>(), Is.EqualTo(1));
         }
 
         [Test]
@@ -261,9 +261,9 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.AddWorksheet("Sheet1");
             ws.FirstCell().SetValue(1).AddToNamed("Result");
             var ranges = wb.Ranges("Sheet1!Result, ABC");
-            Assert.IsNotNull(ranges);
-            Assert.AreEqual(1, ranges.Cells().Count());
-            Assert.AreEqual(1, ranges.First().FirstCell().GetValue<int>());
+            Assert.That(ranges, Is.Not.Null);
+            Assert.That(ranges.Cells().Count(), Is.EqualTo(1));
+            Assert.That(ranges.First().FirstCell().GetValue<int>(), Is.EqualTo(1));
         }
 
         [Test]
@@ -272,8 +272,8 @@ namespace ClosedXML.Tests.Excel.Misc
             using var wb = new XLWorkbook();
             var ws = wb.Worksheets.Add("Sheet1");
             ws.Cell(1, 1).SetValue("Test").AddToNamed("TestCell");
-            Assert.AreEqual("Test", wb.Cell("TestCell").GetString());
-            Assert.AreEqual("Test", ws.Cell("TestCell").GetString());
+            Assert.That(wb.Cell("TestCell").GetString(), Is.EqualTo("Test"));
+            Assert.That(ws.Cell("TestCell").GetString(), Is.EqualTo("Test"));
         }
 
         [Test]
@@ -284,12 +284,12 @@ namespace ClosedXML.Tests.Excel.Misc
             ws.Cell(1, 1).SetValue("Test").AddToNamed("TestCell");
             ws.Cell(2, 1).SetValue("B").AddToNamed("Test2");
             var wbCells = wb.Cells("TestCell, Test2");
-            Assert.AreEqual("Test", wbCells.First().GetString());
-            Assert.AreEqual("B", wbCells.Last().GetString());
+            Assert.That(wbCells.First().GetString(), Is.EqualTo("Test"));
+            Assert.That(wbCells.Last().GetString(), Is.EqualTo("B"));
 
             var wsCells = ws.Cells("TestCell, Test2");
-            Assert.AreEqual("Test", wsCells.First().GetString());
-            Assert.AreEqual("B", wsCells.Last().GetString());
+            Assert.That(wsCells.First().GetString(), Is.EqualTo("Test"));
+            Assert.That(wsCells.Last().GetString(), Is.EqualTo("B"));
         }
 
         [Test]
@@ -301,8 +301,8 @@ namespace ClosedXML.Tests.Excel.Misc
             ws.Cell(2, 1).SetValue("B");
             var original = ws.Range("A1:A2");
             original.AddToNamed("TestRange");
-            Assert.AreEqual(original.RangeAddress.ToStringFixed(), wb.Range("TestRange").RangeAddress.ToString());
-            Assert.AreEqual(original.RangeAddress.ToStringFixed(), ws.Range("TestRange").RangeAddress.ToString());
+            Assert.That(wb.Range("TestRange").RangeAddress.ToString(), Is.EqualTo(original.RangeAddress.ToStringFixed()));
+            Assert.That(ws.Range("TestRange").RangeAddress.ToString(), Is.EqualTo(original.RangeAddress.ToStringFixed()));
         }
 
         [Test]
@@ -316,12 +316,12 @@ namespace ClosedXML.Tests.Excel.Misc
             var original = ws.Range("A1:A2");
             original.AddToNamed("TestRange");
             var wbRanges = wb.Ranges("TestRange, Test2");
-            Assert.AreEqual(original.RangeAddress.ToStringFixed(), wbRanges.First().RangeAddress.ToString());
-            Assert.AreEqual("$A$3:$A$3", wbRanges.Last().RangeAddress.ToStringFixed());
+            Assert.That(wbRanges.First().RangeAddress.ToString(), Is.EqualTo(original.RangeAddress.ToStringFixed()));
+            Assert.That(wbRanges.Last().RangeAddress.ToStringFixed(), Is.EqualTo("$A$3:$A$3"));
 
             var wsRanges = wb.Ranges("TestRange, Test2");
-            Assert.AreEqual(original.RangeAddress.ToStringFixed(), wsRanges.First().RangeAddress.ToString());
-            Assert.AreEqual("$A$3:$A$3", wsRanges.Last().RangeAddress.ToStringFixed());
+            Assert.That(wsRanges.First().RangeAddress.ToString(), Is.EqualTo(original.RangeAddress.ToStringFixed()));
+            Assert.That(wsRanges.Last().RangeAddress.ToStringFixed(), Is.EqualTo("$A$3:$A$3"));
         }
 
         [Test]
@@ -332,12 +332,12 @@ namespace ClosedXML.Tests.Excel.Misc
             wb.NamedRanges.Add("TestRange", "Sheet1!$A$1,Sheet1!$A$3");
 
             var wbRanges = ws.Ranges("TestRange");
-            Assert.AreEqual("$A$1:$A$1", wbRanges.First().RangeAddress.ToStringFixed());
-            Assert.AreEqual("$A$3:$A$3", wbRanges.Last().RangeAddress.ToStringFixed());
+            Assert.That(wbRanges.First().RangeAddress.ToStringFixed(), Is.EqualTo("$A$1:$A$1"));
+            Assert.That(wbRanges.Last().RangeAddress.ToStringFixed(), Is.EqualTo("$A$3:$A$3"));
 
             var wsRanges = ws.Ranges("TestRange");
-            Assert.AreEqual("$A$1:$A$1", wsRanges.First().RangeAddress.ToStringFixed());
-            Assert.AreEqual("$A$3:$A$3", wsRanges.Last().RangeAddress.ToStringFixed());
+            Assert.That(wsRanges.First().RangeAddress.ToStringFixed(), Is.EqualTo("$A$1:$A$1"));
+            Assert.That(wsRanges.Last().RangeAddress.ToStringFixed(), Is.EqualTo("$A$3:$A$3"));
         }
 
         [Test]
@@ -346,9 +346,9 @@ namespace ClosedXML.Tests.Excel.Misc
             using var wb = new XLWorkbook();
             wb.Worksheets.Add("Sheet1");
             wb.Protect();
-            Assert.IsTrue(wb.LockStructure);
-            Assert.IsFalse(wb.LockWindows);
-            Assert.IsFalse(wb.IsPasswordProtected);
+            Assert.That(wb.LockStructure, Is.True);
+            Assert.That(wb.LockWindows, Is.False);
+            Assert.That(wb.IsPasswordProtected, Is.False);
         }
 
         [Test]
@@ -359,9 +359,9 @@ namespace ClosedXML.Tests.Excel.Misc
 #pragma warning disable CS0618 // Type or member is obsolete, but still should be tested
             wb.Protect(true, false);
 #pragma warning restore CS0618 // Type or member is obsolete, but still should be tested
-            Assert.IsTrue(wb.LockStructure);
-            Assert.IsFalse(wb.LockWindows);
-            Assert.IsFalse(wb.IsPasswordProtected);
+            Assert.That(wb.LockStructure, Is.True);
+            Assert.That(wb.LockWindows, Is.False);
+            Assert.That(wb.IsPasswordProtected, Is.False);
         }
 
         [Test]
@@ -370,9 +370,9 @@ namespace ClosedXML.Tests.Excel.Misc
             using var wb = new XLWorkbook();
             wb.Worksheets.Add("Sheet1");
             wb.Protect("Abc@123");
-            Assert.IsTrue(wb.LockStructure);
-            Assert.IsFalse(wb.LockWindows);
-            Assert.IsTrue(wb.IsPasswordProtected);
+            Assert.That(wb.LockStructure, Is.True);
+            Assert.That(wb.LockWindows, Is.False);
+            Assert.That(wb.IsPasswordProtected, Is.True);
             Assert.Throws<InvalidOperationException>(() => wb.Protect());
             Assert.Throws<InvalidOperationException>(() => wb.Unprotect());
             Assert.Throws<ArgumentException>(() => wb.Unprotect("Cde@345"));
@@ -384,14 +384,14 @@ namespace ClosedXML.Tests.Excel.Misc
             using var wb = new XLWorkbook();
             wb.Worksheets.Add("Sheet1");
             wb.Protect();
-            Assert.IsTrue(wb.LockStructure);
-            Assert.IsFalse(wb.LockWindows);
-            Assert.IsFalse(wb.IsPasswordProtected);
+            Assert.That(wb.LockStructure, Is.True);
+            Assert.That(wb.LockWindows, Is.False);
+            Assert.That(wb.IsPasswordProtected, Is.False);
             wb.Unprotect();
             wb.Protect("Abc@123");
-            Assert.IsTrue(wb.LockStructure);
-            Assert.IsFalse(wb.LockWindows);
-            Assert.IsTrue(wb.IsPasswordProtected);
+            Assert.That(wb.LockStructure, Is.True);
+            Assert.That(wb.LockWindows, Is.False);
+            Assert.That(wb.IsPasswordProtected, Is.True);
         }
 
         [Test]
@@ -402,13 +402,13 @@ namespace ClosedXML.Tests.Excel.Misc
 #pragma warning disable CS0618 // Type or member is obsolete, but still should be tested
             wb.Protect(true, false, "Abc@123");
 #pragma warning restore CS0618 // Type or member is obsolete, but still should be tested
-            Assert.IsTrue(wb.LockStructure);
-            Assert.IsFalse(wb.LockWindows);
-            Assert.IsTrue(wb.IsPasswordProtected);
+            Assert.That(wb.LockStructure, Is.True);
+            Assert.That(wb.LockWindows, Is.False);
+            Assert.That(wb.IsPasswordProtected, Is.True);
             wb.Unprotect("Abc@123");
-            Assert.IsFalse(wb.LockStructure);
-            Assert.IsFalse(wb.LockWindows);
-            Assert.IsFalse(wb.IsPasswordProtected);
+            Assert.That(wb.LockStructure, Is.False);
+            Assert.That(wb.LockWindows, Is.False);
+            Assert.That(wb.IsPasswordProtected, Is.False);
         }
 
         [Test]
@@ -427,8 +427,8 @@ namespace ClosedXML.Tests.Excel.Misc
 
             using (var wb = new XLWorkbook(ms))
             {
-                Assert.IsTrue(wb.FileSharing.ReadOnlyRecommended);
-                Assert.AreEqual(Environment.UserName, wb.FileSharing.UserName);
+                Assert.That(wb.FileSharing.ReadOnlyRecommended, Is.True);
+                Assert.That(wb.FileSharing.UserName, Is.EqualTo(Environment.UserName));
             }
         }
 

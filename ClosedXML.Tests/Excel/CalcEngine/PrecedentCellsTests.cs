@@ -19,13 +19,13 @@ namespace ClosedXML.Tests.Excel.CalcEngine
 
             var ranges = sheet1.CalcEngine.GetPrecedentRanges(formula);
 
-            Assert.AreEqual(6, ranges.Count());
-            Assert.IsTrue(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet1" && r.RangeAddress.ToString() == "A2:E2"));
-            Assert.IsTrue(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet1" && r.RangeAddress.ToString() == "B1:C3"));
-            Assert.IsTrue(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet2" && r.RangeAddress.ToString() == "B1:C3"));
-            Assert.IsTrue(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet1" && r.RangeAddress.ToString() == "A2:A2"));
-            Assert.IsTrue(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet1" && r.RangeAddress.ToString() == "B$2:B$2"));
-            Assert.IsTrue(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet1" && r.RangeAddress.ToString() == "$C$2:$C$2"));
+            Assert.That(ranges.Count(), Is.EqualTo(6));
+            Assert.That(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet1" && r.RangeAddress.ToString() == "A2:E2"), Is.True);
+            Assert.That(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet1" && r.RangeAddress.ToString() == "B1:C3"), Is.True);
+            Assert.That(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet2" && r.RangeAddress.ToString() == "B1:C3"), Is.True);
+            Assert.That(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet1" && r.RangeAddress.ToString() == "A2:A2"), Is.True);
+            Assert.That(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet1" && r.RangeAddress.ToString() == "B$2:B$2"), Is.True);
+            Assert.That(ranges.Any(r => r.RangeAddress.Worksheet.Name == "Sheet1" && r.RangeAddress.ToString() == "$C$2:$C$2"), Is.True);
         }
 
         [Test]
@@ -39,8 +39,8 @@ namespace ClosedXML.Tests.Excel.CalcEngine
 
             var ranges = sheet1.CalcEngine.GetPrecedentRanges(formula);
 
-            Assert.AreEqual(1, ranges.Count());
-            Assert.AreEqual("$A$2:$B$3", ranges.First().RangeAddress.ToString());
+            Assert.That(ranges.Count(), Is.EqualTo(1));
+            Assert.That(ranges.First().RangeAddress.ToString(), Is.EqualTo("$A$2:$B$3"));
         }
 
         [Test]
@@ -58,15 +58,15 @@ namespace ClosedXML.Tests.Excel.CalcEngine
 
             var cells = sheet1.CalcEngine.GetPrecedentCells(formula);
 
-            Assert.AreEqual(15, cells.Count());
+            Assert.That(cells.Count(), Is.EqualTo(15));
             foreach (var address in expectedAtSheet1)
             {
-                Assert.IsTrue(cells.Any(cell => cell.Address.Worksheet.Name == sheet1.Name && cell.Address.ToString() == address),
+                Assert.That(cells.Any(cell => cell.Address.Worksheet.Name == sheet1.Name && cell.Address.ToString() == address), Is.True,
                     string.Format("Address {0}!{1} is not presented", sheet1.Name, address));
             }
             foreach (var address in expectedAtSheet2)
             {
-                Assert.IsTrue(cells.Any(cell => cell.Address.Worksheet.Name == sheet2.Name && cell.Address.ToString() == address),
+                Assert.That(cells.Any(cell => cell.Address.Worksheet.Name == sheet2.Name && cell.Address.ToString() == address), Is.True,
                     string.Format("Address {0}!{1} is not presented", sheet2.Name, address));
             }
         }
@@ -80,7 +80,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var expectedCell = ws2.Cell("B2");
 
             var cells = ws1.CalcEngine.GetPrecedentCells("='Worksheet!'!B2*2");
-            Assert.AreSame(expectedCell, cells.Single());
+            Assert.That(cells.Single(), Is.SameAs(expectedCell));
         }
     }
 }

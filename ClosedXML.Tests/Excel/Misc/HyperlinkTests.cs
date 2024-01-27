@@ -19,12 +19,12 @@ namespace ClosedXML.Tests.Excel.Misc
             var linkCell1 = ws1.Cell("A1");
             linkCell1.Value = "Link to IXLCell";
             linkCell1.SetHyperlink(new XLHyperlink(targetCell));
-            Assert.AreEqual("Sheet2!A1", linkCell1.GetHyperlink().InternalAddress);
+            Assert.That(linkCell1.GetHyperlink().InternalAddress, Is.EqualTo("Sheet2!A1"));
 
             var linkRange1 = ws1.Cell("A2");
             linkRange1.Value = "Link to IXLRangeBase";
             linkRange1.SetHyperlink(new XLHyperlink(targetRange));
-            Assert.AreEqual("Sheet2!A1:B1", linkRange1.GetHyperlink().InternalAddress);
+            Assert.That(linkRange1.GetHyperlink().InternalAddress, Is.EqualTo("Sheet2!A1:B1"));
         }
     }
 }

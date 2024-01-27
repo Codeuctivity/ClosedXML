@@ -148,7 +148,7 @@ namespace ClosedXML.Tests
                         "Actual file '{0}' is different than the expected file '{1}'. The difference is: '{2}'",
                         filePath2, resourcePath, message);
 
-                Assert.IsTrue(success, formattedMessage);
+                Assert.That(success, Is.True, formattedMessage);
             }
         }
 

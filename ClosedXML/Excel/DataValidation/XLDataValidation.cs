@@ -24,10 +24,7 @@ namespace ClosedXML.Excel
         public XLDataValidation(IXLRange range)
             : this(range?.Worksheet as XLWorksheet)
         {
-            if (range == null)
-            {
-                throw new ArgumentNullException(nameof(range));
-            }
+            ArgumentNullException.ThrowIfNull(range);
 
             AddRange(range);
         }
@@ -205,10 +202,7 @@ namespace ClosedXML.Excel
         /// <param name="range">A range to add.</param>
         public void AddRange(IXLRange range)
         {
-            if (range == null)
-            {
-                throw new ArgumentNullException(nameof(range));
-            }
+            ArgumentNullException.ThrowIfNull(range);
 
             if (range.Worksheet != Worksheet)
             {

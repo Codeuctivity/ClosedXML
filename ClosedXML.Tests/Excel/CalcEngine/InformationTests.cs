@@ -23,7 +23,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet");
             var actual = ws.Evaluate("=IsBlank(A1:A3)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A2").Value = "1";
             ws.Cell("A3").Value = "1";
             var actual = ws.Evaluate("=IsBlank(A1:A3)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A1").Value = "1";
             ws.Cell("A3").Value = "1";
             var actual = ws.Evaluate("=IsBlank(A1:A3)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var ws = wb.AddWorksheet("Sheet");
             ws.Cell("A1").Value = " ";
             var actual = ws.Evaluate("=IsBlank(A1)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             using var wb = new XLWorkbook();
             var ws = wb.AddWorksheet("Sheet");
             var actual = ws.Evaluate("=IsBlank(A1)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
         }
 
         #endregion IsBlank Tests
@@ -83,13 +83,13 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A3").Value = 3;
 
             var actual = ws.Evaluate("=IsEven(A1)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
 
             actual = ws.Evaluate("=IsEven(A2)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
 
             actual = ws.Evaluate("=IsEven(A3)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         [Test]
@@ -103,13 +103,13 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A3").Value = 12.2;
 
             var actual = ws.Evaluate("=IsEven(A1)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
 
             actual = ws.Evaluate("=IsEven(A2)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
 
             actual = ws.Evaluate("=IsEven(A3)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
         }
 
         #endregion IsEven Tests
@@ -125,7 +125,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A1").Value = 123;
 
             var actual = ws.Evaluate("=IsLogical(A1)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         [Test]
@@ -137,7 +137,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A1").Value = true;
 
             var actual = ws.Evaluate("=IsLogical(A1)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
         }
 
         #endregion IsLogical Tests
@@ -147,10 +147,10 @@ namespace ClosedXML.Tests.Excel.CalcEngine
         {
             object actual;
             actual = XLWorkbook.EvaluateExpr("ISNA(#N/A)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
 
             actual = XLWorkbook.EvaluateExpr("ISNA(#REF!)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         #region IsNotText Tests
@@ -162,7 +162,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var ws = wb.AddWorksheet("Sheet");
             ws.Cell("A1").Value = "asd";
             var actual = ws.Evaluate("=IsNonText(A1)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         [Test]
@@ -178,17 +178,17 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A6").Value = "12%"; //Percentage Value
 
             var actual = ws.Evaluate("=IsNonText(A1)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsNonText(A2)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsNonText(A3)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsNonText(A4)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsNonText(A5)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsNonText(A6)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
         }
 
         #endregion IsNotText Tests
@@ -204,9 +204,9 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A2").Value = true; //Bool Value
 
             var actual = ws.Evaluate("=IsNumber(A1)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
             actual = ws.Evaluate("=IsNumber(A2)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         [Test]
@@ -221,15 +221,15 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A5").Value = "12%"; //Percentage Value
 
             var actual = ws.Evaluate("=IsNumber(A1)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsNumber(A2)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsNumber(A3)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsNumber(A4)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsNumber(A5)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
         }
 
         #endregion IsNumber Tests
@@ -247,11 +247,11 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A3").Value = 12.2;
 
             var actual = ws.Evaluate("=IsOdd(A1)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
             actual = ws.Evaluate("=IsOdd(A2)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
             actual = ws.Evaluate("=IsOdd(A3)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         [Test]
@@ -265,11 +265,11 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A3").Value = 3;
 
             var actual = ws.Evaluate("=IsOdd(A1)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsOdd(A2)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
             actual = ws.Evaluate("=IsOdd(A3)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
         }
 
         #endregion IsOdd Test
@@ -287,13 +287,13 @@ namespace ClosedXML.Tests.Excel.CalcEngine
 
             bool actual;
             actual = ws.Cell("B1").GetValue<bool>();
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
 
             actual = ws.Cell("B2").GetValue<bool>();
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
 
             actual = ws.Cell("B3").GetValue<bool>();
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         #region IsText Tests
@@ -311,17 +311,17 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A6").Value = "12%"; //Percentage Value
 
             var actual = ws.Evaluate("=IsText(A1)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
             actual = ws.Evaluate("=IsText(A2)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
             actual = ws.Evaluate("=IsText(A3)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
             actual = ws.Evaluate("=IsText(A4)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
             actual = ws.Evaluate("=IsText(A5)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
             actual = ws.Evaluate("=IsText(A6)");
-            Assert.AreEqual(false, actual);
+            Assert.That(actual, Is.EqualTo(false));
         }
 
         [Test]
@@ -333,7 +333,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             ws.Cell("A1").Value = "asd";
 
             var actual = ws.Evaluate("=IsText(A1)");
-            Assert.AreEqual(true, actual);
+            Assert.That(actual, Is.EqualTo(true));
         }
 
         #endregion IsText Tests
@@ -348,7 +348,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var testedDate = DateTime.Now;
             ws.Cell("A1").Value = testedDate;
             var actual = ws.Evaluate("=N(A1)");
-            Assert.AreEqual(testedDate.ToOADate(), actual);
+            Assert.That(actual, Is.EqualTo(testedDate.ToOADate()));
         }
 
         [Test]
@@ -358,7 +358,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var ws = wb.AddWorksheet("Sheet");
             ws.Cell("A1").Value = false;
             var actual = ws.Evaluate("=N(A1)");
-            Assert.AreEqual(0, actual);
+            Assert.That(actual, Is.EqualTo(0));
         }
 
         [Test]
@@ -369,7 +369,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var testedValue = 123;
             ws.Cell("A1").Value = testedValue;
             var actual = ws.Evaluate("=N(A1)");
-            Assert.AreEqual(testedValue, actual);
+            Assert.That(actual, Is.EqualTo(testedValue));
         }
 
         [Test]
@@ -379,7 +379,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var ws = wb.AddWorksheet("Sheet");
             ws.Cell("A1").Value = "asd";
             var actual = ws.Evaluate("=N(A1)");
-            Assert.AreEqual(0, actual);
+            Assert.That(actual, Is.EqualTo(0));
         }
 
         [Test]
@@ -389,7 +389,7 @@ namespace ClosedXML.Tests.Excel.CalcEngine
             var ws = wb.AddWorksheet("Sheet");
             ws.Cell("A1").Value = true;
             var actual = ws.Evaluate("=N(A1)");
-            Assert.AreEqual(1, actual);
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         #endregion N Tests

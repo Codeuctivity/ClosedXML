@@ -39,14 +39,8 @@ namespace ClosedXML.Tests.Utils
         /// <returns></returns>
         public static Stream ArrayToStreamAppend(byte[] pBynaryArray, Stream pStream)
         {
-            if (pBynaryArray is null)
-            {
-                throw new ArgumentNullException("pBynaryArray");
-            }
-            if (pStream is null)
-            {
-                throw new ArgumentNullException("pStream");
-            }
+            ArgumentNullException.ThrowIfNull(pBynaryArray);
+            ArgumentNullException.ThrowIfNull(pStream);
             if (!pStream.CanWrite)
             {
                 throw new ArgumentException("Can't write to stream", "pStream");
@@ -66,14 +60,8 @@ namespace ClosedXML.Tests.Utils
 
         public static void StreamToStreamAppend(Stream streamIn, Stream streamToWrite, long dataLength)
         {
-            if (streamIn is null)
-            {
-                throw new ArgumentNullException("streamIn");
-            }
-            if (streamToWrite is null)
-            {
-                throw new ArgumentNullException("streamToWrite");
-            }
+            ArgumentNullException.ThrowIfNull(streamIn);
+            ArgumentNullException.ThrowIfNull(streamToWrite);
             if (!streamIn.CanRead)
             {
                 throw new ArgumentException("Can't read from stream", "streamIn");

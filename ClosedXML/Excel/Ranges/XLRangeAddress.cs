@@ -461,10 +461,7 @@ namespace ClosedXML.Excel
 
         public IXLRangeAddress Intersection(IXLRangeAddress otherRangeAddress)
         {
-            if (otherRangeAddress == null)
-            {
-                throw new ArgumentNullException(nameof(otherRangeAddress));
-            }
+            ArgumentNullException.ThrowIfNull(otherRangeAddress);
 
             var xlOtherRangeAddress = (XLRangeAddress)otherRangeAddress;
             return Intersection(in xlOtherRangeAddress);

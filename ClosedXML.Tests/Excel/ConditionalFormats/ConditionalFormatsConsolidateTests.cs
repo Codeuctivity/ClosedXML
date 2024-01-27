@@ -20,10 +20,10 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
 
             ((XLConditionalFormats)ws.ConditionalFormats).Consolidate();
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
             var format = ws.ConditionalFormats.First();
-            Assert.AreEqual("B2:C4", format.Range.RangeAddress.ToStringRelative());
-            Assert.AreEqual("F2", format.Values.Values.First().Value);
+            Assert.That(format.Range.RangeAddress.ToStringRelative(), Is.EqualTo("B2:C4"));
+            Assert.That(format.Values.Values.First().Value, Is.EqualTo("F2"));
         }
 
         [Test]
@@ -38,10 +38,10 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
 
             ((XLConditionalFormats)ws.ConditionalFormats).Consolidate();
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
             var format = ws.ConditionalFormats.First();
-            Assert.AreEqual("B2:D3", format.Ranges.First().RangeAddress.ToStringRelative());
-            Assert.AreEqual("F2", format.Values.Values.First().Value);
+            Assert.That(format.Ranges.First().RangeAddress.ToStringRelative(), Is.EqualTo("B2:D3"));
+            Assert.That(format.Values.Values.First().Value, Is.EqualTo("F2"));
         }
 
         [Test]
@@ -55,10 +55,10 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
 
             ((XLConditionalFormats)ws.ConditionalFormats).Consolidate();
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
             var format = ws.ConditionalFormats.First();
-            Assert.AreEqual("B11:D12", format.Range.RangeAddress.ToStringRelative());
-            Assert.AreEqual("F11", format.Values.Values.First().Value);
+            Assert.That(format.Range.RangeAddress.ToStringRelative(), Is.EqualTo("B11:D12"));
+            Assert.That(format.Values.Values.First().Value, Is.EqualTo("F11"));
         }
 
         [Test]
@@ -72,10 +72,10 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
 
             ((XLConditionalFormats)ws.ConditionalFormats).Consolidate();
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
             var format = ws.ConditionalFormats.First();
-            Assert.AreEqual("B14:C14", format.Range.RangeAddress.ToStringRelative());
-            Assert.AreEqual("F14", format.Values.Values.First().Value);
+            Assert.That(format.Range.RangeAddress.ToStringRelative(), Is.EqualTo("B14:C14"));
+            Assert.That(format.Values.Values.First().Value, Is.EqualTo("F14"));
         }
 
         [Test]
@@ -89,10 +89,10 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
 
             ((XLConditionalFormats)ws.ConditionalFormats).Consolidate();
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
             var format = ws.ConditionalFormats.First();
-            Assert.AreEqual("B16:D19", format.Range.RangeAddress.ToStringRelative());
-            Assert.AreEqual("F16", format.Values.Values.First().Value);
+            Assert.That(format.Range.RangeAddress.ToStringRelative(), Is.EqualTo("B16:D19"));
+            Assert.That(format.Values.Values.First().Value, Is.EqualTo("F16"));
         }
 
         [Test]
@@ -106,7 +106,7 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
 
             ((XLConditionalFormats)ws.ConditionalFormats).Consolidate();
 
-            Assert.AreEqual(2, ws.ConditionalFormats.Count());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -122,9 +122,9 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
 
             ((XLConditionalFormats)ws.ConditionalFormats).Consolidate();
 
-            Assert.AreEqual(3, ws.ConditionalFormats.Count());
-            Assert.AreEqual((ws.ConditionalFormats.First().Style as XLStyle).Value, (ws.ConditionalFormats.Last().Style as XLStyle).Value);
-            Assert.AreNotEqual((ws.ConditionalFormats.First().Style as XLStyle).Value, (ws.ConditionalFormats.ElementAt(1).Style as XLStyle).Value);
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(3));
+            Assert.That((ws.ConditionalFormats.Last().Style as XLStyle).Value, Is.EqualTo((ws.ConditionalFormats.First().Style as XLStyle).Value));
+            Assert.That((ws.ConditionalFormats.ElementAt(1).Style as XLStyle).Value, Is.Not.EqualTo((ws.ConditionalFormats.First().Style as XLStyle).Value));
         }
 
         [Test]
@@ -140,13 +140,13 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
 
             ((XLConditionalFormats)ws.ConditionalFormats).Consolidate();
 
-            Assert.AreEqual(3, ws.ConditionalFormats.Count());
-            Assert.AreEqual((ws.ConditionalFormats.First().Style as XLStyle).Value, (ws.ConditionalFormats.Last().Style as XLStyle).Value);
-            Assert.AreNotEqual((ws.ConditionalFormats.First().Style as XLStyle).Value, (ws.ConditionalFormats.ElementAt(1).Style as XLStyle).Value);
-            Assert.IsTrue(ws.ConditionalFormats.All(cf => cf.Ranges.Count == 1), "Number of ranges in consolidated conditional formats is expected to be 1");
-            Assert.AreEqual("A1:A1", ws.ConditionalFormats.ElementAt(0).Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("A2:A3", ws.ConditionalFormats.ElementAt(1).Ranges.Single().RangeAddress.ToString());
-            Assert.AreEqual("A2:A8", ws.ConditionalFormats.ElementAt(2).Ranges.Single().RangeAddress.ToString());
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(3));
+            Assert.That((ws.ConditionalFormats.Last().Style as XLStyle).Value, Is.EqualTo((ws.ConditionalFormats.First().Style as XLStyle).Value));
+            Assert.That((ws.ConditionalFormats.ElementAt(1).Style as XLStyle).Value, Is.Not.EqualTo((ws.ConditionalFormats.First().Style as XLStyle).Value));
+            Assert.That(ws.ConditionalFormats.All(cf => cf.Ranges.Count == 1), Is.True, "Number of ranges in consolidated conditional formats is expected to be 1");
+            Assert.That(ws.ConditionalFormats.ElementAt(0).Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A1:A1"));
+            Assert.That(ws.ConditionalFormats.ElementAt(1).Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A2:A3"));
+            Assert.That(ws.ConditionalFormats.ElementAt(2).Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A2:A8"));
         }
 
         [Test]
@@ -163,11 +163,11 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
 
             ((XLConditionalFormats)ws.ConditionalFormats).Consolidate();
 
-            Assert.AreEqual(1, ws.ConditionalFormats.Count());
-            Assert.AreEqual((ws.ConditionalFormats.Single().Style as XLStyle).Value, (cf.Style as XLStyle).Value);
-            Assert.AreEqual("A3:C8", ws.ConditionalFormats.Single().Ranges.Single().RangeAddress.ToString());
-            Assert.IsTrue(ws.ConditionalFormats.Single().Values.Single().Value.IsFormula);
-            Assert.AreEqual("A3=$D3", ws.ConditionalFormats.Single().Values.Single().Value.Value);
+            Assert.That(ws.ConditionalFormats.Count(), Is.EqualTo(1));
+            Assert.That((cf.Style as XLStyle).Value, Is.EqualTo((ws.ConditionalFormats.Single().Style as XLStyle).Value));
+            Assert.That(ws.ConditionalFormats.Single().Ranges.Single().RangeAddress.ToString(), Is.EqualTo("A3:C8"));
+            Assert.That(ws.ConditionalFormats.Single().Values.Single().Value.IsFormula, Is.True);
+            Assert.That(ws.ConditionalFormats.Single().Values.Single().Value.Value, Is.EqualTo("A3=$D3"));
         }
 
         [Test]
@@ -186,7 +186,7 @@ namespace ClosedXML.Tests.Excel.ConditionalFormats
             cf2.ColorScale()
                 .LowestValue(XLColor.Red)
                 .HighestValue(XLColor.Green);
-            Assert.True(XLConditionalFormat.NoRangeComparer.Equals(cf1, cf2));
+            Assert.That(XLConditionalFormat.NoRangeComparer.Equals(cf1, cf2), Is.True);
         }
 
         private static void SetFormat1(IXLConditionalFormat format)

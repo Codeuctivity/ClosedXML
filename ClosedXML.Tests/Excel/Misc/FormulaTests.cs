@@ -16,7 +16,7 @@ namespace ClosedXML.Tests.Excel.Misc
             var ws = wb.Worksheets.Add("Sheet1");
             ws.Cell("A1").FormulaA1 = "B1";
             ws.Cell("A1").CopyTo("A2");
-            Assert.AreEqual("B2", ws.Cell("A2").FormulaA1);
+            Assert.That(ws.Cell("A2").FormulaA1, Is.EqualTo("B2"));
         }
 
         [Test]
@@ -27,15 +27,15 @@ namespace ClosedXML.Tests.Excel.Misc
 
             ws.Cell("A1").FormulaA1 = "A2-1";
             ws.Cell("A1").CopyTo("B1");
-            Assert.AreEqual("R[1]C-1", ws.Cell("A1").FormulaR1C1);
-            Assert.AreEqual("R[1]C-1", ws.Cell("B1").FormulaR1C1);
-            Assert.AreEqual("B2-1", ws.Cell("B1").FormulaA1);
+            Assert.That(ws.Cell("A1").FormulaR1C1, Is.EqualTo("R[1]C-1"));
+            Assert.That(ws.Cell("B1").FormulaR1C1, Is.EqualTo("R[1]C-1"));
+            Assert.That(ws.Cell("B1").FormulaA1, Is.EqualTo("B2-1"));
 
             ws.Cell("A1").FormulaA1 = "B1+1";
             ws.Cell("A1").CopyTo("A2");
-            Assert.AreEqual("RC[1]+1", ws.Cell("A1").FormulaR1C1);
-            Assert.AreEqual("RC[1]+1", ws.Cell("A2").FormulaR1C1);
-            Assert.AreEqual("B2+1", ws.Cell("A2").FormulaA1);
+            Assert.That(ws.Cell("A1").FormulaR1C1, Is.EqualTo("RC[1]+1"));
+            Assert.That(ws.Cell("A2").FormulaR1C1, Is.EqualTo("RC[1]+1"));
+            Assert.That(ws.Cell("A2").FormulaA1, Is.EqualTo("B2+1"));
         }
 
         [Test]
@@ -48,16 +48,16 @@ namespace ClosedXML.Tests.Excel.Misc
 
             ws = wb.Worksheets.Add("Summary");
             ws.Cell("A1").FormulaA1 = "='S10 Data'!A1";
-            Assert.AreEqual("Some value", ws.Cell("A1").Value);
+            Assert.That(ws.Cell("A1").Value, Is.EqualTo("Some value"));
 
             ws.Cell("A1").CopyTo("A2");
-            Assert.AreEqual("'S10 Data'!A2", ws.Cell("A2").FormulaA1);
+            Assert.That(ws.Cell("A2").FormulaA1, Is.EqualTo("'S10 Data'!A2"));
 
             ws.Cell("A1").CopyTo("B1");
-            Assert.AreEqual("'S10 Data'!B1", ws.Cell("B1").FormulaA1);
+            Assert.That(ws.Cell("B1").FormulaA1, Is.EqualTo("'S10 Data'!B1"));
 
             ws.Cell("A3").FormulaA1 = "=SUM('S10 Data'!A2)";
-            Assert.AreEqual(123, ws.Cell("A3").Value);
+            Assert.That(ws.Cell("A3").Value, Is.EqualTo(123));
         }
 
         [Test]
@@ -69,17 +69,17 @@ namespace ClosedXML.Tests.Excel.Misc
             ws.Cell("A1").InsertData(Enumerable.Range(1, 50));
             ws.Cell("B1").FormulaA1 = "=SUM(A1:A50)";
             value = ws.Cell("B1").Value;
-            Assert.AreEqual(1275, value);
+            Assert.That(value, Is.EqualTo(1275));
 
             ws = wb.AddWorksheet("Sheet2");
 
             ws.Cell("A1").FormulaA1 = "=SUM(Sheet1!A1:Sheet1!A50)";
             value = ws.Cell("A1").Value;
-            Assert.AreEqual(1275, value);
+            Assert.That(value, Is.EqualTo(1275));
 
             ws.Cell("B1").FormulaA1 = "=SUM(Sheet1!A1:A50)";
             value = ws.Cell("B1").Value;
-            Assert.AreEqual(1275, value);
+            Assert.That(value, Is.EqualTo(1275));
         }
 
         [Test]
@@ -107,11 +107,11 @@ namespace ClosedXML.Tests.Excel.Misc
 
             ws.Cell("A2").FormulaA1 = @"=IF(A1 = """", ""A"", ""B"")";
             var actual = ws.Cell("A2").Value;
-            Assert.AreEqual(actual, "B");
+            Assert.That(actual, Is.EqualTo("B"));
 
             ws.Cell("A3").FormulaA1 = @"=IF("""" = A1, ""A"", ""B"")";
             actual = ws.Cell("A3").Value;
-            Assert.AreEqual(actual, "B");
+            Assert.That(actual, Is.EqualTo("B"));
         }
 
         [Test]
@@ -126,7 +126,7 @@ namespace ClosedXML.Tests.Excel.Misc
             ws.FirstCell().CellBelow().FormulaA1 = "=SUM(1:1)";
 
             var actual = ws.FirstCell().CellBelow().Value;
-            Assert.AreEqual(6, actual);
+            Assert.That(actual, Is.EqualTo(6));
         }
 
         [Test]
@@ -141,7 +141,7 @@ namespace ClosedXML.Tests.Excel.Misc
             ws.FirstCell().CellRight().FormulaA1 = "=SUM(A:A)";
 
             var actual = ws.FirstCell().CellRight().Value;
-            Assert.AreEqual(6, actual);
+            Assert.That(actual, Is.EqualTo(6));
         }
 
         [Test]
@@ -149,16 +149,16 @@ namespace ClosedXML.Tests.Excel.Misc
         {
             object actual;
             actual = XLWorkbook.EvaluateExpr("=MID(\"This is a test\", 6, 2)");
-            Assert.AreEqual("is", actual);
+            Assert.That(actual, Is.EqualTo("is"));
 
             actual = XLWorkbook.EvaluateExpr("=+MID(\"This is a test\", 6, 2)");
-            Assert.AreEqual("is", actual);
+            Assert.That(actual, Is.EqualTo("is"));
 
             actual = XLWorkbook.EvaluateExpr("=+++++MID(\"This is a test\", 6, 2)");
-            Assert.AreEqual("is", actual);
+            Assert.That(actual, Is.EqualTo("is"));
 
             actual = XLWorkbook.EvaluateExpr("+MID(\"This is a test\", 6, 2)");
-            Assert.AreEqual("is", actual);
+            Assert.That(actual, Is.EqualTo("is"));
         }
 
         [Test]
@@ -187,8 +187,8 @@ namespace ClosedXML.Tests.Excel.Misc
             ws3.FirstCell().FormulaA1 = "='Sheet C CÄ'!A1";
             ws3.FirstCell().CellBelow().FormulaA1 = "ÖC!A1";
 
-            Assert.AreEqual(100, ws3.FirstCell().Value);
-            Assert.AreEqual(50, ws3.FirstCell().CellBelow().Value);
+            Assert.That(ws3.FirstCell().Value, Is.EqualTo(100));
+            Assert.That(ws3.FirstCell().CellBelow().Value, Is.EqualTo(50));
         }
 
         [Test]
@@ -202,9 +202,9 @@ namespace ClosedXML.Tests.Excel.Misc
 
             ws.Column(1).Delete();
 
-            Assert.AreEqual("ATAN2(B1,B2)", ws.Cell("A1").FormulaA1);
-            Assert.AreEqual("DEC2HEX(B2)", ws.Cell("A2").FormulaA1);
-            Assert.AreEqual("{DAYS360(B3:B5, C3:C5)}", ws.Cell("A3").FormulaA1);
+            Assert.That(ws.Cell("A1").FormulaA1, Is.EqualTo("ATAN2(B1,B2)"));
+            Assert.That(ws.Cell("A2").FormulaA1, Is.EqualTo("DEC2HEX(B2)"));
+            Assert.That(ws.Cell("A3").FormulaA1, Is.EqualTo("{DAYS360(B3:B5, C3:C5)}"));
         }
     }
 }

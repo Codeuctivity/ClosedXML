@@ -32,18 +32,18 @@ namespace ClosedXML.Tests.Excel.DataValidations
             cell.GetDataValidation().List(ws.Range("$E$1:$E$4"));
             cell.GetDataValidation().InputTitle = "Title for B2";
 
-            Assert.AreEqual(XLAllowedValues.List, cell.GetDataValidation().AllowedValues);
-            Assert.AreEqual("'Data Validation Issue'!$E$1:$E$4", cell.GetDataValidation().Value);
-            Assert.AreEqual("Title for B2", cell.GetDataValidation().InputTitle);
+            Assert.That(cell.GetDataValidation().AllowedValues, Is.EqualTo(XLAllowedValues.List));
+            Assert.That(cell.GetDataValidation().Value, Is.EqualTo("'Data Validation Issue'!$E$1:$E$4"));
+            Assert.That(cell.GetDataValidation().InputTitle, Is.EqualTo("Title for B2"));
 
             ws.Cell("C1").SetValue("Cell below has Validation with a message.");
             cell = ws.Cell("C2");
             cell.GetDataValidation().List(ws.Range("$E$1:$E$4"));
             cell.GetDataValidation().InputMessage = "Message for C2";
 
-            Assert.AreEqual(XLAllowedValues.List, cell.GetDataValidation().AllowedValues);
-            Assert.AreEqual("'Data Validation Issue'!$E$1:$E$4", cell.GetDataValidation().Value);
-            Assert.AreEqual("Message for C2", cell.GetDataValidation().InputMessage);
+            Assert.That(cell.GetDataValidation().AllowedValues, Is.EqualTo(XLAllowedValues.List));
+            Assert.That(cell.GetDataValidation().Value, Is.EqualTo("'Data Validation Issue'!$E$1:$E$4"));
+            Assert.That(cell.GetDataValidation().InputMessage, Is.EqualTo("Message for C2"));
 
             ws.Cell("D1").SetValue("Cell below has Validation with title and message.");
             cell = ws.Cell("D2");
@@ -51,10 +51,10 @@ namespace ClosedXML.Tests.Excel.DataValidations
             cell.GetDataValidation().InputTitle = "Title for D2";
             cell.GetDataValidation().InputMessage = "Message for D2";
 
-            Assert.AreEqual(XLAllowedValues.List, cell.GetDataValidation().AllowedValues);
-            Assert.AreEqual("'Data Validation Issue'!$E$1:$E$4", cell.GetDataValidation().Value);
-            Assert.AreEqual("Title for D2", cell.GetDataValidation().InputTitle);
-            Assert.AreEqual("Message for D2", cell.GetDataValidation().InputMessage);
+            Assert.That(cell.GetDataValidation().AllowedValues, Is.EqualTo(XLAllowedValues.List));
+            Assert.That(cell.GetDataValidation().Value, Is.EqualTo("'Data Validation Issue'!$E$1:$E$4"));
+            Assert.That(cell.GetDataValidation().InputTitle, Is.EqualTo("Title for D2"));
+            Assert.That(cell.GetDataValidation().InputMessage, Is.EqualTo("Message for D2"));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws2.Cell("A1").SetValue("B");
             ws.Cell("B1").CopyTo(ws2.Cell("B1"));
 
-            Assert.AreEqual("Sheet1!A1", ws2.Cell("B1").GetDataValidation().Value);
+            Assert.That(ws2.Cell("B1").GetDataValidation().Value, Is.EqualTo("Sheet1!A1"));
         }
 
         [Test, Ignore("Wait for proper formula shifting (#686)")]
@@ -81,7 +81,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Cell("B1").CreateDataValidation().Custom("A1");
             ws.FirstRow().InsertRowsAbove(1);
 
-            Assert.AreEqual("A2", ws.Cell("B2").GetDataValidation().Value);
+            Assert.That(ws.Cell("B2").GetDataValidation().Value, Is.EqualTo("A2"));
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Cell("A1").SetValue("A");
             ws.Cell("B1").CreateDataValidation().Custom("A1");
             ws.Cell("B1").CopyTo(ws.Cell("B2"));
-            Assert.AreEqual("A2", ws.Cell("B2").GetDataValidation().Value);
+            Assert.That(ws.Cell("B2").GetDataValidation().Value, Is.EqualTo("A2"));
         }
 
         [Test, Ignore("Wait for proper formula shifting (#686)")]
@@ -104,7 +104,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Cell("B1").CreateDataValidation().Custom("A1");
             ws.FirstColumn().InsertColumnsBefore(1);
 
-            Assert.AreEqual("B1", ws.Cell("C1").GetDataValidation().Value);
+            Assert.That(ws.Cell("C1").GetDataValidation().Value, Is.EqualTo("B1"));
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Cell("A1").SetValue("A");
             ws.Cell("B1").CreateDataValidation().Custom("A1");
             ws.Cell("B1").CopyTo(ws.Cell("C1"));
-            Assert.AreEqual("B1", ws.Cell("C1").GetDataValidation().Value);
+            Assert.That(ws.Cell("C1").GetDataValidation().Value, Is.EqualTo("B1"));
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
             var dv = table.DataRange.CreateDataValidation();
             dv.ErrorTitle = "Error";
 
-            Assert.AreEqual("Error", table.DataRange.FirstCell().GetDataValidation().ErrorTitle);
+            Assert.That(table.DataRange.FirstCell().GetDataValidation().ErrorTitle, Is.EqualTo("Error"));
         }
 
         [Test]
@@ -150,7 +150,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
             var dv = table.DataRange.CreateDataValidation();
             dv.ErrorTitle = "Error";
 
-            Assert.AreEqual("Error", ws.DataValidations.Single().ErrorTitle);
+            Assert.That(ws.DataValidations.Single().ErrorTitle, Is.EqualTo("Error"));
         }
 
         [Test]
@@ -176,9 +176,9 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Row(rowNum).InsertRowsAbove(1);
 
             //Assert
-            Assert.AreEqual(1, ws.DataValidations.Count());
-            Assert.AreEqual(1, ws.DataValidations.First().Ranges.Count());
-            Assert.AreEqual(expectedAddress, ws.DataValidations.First().Ranges.First().RangeAddress.ToString());
+            Assert.That(ws.DataValidations.Count(), Is.EqualTo(1));
+            Assert.That(ws.DataValidations.First().Ranges.Count(), Is.EqualTo(1));
+            Assert.That(ws.DataValidations.First().Ranges.First().RangeAddress.ToString(), Is.EqualTo(expectedAddress));
         }
 
         [Test]
@@ -204,9 +204,9 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Column(columnNum).InsertColumnsBefore(1);
 
             //Assert
-            Assert.AreEqual(1, ws.DataValidations.Count());
-            Assert.AreEqual(1, ws.DataValidations.First().Ranges.Count());
-            Assert.AreEqual(expectedAddress, ws.DataValidations.First().Ranges.First().RangeAddress.ToString());
+            Assert.That(ws.DataValidations.Count(), Is.EqualTo(1));
+            Assert.That(ws.DataValidations.First().Ranges.Count(), Is.EqualTo(1));
+            Assert.That(ws.DataValidations.First().Ranges.First().RangeAddress.ToString(), Is.EqualTo(expectedAddress));
         }
 
         [Test]
@@ -221,8 +221,8 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Cell("B2").Clear(XLClearOptions.DataValidation);
 
             //Assert
-            Assert.IsFalse(ws.Cell("B2").HasDataValidation);
-            Assert.IsTrue(ws.Range("A1:C3").Cells().Where(c => c.Address.ToString() != "B2").All(c => c.HasDataValidation));
+            Assert.That(ws.Cell("B2").HasDataValidation, Is.False);
+            Assert.That(ws.Range("A1:C3").Cells().Where(c => c.Address.ToString() != "B2").All(c => c.HasDataValidation), Is.True);
         }
 
         [Test]
@@ -237,10 +237,10 @@ namespace ClosedXML.Tests.Excel.DataValidations
             ws.Cell("B2").CreateDataValidation().WholeNumber.Between(-100, -0);
 
             //Assert
-            Assert.AreEqual("-100", ws.Cell("B2").GetDataValidation().MinValue);
-            Assert.IsTrue(ws.Range("A1:C3").Cells().Where(c => c.Address.ToString() != "B2").All(c => c.HasDataValidation));
-            Assert.IsTrue(ws.Range("A1:C3").Cells().Where(c => c.Address.ToString() != "B2")
-                            .All(c => c.GetDataValidation().MinValue == "10"));
+            Assert.That(ws.Cell("B2").GetDataValidation().MinValue, Is.EqualTo("-100"));
+            Assert.That(ws.Range("A1:C3").Cells().Where(c => c.Address.ToString() != "B2").All(c => c.HasDataValidation), Is.True);
+            Assert.That(ws.Range("A1:C3").Cells().Where(c => c.Address.ToString() != "B2")
+                            .All(c => c.GetDataValidation().MinValue == "10"), Is.True);
         }
 
         [Test]
@@ -249,7 +249,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
             var values = string.Join(",", Enumerable.Range(1, 20)
                 .Select(i => Guid.NewGuid().ToString("N")));
 
-            Assert.True(values.Length > 255);
+            Assert.That(values.Length > 255, Is.True);
 
             using var wb = new XLWorkbook();
             var dv = wb.AddWorksheet("Sheet 1").Cell(1, 1).GetDataValidation();
@@ -283,8 +283,8 @@ namespace ClosedXML.Tests.Excel.DataValidations
 
             var dv = new XLDataValidation(range);
 
-            Assert.AreSame(ws, dv.Worksheet);
-            Assert.AreSame(range, dv.Ranges.Single());
+            Assert.That(dv.Worksheet, Is.SameAs(ws));
+            Assert.That(dv.Ranges.Single(), Is.SameAs(range));
         }
 
         [Test]
@@ -300,10 +300,10 @@ namespace ClosedXML.Tests.Excel.DataValidations
             dv.AddRange(range2);
             dv.AddRanges(ranges3);
 
-            Assert.IsTrue(dv.Ranges.Any(r => r == range1));
-            Assert.IsTrue(dv.Ranges.Any(r => r == range2));
-            Assert.IsTrue(dv.Ranges.Any(r => r == ranges3.First()));
-            Assert.IsTrue(dv.Ranges.Any(r => r == ranges3.Last()));
+            Assert.That(dv.Ranges.Any(r => r == range1), Is.True);
+            Assert.That(dv.Ranges.Any(r => r == range2), Is.True);
+            Assert.That(dv.Ranges.Any(r => r == ranges3.First()), Is.True);
+            Assert.That(dv.Ranges.Any(r => r == ranges3.Last()), Is.True);
         }
 
         [Test]
@@ -318,7 +318,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
 
             dv.AddRange(range2);
 
-            Assert.IsTrue(dv.Ranges.Any(r => r != range2 && r.RangeAddress.ToString() == range2.RangeAddress.ToString()));
+            Assert.That(dv.Ranges.Any(r => r != range2 && r.RangeAddress.ToString() == range2.RangeAddress.ToString()), Is.True);
         }
 
         [Test]
@@ -335,7 +335,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
 
             dv.ClearRanges();
 
-            Assert.IsEmpty(dv.Ranges);
+            Assert.That(dv.Ranges, Is.Empty);
         }
 
         [Test]
@@ -351,7 +351,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
 
             dv.RemoveRange(range1);
 
-            Assert.AreSame(range2, dv.Ranges.Single());
+            Assert.That(dv.Ranges.Single(), Is.SameAs(range2));
         }
 
         [Test]
@@ -367,7 +367,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
             dv.RemoveRange(range2);
             dv.RemoveRange(null);
 
-            Assert.AreSame(range1, dv.Ranges.Single());
+            Assert.That(dv.Ranges.Single(), Is.SameAs(range1));
         }
 
         [Test]
@@ -385,7 +385,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
 
             dv.AddRange(range2);
 
-            Assert.AreSame(range2, addedRange);
+            Assert.That(addedRange, Is.SameAs(range2));
         }
 
         [Test]
@@ -403,7 +403,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
 
             dv.AddRanges(ranges);
 
-            Assert.AreEqual(2, addedRanges.Count);
+            Assert.That(addedRanges.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -420,7 +420,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
 
             dv.RemoveRange(range2);
 
-            Assert.AreSame(range2, removedRange);
+            Assert.That(removedRange, Is.SameAs(range2));
         }
 
         [Test]
@@ -453,7 +453,7 @@ namespace ClosedXML.Tests.Excel.DataValidations
 
             dv.ClearRanges();
 
-            Assert.AreEqual(2, removedRanges.Count);
+            Assert.That(removedRanges.Count, Is.EqualTo(2));
         }
     }
 }

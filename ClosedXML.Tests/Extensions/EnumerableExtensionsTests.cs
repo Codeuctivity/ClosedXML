@@ -13,20 +13,20 @@ namespace ClosedXML.Tests.Extensions
         public void CanGetItemType()
         {
             var array = new int[0];
-            Assert.AreEqual(typeof(int), array.GetItemType());
+            Assert.That(array.GetItemType(), Is.EqualTo(typeof(int)));
 
             var list = new List<double>();
-            Assert.AreEqual(typeof(double), list.GetItemType());
-            Assert.AreEqual(typeof(double), list.AsEnumerable().GetItemType());
+            Assert.That(list.GetItemType(), Is.EqualTo(typeof(double)));
+            Assert.That(list.AsEnumerable().GetItemType(), Is.EqualTo(typeof(double)));
 
             IEnumerable<IEnumerable> enumerable = new List<string>();
-            Assert.AreEqual(typeof(string), enumerable.GetItemType());
+            Assert.That(enumerable.GetItemType(), Is.EqualTo(typeof(string)));
 
             enumerable = new List<List<string>>();
-            Assert.AreEqual(typeof(List<string>), enumerable.GetItemType());
+            Assert.That(enumerable.GetItemType(), Is.EqualTo(typeof(List<string>)));
 
             enumerable = new List<int[]>();
-            Assert.AreEqual(typeof(int[]), enumerable.GetItemType());
+            Assert.That(enumerable.GetItemType(), Is.EqualTo(typeof(int[])));
 
             var anonymousIterator = new List<TablesTests.TestObjectWithoutAttributes>()
                 .Select(o => new { FirstName = o.Column1, LastName = o.Column2 });
@@ -37,13 +37,13 @@ namespace ClosedXML.Tests.Extensions
             var expectedTypeStart = "<>f__AnonymousType";
             var expectedTypeEnd = "`2[System.String,System.String]";
             var actualType = anonymousIterator.GetItemType().ToString();
-            Assert.True(actualType.StartsWith(expectedTypeStart));
-            Assert.True(actualType.EndsWith(expectedTypeEnd));
+            Assert.That(actualType.StartsWith(expectedTypeStart), Is.True);
+            Assert.That(actualType.EndsWith(expectedTypeEnd), Is.True);
 
             IEnumerable<object> obj = anonymousIterator;
             actualType = obj.GetItemType().ToString();
-            Assert.True(actualType.StartsWith(expectedTypeStart));
-            Assert.True(actualType.EndsWith(expectedTypeEnd));
+            Assert.That(actualType.StartsWith(expectedTypeStart), Is.True);
+            Assert.That(actualType.EndsWith(expectedTypeEnd), Is.True);
         }
     }
 }

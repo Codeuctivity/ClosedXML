@@ -16,10 +16,7 @@ namespace ClosedXML.Excel.InsertData
 
         public IInsertDataReader CreateReader(IEnumerable data)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
+            ArgumentNullException.ThrowIfNull(data);
 
             var itemType = data.GetItemType();
 
@@ -53,20 +50,14 @@ namespace ClosedXML.Excel.InsertData
 
         public IInsertDataReader CreateReader<T>(IEnumerable<T[]> data)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
+            ArgumentNullException.ThrowIfNull(data);
 
             return new ArrayReader(data);
         }
 
         public IInsertDataReader CreateReader(IEnumerable<IEnumerable> data)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
+            ArgumentNullException.ThrowIfNull(data);
 
             if (data?.GetType().GetElementType() == typeof(string))
             {
@@ -78,10 +69,7 @@ namespace ClosedXML.Excel.InsertData
 
         public IInsertDataReader CreateReader(DataTable dataTable)
         {
-            if (dataTable == null)
-            {
-                throw new ArgumentNullException(nameof(dataTable));
-            }
+            ArgumentNullException.ThrowIfNull(dataTable);
 
             return new DataTableReader(dataTable);
         }
