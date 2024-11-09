@@ -20,19 +20,19 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="NUnit" Version="4.0.1" />
-		<PackageReference Include="NUnit.Analyzers" Version="4.1.0">
+		<PackageReference Include="NUnit" Version="4.2.2" />
+		<PackageReference Include="NUnit.Analyzers" Version="4.3.0">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.15.0.81779">
+		<PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.32.0.97167">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.Data.OleDb" Version="8.0.0" />
+		<PackageReference Include="System.Data.OleDb" Version="8.0.1" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 	</ItemGroup>
 

@@ -1,4 +1,4 @@
-// Keep this file CodeMaid organised and cleaned
+
 using SkiaSharp;
 using System;
 
