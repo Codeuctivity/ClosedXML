@@ -1,19 +1,22 @@
-// Keep this file CodeMaid organised and cleaned
 using System;
 using System.Collections.Generic;
 
 namespace ClosedXML.Excel
 {
-    public enum XLFilterDynamicType { AboveAverage, BelowAverage }
+    public enum XLFilterDynamicType
+    { AboveAverage, BelowAverage }
 
-    public enum XLFilterType { Regular, Custom, TopBottom, Dynamic, DateTimeGrouping }
+    public enum XLFilterType
+    { Regular, Custom, TopBottom, Dynamic, DateTimeGrouping }
 
-    public enum XLTopBottomPart { Top, Bottom }
+    public enum XLTopBottomPart
+    { Top, Bottom }
 
     public interface IXLAutoFilter
     {
         [Obsolete("Use IsEnabled")]
         bool Enabled { get; set; }
+
         IEnumerable<IXLRangeRow> HiddenRows { get; }
         bool IsEnabled { get; set; }
         IXLRange Range { get; set; }

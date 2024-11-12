@@ -1,4 +1,4 @@
-// Keep this file CodeMaid organised and cleaned
+
 namespace ClosedXML.Excel
 {
     //Use the class to store magic strings or variables.
