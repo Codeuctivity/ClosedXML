@@ -32,11 +32,11 @@ namespace ClosedXML.Tests
         public static void RunTestExample<T>(string filePartName, bool evaluateFormula = false, string expectedDiff = null, bool ignoreColumnFormats = false)
                 where T : IXLExample, new()
         {
-            // Make sure tests run on a deterministic culture
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            // Make sure tests run on a deterministic culture, details: https://github.com/dotnet/runtime/issues/108742
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
             var example = new T();
-            var pathParts = filePartName.Split(new[] { '\\' });
+            var pathParts = filePartName.Split(['\\']);
             var filePath1 = Path.Combine(new List<string> { ExampleTestsOutputDirectory }.Concat(pathParts).ToArray());
 
             var extension = Path.GetExtension(filePath1);
@@ -65,7 +65,7 @@ namespace ClosedXML.Tests
                 wb.SaveAs(ms, validate: true, evaluateFormula);
             }
 
-            // Uncomment to replace expectation running .net6.0,
+            // Uncomment to replace expectation running .net,
             //var expectedFileInVsSolution = Path.GetFullPath(Path.Combine("../../../", "resource", "examples", filePartName.Replace("\\", "/")));
             //File.Copy(filePath2, expectedFileInVsSolution, true);
             // Uncomment to replace expectation running .net4.8,
@@ -120,7 +120,7 @@ namespace ClosedXML.Tests
         {
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-            var pathParts = referenceResource.Split(new[] { '\\' });
+            var pathParts = referenceResource.Split(['\\']);
             var filePath1 = Path.Combine(new List<string> { TestsOutputDirectory }.Concat(pathParts).ToArray());
 
             var extension = Path.GetExtension(filePath1);
