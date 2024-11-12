@@ -1,4 +1,4 @@
-﻿// Keep this file CodeMaid organised and cleaned
+﻿
 
 /* ====================================================================
    Licensed to the Apache Software Foundation (ASF) under one or more

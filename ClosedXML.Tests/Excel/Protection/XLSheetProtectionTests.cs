@@ -1,4 +1,4 @@
-﻿// Keep this file CodeMaid organised and cleaned
+﻿
 using ClosedXML.Excel;
 using NUnit.Framework;
 using System;

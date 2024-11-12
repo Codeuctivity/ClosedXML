@@ -1,4 +1,4 @@
-// Keep this file CodeMaid organised and cleaned
+
 using ClosedXML.Excel.CalcEngine.Exceptions;
 using System;
 using System.Collections.Generic;
