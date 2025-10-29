@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net8.0</TargetFrameworks>
+		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
 		<AssemblyName>ClosedXML</AssemblyName>
 		<PackageId>Codeuctivity.ClosedXML</PackageId>
 		<Authors>Francois Botha, Aleksei Pankratev, Manuel de Leon, Amir Ghezelbash, Roman Brandstetter, Stefan Seeland</Authors>
